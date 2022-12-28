@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sabowsla_server/ui/server_stats.dart';
+import 'package:sabowsla_server/ui/server_stats_view.dart';
 
 class Home extends StatelessWidget {
   const Home({

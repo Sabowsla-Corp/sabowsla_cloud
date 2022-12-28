@@ -39,6 +39,8 @@ dependencies:
   get_it: ^7.2.0
   rxdart: ^0.27.7
   shared_preferences: ^2.0.15
+  equatable: ^2.0.5
+  mongo_dart: ^0.8.2
 
 dev_dependencies:
   flutter_test:
