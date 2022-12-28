@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sabowsla_server/ui/server_stats.dart';
 
 class Home extends StatelessWidget {
   const Home({
@@ -9,13 +10,35 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.black,
         title: const Text(
           "Sabowsla Server",
         ),
       ),
-      body: Column(
-        children: const [
-          Text("Sabowsla Server Stats"),
+      body: Row(
+        children: [
+          const ServerStatsView(),
+          Expanded(
+            child: Column(
+              children: const [
+                Text("Users"),
+              ],
+            ),
+          ),
+          Expanded(
+            child: Column(
+              children: const [
+                Text("Storage Info"),
+              ],
+            ),
+          ),
+          Expanded(
+            child: Column(
+              children: const [
+                Text("Running model"),
+              ],
+            ),
+          ),
         ],
       ),
     );
