@@ -4,10 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 
 import 'package:sabowsla_server/core/server_funtions.dart';
-import 'package:sabowsla_server/injection.dart';
+import 'package:sabowsla_server/core/injection.dart';
 import 'package:sabowsla_server/ui/home.dart';
 
 void main() async {
+  injectDependencies();
   runApp(const ServerUI());
 }
 
@@ -27,7 +28,7 @@ class _ServerUIState extends State<ServerUI> {
     super.initState();
   }
 
-  void startRunningServernfo() async {
+  void startRunningServer() async {
     final server = await HttpServer.bind(InternetAddress.loopbackIPv4, 8080);
     print('Listening on localhost:${server.port}');
 
