@@ -1,42 +1,62 @@
+import 'dart:developer';
 import 'dart:io';
 
-import 'package:rxdart/rxdart.dart';
+import 'package:body_parser/body_parser.dart';
 import 'package:sabowsla_server/core/server_function.dart';
 import 'package:sabowsla_server/core/server_funtions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class StorageFunctions implements ServerFunctions {
-  final String? urlPath;
-  final BehaviorSubject<String?> storagePath = BehaviorSubject.seeded(null);
+class AuthFunctions implements ServerFunctions {
+  final String urlPath;
+  final String databaseKey;
 
   final SharedPreferences prefs;
-  StorageFunctions(this.prefs, {this.urlPath}) {
-    loadStoragePath();
+
+  AuthFunctions(
+    this.prefs, {
+    this.urlPath = 'auth',
+    this.databaseKey = 'authUsersKey',
+  }) {
+    loadUsersDatabase();
   }
 
-  Future<void> signUp(HttpRequest request) async {}
+  Future<void> signUp({HttpRequest? request}) async {
+    BodyParseResult result = await parseBody(request);
+    log(result.body.toString());
+    String userEmail = result.body['user-email'];
+    String hashedPassword = result.body['password'];
+    bool validEmail = await isEmailValid(userEmail);
+    if (validEmail == false) {
+      request?.response
+        ?..statusCode = 401
+        ..write("invalid-email")
+        ..close();
+    }
 
-  Future<void> singIn() async {}
-
-  void updateStoragePath(String newStoragePath) {
-    storagePath.add(newStoragePath);
-    prefs.setString("sabowslaStorageFunctionsKey", newStoragePath);
+    //Todo: save the user if not registered already
   }
 
-  void loadStoragePath() {
-    storagePath.add(prefs.getString('sabowslaStorageFunctionsKey'));
+  Future<bool> isEmailValid(String email) async {
+    //TODO: implement email validation
+    return true;
   }
+
+  Future<void> signIn() async {}
+
+  void updateStoragePath(String newStoragePath) {}
+
+  void loadUsersDatabase() {}
 
   @override
   @override
   List<ServerFunction> get props => [
         ServerFunction(
-          name: 'saveFile',
-          method: saveFile(),
+          name: 'signUp',
+          method: signUp(),
         ),
         ServerFunction(
-          name: 'updateFile',
-          method: updateFile(),
+          name: 'signIn',
+          method: signIn(),
         ),
       ];
 

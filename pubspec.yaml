@@ -48,6 +48,7 @@ dependencies:
   #Functional
   equatable: ^2.0.5
   body_parser: ^1.1.1
+  realm: ^0.3.0-beta
   
 
 dev_dependencies:
