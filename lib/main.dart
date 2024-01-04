@@ -1,16 +1,9 @@
 import 'dart:developer';
 import 'dart:io';
-
 import 'package:flutter/material.dart';
-
-import 'package:sabowsla_server/core/injection.dart';
-import 'package:sabowsla_server/models/server_stats_model.dart';
-import 'package:sabowsla_server/ui/home.dart';
-
-import 'core/storage_functions.dart';
+import 'package:sabowsla_server/features/home.dart';
 
 void main() async {
-  injectDependencies();
   runApp(const ServerUI());
 }
 
@@ -32,13 +25,9 @@ class _ServerUIState extends State<ServerUI> {
     final server = await HttpServer.bind(InternetAddress.loopbackIPv4, 8080);
     print('Listening on localhost:${server.port}');
 
-    var storageFunctions = locator<StorageFunctions>();
-    var st = locator<ServerStats>();
-
     await for (HttpRequest request in server) {
       log("Request received ${request.uri}");
-      st.lastReceivedRequests.updateValue([request.uri.toString()]);
-      st.totalRequests.updateValue(1);
+
       final requestPath = request.uri.path;
       int invokedFunctions = 0;
       for (var serverFunction in storageFunctions.props) {

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sabowsla_server/ui/server_stats_view.dart';
 
 class Home extends StatelessWidget {
   const Home({
@@ -15,26 +14,25 @@ class Home extends StatelessWidget {
           "Sabowsla Server",
         ),
       ),
-      body: Row(
+      body: const Row(
         children: [
-          const ServerStatsView(),
           Expanded(
             child: Column(
-              children: const [
+              children: [
                 Text("Users"),
               ],
             ),
           ),
           Expanded(
             child: Column(
-              children: const [
+              children: [
                 Text("Storage Info"),
               ],
             ),
           ),
           Expanded(
             child: Column(
-              children: const [
+              children: [
                 Text("Running model"),
               ],
             ),

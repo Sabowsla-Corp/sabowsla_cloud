@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sabowsla_server/ui/typedef.dart';
+import 'package:sabowsla_server/core/typedef.dart';
 
 class Styles {
   static TX white30 = const TextStyle(color: Colors.white, fontSize: 30);
