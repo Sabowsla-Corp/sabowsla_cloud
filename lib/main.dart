@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:sabowsla_server/api/sabowsla_trinity_api.dart';
 import 'package:sabowsla_server/features/home.dart';
 
 void main() async {
@@ -28,23 +29,19 @@ class _ServerUIState extends State<ServerUI> {
     await for (HttpRequest request in server) {
       log("Request received ${request.uri}");
 
-      final requestPath = request.uri.path;
+      final requestedApi = request.uri.path;
       int invokedFunctions = 0;
-      for (var serverFunction in storageFunctions.props) {
-        var functionPath = "/sf${serverFunction.name}";
-        if (functionPath == requestPath) {
-          serverFunction.method.then((value) {
-            log("Server Function $functionPath Invoked with result $value");
-            invokedFunctions++;
-
-            request.response
-              ..statusCode = 200
-              ..write('Invoked $functionPath')
-              ..close();
-            return;
-          });
-        }
+      if (requestedApi == 'generateImage') {
+        var prompt = request.uri.queryParameters['prompt'] ?? '';
+        var image = await SabowslaTrinityApi().generateImage(prompt);
+        invokedFunctions++;
+        request.response
+          ..statusCode = 200
+          ..write(image)
+          ..close();
+        return;
       }
+
       if (invokedFunctions == 0) {
         request.response
           ..statusCode = 404
