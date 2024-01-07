@@ -1,4 +1,3 @@
-import 'package:objectbox/objectbox.dart';
 import 'package:sabowsla_server/features/auth/models/register_result_model.dart';
 import 'package:sabowsla_server/features/auth/models/user_credential_model.dart';
 import 'package:sabowsla_server/objectbox/objectbox.g.dart';

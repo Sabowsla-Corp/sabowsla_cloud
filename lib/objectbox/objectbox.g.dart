@@ -4,7 +4,7 @@
 // With a Dart package, run `dart run build_runner build`.
 // See also https://docs.objectbox.io/getting-started#generate-objectbox-code
 
-// ignore_for_file: camel_case_types, depend_on_referenced_packages
+// ignore_for_file: camel_case_types, depend_on_referenced_packages, require_trailing_commas
 // coverage:ignore-file
 
 import 'dart:typed_data';
@@ -14,7 +14,7 @@ import 'package:objectbox/internal.dart'; // generated code can access "internal
 import 'package:objectbox/objectbox.dart';
 import 'package:objectbox_flutter_libs/objectbox_flutter_libs.dart';
 
-import '../features/auth/models/user_credential_model.dart';
+import 'package:sabowsla_server/features/auth/models/user_credential_model.dart';
 
 export 'package:objectbox/objectbox.dart'; // so that callers only have to import this file
 
@@ -64,13 +64,15 @@ Future<Store> openStore(
         int? maxReaders,
         bool queriesCaseSensitiveDefault = true,
         String? macosApplicationGroup}) async =>
-    Store(getObjectBoxModel(),
-        directory: directory ?? (await defaultStoreDirectory()).path,
-        maxDBSizeInKB: maxDBSizeInKB,
-        fileMode: fileMode,
-        maxReaders: maxReaders,
-        queriesCaseSensitiveDefault: queriesCaseSensitiveDefault,
-        macosApplicationGroup: macosApplicationGroup);
+    Store(
+      getObjectBoxModel(),
+      directory: directory ?? (await defaultStoreDirectory()).path,
+      maxDBSizeInKB: maxDBSizeInKB,
+      fileMode: fileMode,
+      maxReaders: maxReaders,
+      queriesCaseSensitiveDefault: queriesCaseSensitiveDefault,
+      macosApplicationGroup: macosApplicationGroup,
+    );
 
 /// Returns the ObjectBox model definition for this project for use with
 /// [Store.new].
@@ -123,10 +125,11 @@ ModelDefinition getObjectBoxModel() {
           final idParam =
               const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0);
           final object = UserCredential(
-              email: emailParam,
-              displayName: displayNameParam,
-              uid: uidParam,
-              id: idParam);
+            email: emailParam,
+            displayName: displayNameParam,
+            uid: uidParam,
+            id: idParam,
+          );
 
           return object;
         })

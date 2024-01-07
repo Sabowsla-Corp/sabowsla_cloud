@@ -30,7 +30,6 @@ linter:
     - sort_constructors_first
     # - discarded_futures
     - avoid_redundant_argument_values
-    - avoid_classes_with_only_static_members
     - unnecessary_null_checks
     # - comment_references
     # - unnecessary_statements
