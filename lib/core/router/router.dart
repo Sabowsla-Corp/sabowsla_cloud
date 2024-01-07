@@ -1,23 +1,14 @@
 // ignore_for_file: unused_local_variable
 
 import 'package:flutter/material.dart';
-import 'package:sabowsla_server/core/router/routes.dart';
 import 'package:sabowsla_server/features/dashboard/dashboard_page.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   dynamic arguments = settings.arguments;
 
   switch (settings.name) {
-    case '/':
-      return _getPageRoute(const DashboardPage(), settings);
-
-    case Routes.home:
-      return _getPageRoute(const DashboardPage(), settings);
-
     default:
-      return MaterialPageRoute(
-        builder: (_) => const DashboardPage(),
-      );
+      return _getPageRoute(const DashboardPage(), settings);
   }
 }
 

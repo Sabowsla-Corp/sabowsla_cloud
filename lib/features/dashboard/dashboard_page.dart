@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sabowsla_server/features/dashboard/dashboard_content_builder.dart';
 import 'package:sabowsla_server/features/dashboard/dashboard_routes_drawer.dart';
 
 class DashboardPage extends StatelessWidget {
@@ -19,12 +20,10 @@ class DashboardPage extends StatelessWidget {
           ),
         ),
       ),
-      body: Row(
+      body: const Row(
         children: [
-          const DashboardRoutesDrawer(),
-          Expanded(
-            child: Container(),
-          ),
+          DashboardRoutesDrawer(),
+          DashboardContentView(),
         ],
       ),
     );
