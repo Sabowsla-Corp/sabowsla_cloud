@@ -1,0 +1,32 @@
+import 'package:objectbox/objectbox.dart';
+import 'package:sabowsla_server/features/auth/models/register_result_model.dart';
+import 'package:sabowsla_server/features/auth/models/user_credential_model.dart';
+
+class ObjectBox {
+  ObjectBox(this.store);
+
+  ObjectBox._create(this.store) {
+    _usersDb = Box<UserCredential>(store);
+  }
+  bool logLevel = true;
+  late Store store;
+
+  late final Box<UserCredential> _usersDb;
+
+  Future<RegisterResult> register(final UserCredential user) async {
+    var result = RegisterResult(error: '', userCredential: null);
+
+    final userExists = _usersDb
+        .query(UserCredential_.email.equals(user.email))
+        .build()
+        .findFirst();
+
+    if (userExists != null) {
+      result.copyWith.error('exists');
+      return result;
+    } else {
+      _usersDb.put(user);
+    }
+    return result;
+  }
+}
