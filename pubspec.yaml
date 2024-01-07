@@ -18,6 +18,7 @@ dependencies:
   http_parser: ^4.0.2
   objectbox: ^2.4.0
   objectbox_flutter_libs: ^2.2.1
+  path_provider: ^2.1.1
   responsive_builder: ^0.7.0
   rxdart: ^0.27.7
 
@@ -29,6 +30,8 @@ dev_dependencies:
   build_runner: ^2.3.0
   objectbox_generator: ^2.4.0
 
+objectbox:
+  output_dir: objectbox
 
 flutter:
   uses-material-design: true
