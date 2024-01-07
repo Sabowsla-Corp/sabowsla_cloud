@@ -1,6 +1,6 @@
 // ignore_for_file: avoid_classes_with_only_static_members
 
-class Durations {
+class MyDurations {
   static Duration d50 = const Duration(milliseconds: 50);
   static Duration d150 = const Duration(milliseconds: 150);
   static Duration d250 = const Duration(milliseconds: 250);

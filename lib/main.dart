@@ -4,7 +4,7 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:sabowsla_server/api/sabowsla_trinity_api.dart';
-import 'package:sabowsla_server/features/home.dart';
+import 'package:sabowsla_server/features/dashboard/dashboard_page.dart';
 
 void main() async {
   runApp(const ServerUI());
@@ -56,8 +56,15 @@ class _ServerUIState extends State<ServerUI> {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Home(),
+    return MaterialApp(
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color(0x0003fd47),
+        ),
+      ),
+      navigatorKey: navi,
+      darkTheme: ThemeData.dark(),
+      home: const DashboardPage(),
     );
   }
 }

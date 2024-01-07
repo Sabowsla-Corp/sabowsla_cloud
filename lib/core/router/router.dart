@@ -2,21 +2,21 @@
 
 import 'package:flutter/material.dart';
 import 'package:sabowsla_server/core/router/routes.dart';
-import 'package:sabowsla_server/features/home.dart';
+import 'package:sabowsla_server/features/dashboard/dashboard_page.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   dynamic arguments = settings.arguments;
 
   switch (settings.name) {
     case '/':
-      return _getPageRoute(const Home(), settings);
+      return _getPageRoute(const DashboardPage(), settings);
 
     case Routes.home:
-      return _getPageRoute(const Home(), settings);
+      return _getPageRoute(const DashboardPage(), settings);
 
     default:
       return MaterialPageRoute(
-        builder: (_) => const Home(),
+        builder: (_) => const DashboardPage(),
       );
   }
 }
