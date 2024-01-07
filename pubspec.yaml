@@ -16,6 +16,8 @@ dependencies:
   get_it: ^7.2.0
   http: ^1.1.2
   http_parser: ^4.0.2
+  objectbox: ^2.4.0
+  objectbox_generator: ^2.4.0
   responsive_builder: ^0.7.0
   rxdart: ^0.27.7
 
