@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sabowsla_server/core/extensions/context_extension.dart';
-import 'package:sabowsla_server/core/presentation/atoms/custom_button_icon.dart';
 import 'package:sabowsla_server/features/auth/presentation/views/users_page_view_header.dart';
+import 'package:sabowsla_server/features/auth/presentation/views/users_page_view_users_list.dart';
 
 class UsersPageView extends StatelessWidget {
   const UsersPageView({super.key});
@@ -21,14 +21,5 @@ class UsersPageView extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-class UsersPageViewUsersList extends StatelessWidget {
-  const UsersPageViewUsersList({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
   }
 }

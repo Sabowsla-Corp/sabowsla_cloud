@@ -11,16 +11,26 @@ class UsersPageViewHeader extends StatefulWidget {
 class _UsersPageViewHeaderState extends State<UsersPageViewHeader> {
   @override
   Widget build(BuildContext context) {
+    var outlineInputBorder = const OutlineInputBorder(
+      borderRadius: BorderRadius.all(Radius.circular(5)),
+      borderSide: BorderSide(
+        color: Colors.deepPurpleAccent,
+      ),
+    );
     return Container(
       padding: const EdgeInsets.all(10),
       height: 70,
       child: Row(
         children: [
           Expanded(
+            flex: 3,
             child: TextFormField(
-              decoration: const InputDecoration(
-                labelText: "Search",
-                border: OutlineInputBorder(),
+              decoration: InputDecoration(
+                hintText: "Search for email, name, or UID",
+                contentPadding: const EdgeInsets.symmetric(horizontal: 10),
+                border: outlineInputBorder,
+                enabledBorder: outlineInputBorder,
+                focusedBorder: outlineInputBorder,
               ),
             ),
           ),
@@ -29,6 +39,7 @@ class _UsersPageViewHeaderState extends State<UsersPageViewHeader> {
             child: CustomButtonIcon(
               buttonText: "Add User",
               icon: Icons.add,
+              buttonColor: Colors.deepPurple,
               onTap: () {},
             ),
           ),
@@ -36,8 +47,8 @@ class _UsersPageViewHeaderState extends State<UsersPageViewHeader> {
           CustomButtonIcon(
             icon: Icons.refresh,
             onTap: () {},
+            buttonColor: Colors.deepPurple,
           ),
-          const SizedBox(width: 10),
         ],
       ),
     );

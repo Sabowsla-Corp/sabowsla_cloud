@@ -23,6 +23,8 @@ dependencies:
   path_provider: ^2.1.1
   responsive_builder: ^0.7.0
   rxdart: ^0.27.7
+  modular_ui:
+    path: C:\src\modular_ui
 
 dev_dependencies:
   flutter_test:
