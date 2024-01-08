@@ -27,6 +27,9 @@ dependencies:
     path: C:/src/modular_ui
   file_picker: ^6.1.1
   image_compression_flutter: ^1.0.3
+  uuid: ^4.2.2
+  email_validator: ^2.1.17
+  crypto: ^3.0.3
 
 dev_dependencies:
   flutter_test:

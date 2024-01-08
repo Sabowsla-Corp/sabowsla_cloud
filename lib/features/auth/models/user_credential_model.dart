@@ -8,21 +8,24 @@ class UserCredential {
     required this.uid,
     required this.creationDate,
     required this.photoBase64,
+    this.passwordHash = '',
     this.id = 0,
   });
 
   @Id()
   int id;
   @Property()
-  final String email;
+  String email;
   @Property()
   final String displayName;
   @Property()
-  final String uid;
+  String uid;
   @Property()
-  final String creationDate;
+  String creationDate;
   @Property()
   String photoBase64;
+  @Property()
+  String passwordHash;
 
   static UserCredential fromJson(Map<String, dynamic> json) {
     return UserCredential(
@@ -31,6 +34,7 @@ class UserCredential {
       uid: json['uid'],
       creationDate: json['creationDate'],
       photoBase64: json['photoBase64'],
+      passwordHash: json['passwordHash'],
     );
   }
 
@@ -40,5 +44,11 @@ class UserCredential {
         'uid': uid,
         'creationDate': creationDate,
         'photoBase64': photoBase64,
+        'passwordHash': passwordHash,
       };
+
+  @override
+  String toString() {
+    return 'UserCredential(email: $email, displayName: $displayName, uid: $uid, creationDate: $creationDate, photoBase64: ${photoBase64.isNotEmpty}, passwordHash: ${passwordHash.isNotEmpty})';
+  }
 }

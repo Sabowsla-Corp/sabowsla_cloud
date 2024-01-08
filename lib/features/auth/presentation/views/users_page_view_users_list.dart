@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sabowsla_server/features/auth/models/user_credential_model.dart';
 import 'package:sabowsla_server/features/auth/controller/auth_controller.dart';
+import 'package:sabowsla_server/features/auth/presentation/views/user_information.dart';
 
 class UsersPageViewUsersList extends StatelessWidget {
   const UsersPageViewUsersList({super.key});
@@ -37,34 +38,6 @@ class UserListContentBuilder extends StatelessWidget {
           ),
         );
       },
-    );
-  }
-}
-
-class UserRowInformation extends StatelessWidget {
-  const UserRowInformation({required this.user, super.key});
-  final UserCredential user;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          child: Text(
-            user.email,
-          ),
-        ),
-        Expanded(
-          child: Text(
-            user.creationDate,
-          ),
-        ),
-        Expanded(
-          child: Text(
-            user.uid,
-          ),
-        ),
-      ],
     );
   }
 }

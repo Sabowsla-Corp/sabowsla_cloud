@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:sabowsla_server/features/auth/models/register_result_model.dart';
 import 'package:sabowsla_server/features/auth/models/user_credential_model.dart';
 import 'package:sabowsla_server/objectbox.dart';
 
@@ -10,19 +11,26 @@ abstract class DatabaseDataSource {
     required int limit,
     required int offset,
   });
+  Future<RegisterResult> registerUser(UserCredential user);
 }
 
 class DatabaseDataSourceImpl implements DatabaseDataSource {
-  DatabaseDataSourceImpl() {
-    openDataBase();
-  }
+  DatabaseDataSourceImpl();
+  bool open = false;
 
-  void openDataBase() async {
+  Future openDataBase() async {
     try {
       dataBase = await ObjectBox.create();
       log('Database opened');
     } catch (e) {
       log('Database failed to open');
+    }
+  }
+
+  Future ensureOpen() async {
+    if (!open) {
+      await openDataBase();
+      open = true;
     }
   }
 
@@ -33,11 +41,16 @@ class DatabaseDataSourceImpl implements DatabaseDataSource {
     required int offset,
     int limit = 50,
   }) async {
+    await ensureOpen();
     return await dataBase.getUsers(
       limit: limit,
       offset: offset,
     );
   }
 
-  Future<void> registerUser() async {}
+  @override
+  Future<RegisterResult> registerUser(UserCredential user) async {
+    await ensureOpen();
+    return await dataBase.register(user);
+  }
 }
