@@ -23,8 +23,6 @@ dependencies:
   path_provider: ^2.1.1
   responsive_builder: ^0.7.0
   rxdart: ^0.27.7
-  modular_ui:
-    path: C:/src/modular_ui
   file_picker: ^6.1.1
   image_compression_flutter: ^1.0.3
   uuid: ^4.2.2
