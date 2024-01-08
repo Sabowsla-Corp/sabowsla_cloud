@@ -33,4 +33,11 @@ class ObjectBox {
     }
     return result;
   }
+
+  Future<List<UserCredential>> getUsers({
+    required int limit,
+    required int offset,
+  }) async {
+    return _usersDb.getAll().skip(offset).take(limit).toList();
+  }
 }
