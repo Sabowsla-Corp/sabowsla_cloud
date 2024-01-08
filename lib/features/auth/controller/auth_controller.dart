@@ -45,9 +45,6 @@ class AuthController {
     if (result.error == null) {
       var list = [user, ...displayedUsers.value];
       displayedUsers.add(list);
-      print("user created successfully new list has ${list.length}");
-    } else {
-      print('Error creating user: ${result.error}');
     }
     return result;
   }
