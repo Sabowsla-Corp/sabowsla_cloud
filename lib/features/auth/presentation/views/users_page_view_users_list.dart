@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sabowsla_server/features/auth/models/user_credential_model.dart';
-import 'package:sabowsla_server/features/auth/presentation/auth_controller.dart';
+import 'package:sabowsla_server/features/auth/controller/auth_controller.dart';
 
 class UsersPageViewUsersList extends StatelessWidget {
   const UsersPageViewUsersList({super.key});

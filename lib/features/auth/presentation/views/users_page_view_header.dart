@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sabowsla_server/core/presentation/atoms/custom_button_icon.dart';
+import 'package:sabowsla_server/features/auth/controller/auth_controller.dart';
 
 class UsersPageViewHeader extends StatefulWidget {
   const UsersPageViewHeader({super.key});
@@ -35,14 +36,7 @@ class _UsersPageViewHeaderState extends State<UsersPageViewHeader> {
             ),
           ),
           const SizedBox(width: 10),
-          Expanded(
-            child: CustomButtonIcon(
-              buttonText: "Add User",
-              icon: Icons.add,
-              buttonColor: Colors.deepPurple,
-              onTap: () {},
-            ),
-          ),
+          const CreateUserButton(),
           const SizedBox(width: 10),
           CustomButtonIcon(
             icon: Icons.refresh,
@@ -50,6 +44,26 @@ class _UsersPageViewHeaderState extends State<UsersPageViewHeader> {
             buttonColor: Colors.deepPurple,
           ),
         ],
+      ),
+    );
+  }
+}
+
+class CreateUserButton extends StatelessWidget {
+  const CreateUserButton({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: CustomButtonIcon(
+        buttonText: "Add User",
+        icon: Icons.add,
+        buttonColor: Colors.deepPurple,
+        onTap: () {
+          authController.createUserModal(context);
+        },
       ),
     );
   }

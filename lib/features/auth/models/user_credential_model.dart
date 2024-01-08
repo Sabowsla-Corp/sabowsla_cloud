@@ -7,6 +7,7 @@ class UserCredential {
     required this.displayName,
     required this.uid,
     required this.creationDate,
+    required this.photoBase64,
     this.id = 0,
   });
 
@@ -20,6 +21,8 @@ class UserCredential {
   final String uid;
   @Property()
   final String creationDate;
+  @Property()
+  final String? photoBase64;
 
   static UserCredential fromJson(Map<String, dynamic> json) {
     return UserCredential(
@@ -27,6 +30,7 @@ class UserCredential {
       displayName: json['displayName'],
       uid: json['uid'],
       creationDate: json['creationDate'],
+      photoBase64: json['photoBase64'],
     );
   }
 
@@ -35,5 +39,6 @@ class UserCredential {
         'displayName': displayName,
         'uid': uid,
         'creationDate': creationDate,
+        'photoBase64': photoBase64,
       };
 }

@@ -3,6 +3,7 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+  image_compression_flutter
   objectbox_flutter_libs
 )
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sabowsla_server/features/auth/presentation/auth_controller.dart';
+import 'package:sabowsla_server/features/auth/controller/auth_controller.dart';
 
 import 'package:sabowsla_server/features/auth/presentation/auth_view_tabs.dart';
 import 'package:sabowsla_server/features/auth/presentation/views/users_page_view.dart';

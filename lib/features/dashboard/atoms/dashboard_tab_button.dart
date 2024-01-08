@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sabowsla_server/features/auth/presentation/auth_controller.dart';
+import 'package:sabowsla_server/features/auth/controller/auth_controller.dart';
 
 class DashboardTabButton extends StatefulWidget {
   const DashboardTabButton({
