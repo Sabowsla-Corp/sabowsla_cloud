@@ -1,5 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:sabowsla_server/core/presentation/atoms/custom_button_icon.dart';
+import 'package:sabowsla_server/core/presentation/custom_image_base_64.dart';
+import 'package:sabowsla_server/features/auth/controller/auth_controller.dart';
 import 'package:sabowsla_server/features/auth/models/user_credential_model.dart';
 
 class CreateUserModalWidget extends StatefulWidget {
@@ -20,6 +24,15 @@ class _CreateUserModalWidgetState extends State<CreateUserModalWidget> {
     photoBase64: "",
   );
 
+  void onSelectImage() async {
+    var image = await authController.pickImageThumbnail();
+    if (image != null) {
+      userCredential.photoBase64 = image;
+      log("Image selected and set");
+      setState(() {});
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -30,9 +43,16 @@ class _CreateUserModalWidgetState extends State<CreateUserModalWidget> {
             children: [
               CircleAvatar(
                 radius: 100,
-                child: InkWell(
-                  onTap: () {},
-                  child: const Icon(Icons.upload, size: 100),
+                child: Material(
+                  color: Colors.transparent,
+                  child: InkWell(
+                    onTap: onSelectImage,
+                    child: userCredential.photoBase64.isEmpty
+                        ? const Icon(Icons.upload, size: 100)
+                        : ImageBase64(
+                            base64: userCredential.photoBase64,
+                          ),
+                  ),
                 ),
               ),
               const SizedBox(width: 10),

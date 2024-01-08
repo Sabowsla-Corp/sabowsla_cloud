@@ -22,7 +22,7 @@ final _entities = <ModelEntity>[
   ModelEntity(
       id: const IdUid(1, 7564469805248504584),
       name: 'UserCredential',
-      lastPropertyId: const IdUid(5, 746938658343397371),
+      lastPropertyId: const IdUid(6, 8335910415887778948),
       flags: 0,
       properties: <ModelProperty>[
         ModelProperty(
@@ -48,6 +48,11 @@ final _entities = <ModelEntity>[
         ModelProperty(
             id: const IdUid(5, 746938658343397371),
             name: 'creationDate',
+            type: 9,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(6, 8335910415887778948),
+            name: 'photoBase64',
             type: 9,
             flags: 0)
       ],
@@ -108,12 +113,14 @@ ModelDefinition getObjectBoxModel() {
           final displayNameOffset = fbb.writeString(object.displayName);
           final uidOffset = fbb.writeString(object.uid);
           final creationDateOffset = fbb.writeString(object.creationDate);
-          fbb.startTable(6);
+          final photoBase64Offset = fbb.writeString(object.photoBase64);
+          fbb.startTable(7);
           fbb.addInt64(0, object.id);
           fbb.addOffset(1, emailOffset);
           fbb.addOffset(2, displayNameOffset);
           fbb.addOffset(3, uidOffset);
           fbb.addOffset(4, creationDateOffset);
+          fbb.addOffset(5, photoBase64Offset);
           fbb.finish(fbb.endTable());
           return object.id;
         },
@@ -130,6 +137,9 @@ ModelDefinition getObjectBoxModel() {
           final creationDateParam =
               const fb.StringReader(asciiOptimization: true)
                   .vTableGet(buffer, rootOffset, 12, '');
+          final photoBase64Param =
+              const fb.StringReader(asciiOptimization: true)
+                  .vTableGet(buffer, rootOffset, 14, '');
           final idParam =
               const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0);
           final object = UserCredential(
@@ -137,6 +147,7 @@ ModelDefinition getObjectBoxModel() {
               displayName: displayNameParam,
               uid: uidParam,
               creationDate: creationDateParam,
+              photoBase64: photoBase64Param,
               id: idParam);
 
           return object;
@@ -167,4 +178,8 @@ class UserCredential_ {
   /// see [UserCredential.creationDate]
   static final creationDate =
       QueryStringProperty<UserCredential>(_entities[0].properties[4]);
+
+  /// see [UserCredential.photoBase64]
+  static final photoBase64 =
+      QueryStringProperty<UserCredential>(_entities[0].properties[5]);
 }

@@ -22,7 +22,7 @@ class UserCredential {
   @Property()
   final String creationDate;
   @Property()
-  final String? photoBase64;
+  String photoBase64;
 
   static UserCredential fromJson(Map<String, dynamic> json) {
     return UserCredential(

@@ -28,7 +28,8 @@ linter:
     - always_put_required_named_parameters_first
     # - directives_ordering
     - sort_constructors_first
-    # - discarded_futures
+    - discarded_futures
+    - unawaited_futures
     - avoid_redundant_argument_values
     - unnecessary_null_checks
     # - comment_references
