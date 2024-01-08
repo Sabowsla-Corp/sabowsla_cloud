@@ -33,7 +33,17 @@ class UserListContentBuilder extends StatelessWidget {
           child: ListView.builder(
             shrinkWrap: true,
             itemCount: users.length,
-            itemBuilder: (c, i) => Row(children: users[i].propertiesAsWidgets),
+            itemBuilder: (c, i) => Row(
+              children: [
+                ...users[i].propertiesAsWidgets,
+                IconButton(
+                  icon: const Icon(Icons.delete),
+                  onPressed: () {
+                    authController.deleteUser(users[i].uid);
+                  },
+                ),
+              ],
+            ),
           ),
         );
       },

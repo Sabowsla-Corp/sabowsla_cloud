@@ -12,6 +12,7 @@ abstract class DatabaseDataSource {
     required int offset,
   });
   Future<RegisterResult> registerUser(UserCredential user);
+  Future<bool> deleteUser(String uid);
 }
 
 class DatabaseDataSourceImpl implements DatabaseDataSource {
@@ -52,5 +53,11 @@ class DatabaseDataSourceImpl implements DatabaseDataSource {
   Future<RegisterResult> registerUser(UserCredential user) async {
     await ensureOpen();
     return await dataBase.register(user);
+  }
+
+  @override
+  Future<bool> deleteUser(String uid) async {
+    await ensureOpen();
+    return await dataBase.deleteUser(uid);
   }
 }

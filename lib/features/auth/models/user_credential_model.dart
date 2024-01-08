@@ -19,7 +19,7 @@ class UserCredential {
   @Property()
   String email;
   @Property()
-  final String displayName;
+  String displayName;
   @Property()
   String uid;
   @Property()

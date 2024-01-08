@@ -31,6 +31,17 @@ class AuthController {
     await showModal(context, const CreateUserModalWidget());
   }
 
+  void deleteUser(String uid) async {
+    bool deleted = await dataBaseDataSource.deleteUser(uid);
+    if (deleted) {
+      var list = displayedUsers.value;
+      list.removeWhere((element) => element.uid == uid);
+      displayedUsers.add(list);
+    } else {
+      print('Error deleting user $uid');
+    }
+  }
+
   Future showModal(BuildContext c, Widget widget) {
     return showDialog(
       context: c,

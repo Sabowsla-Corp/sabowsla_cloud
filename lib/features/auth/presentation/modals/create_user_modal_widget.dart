@@ -51,6 +51,7 @@ class _CreateUserModalWidgetState extends State<CreateUserModalWidget> {
     var passwordHash = hashPassword(passwordController.text);
     userCredential.passwordHash = passwordHash;
     userCredential.email = emailController.text;
+    userCredential.displayName = nameController.text;
     registerResult = await authController.createUser(userCredential);
     if (registerResult?.error == null) {
       popModal();

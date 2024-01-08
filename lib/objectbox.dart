@@ -21,6 +21,16 @@ class ObjectBox {
     return ObjectBox._create(store);
   }
 
+  Future<bool> deleteUser(String uid) async {
+    final user =
+        _usersDb.query(UserCredential_.uid.equals(uid)).build().findFirst();
+    if (user != null) {
+      _usersDb.remove(user.id);
+      return true;
+    }
+    return false;
+  }
+
   Future<RegisterResult> register(final UserCredential user) async {
     var generatedUID = const Uuid().v4();
     user.uid = generatedUID;
