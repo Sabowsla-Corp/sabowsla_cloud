@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sabowsla_server/features/auth/presentation/auth_controller.dart';
 
 import 'package:sabowsla_server/features/auth/presentation/auth_view_tabs.dart';
+import 'package:sabowsla_server/features/auth/presentation/views/users_page_view.dart';
 
 class AuthPageContentBuilder extends StatelessWidget {
   const AuthPageContentBuilder({super.key});
@@ -14,35 +15,18 @@ class AuthPageContentBuilder extends StatelessWidget {
         var currentTab = authController.currentTab.value;
         switch (currentTab) {
           case AuthViewTab.Users:
-            return const _UsersTab();
+            return const UsersPageView();
           case AuthViewTab.Templates:
-            return const _UsersTab();
+            return const UsersPageView();
           case AuthViewTab.Usage:
-            return const _UsersTab();
+            return const UsersPageView();
           case AuthViewTab.Settings:
-            return const _UsersTab();
+            return const UsersPageView();
           case AuthViewTab.Testing:
-            return const _UsersTab();
+            return const UsersPageView();
         }
-        return const _UsersTab();
+        return const UsersPageView();
       },
-    );
-  }
-}
-
-class _UsersTab extends StatelessWidget {
-  const _UsersTab({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(
-      child: Text(
-        "Users",
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: 30,
-        ),
-      ),
     );
   }
 }

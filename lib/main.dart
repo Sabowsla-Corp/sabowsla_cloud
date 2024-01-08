@@ -24,11 +24,17 @@ class _ServerUIState extends State<ServerUI> {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0x0003fd47),
+        colorScheme: const ColorScheme.dark(
+          // ColorScheme.dark is deprecated
+          primary: Colors.deepPurple,
+          secondary: Colors.red,
+          secondaryContainer: Colors.red,
+          primaryContainer: Colors.red,
+          surface: Color.fromARGB(255, 8, 5, 26),
+          onPrimary: Colors.red,
+          onSecondary: Colors.red,
         ),
       ),
-      darkTheme: ThemeData.dark(),
       home: const DashboardPage(),
     );
   }

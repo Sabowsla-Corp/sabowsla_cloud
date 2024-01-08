@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sabowsla_server/core/app_streams.dart';
 import 'package:sabowsla_server/core/constants/export_ui_tools.dart';
+import 'package:sabowsla_server/core/presentation/atoms/custom_button_icon.dart';
 
 class DashboardRoutesDrawer extends StatefulWidget {
   const DashboardRoutesDrawer({super.key});
@@ -58,38 +59,15 @@ class _DashboardRoutesDrawerState extends State<DashboardRoutesDrawer> {
           child: Row(
             children: [
               Expanded(
-                child: ElevatedButton(
-                  onPressed: () => {
-                    setRoute(route.route),
+                child: CustomButtonIcon(
+                  buttonText: route.name,
+                  onTap: () {
+                    setRoute(route.route);
                   },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: selectedRoute == route.route
-                        ? Colors.blueGrey
-                        : Colors.black87,
-                  ),
-                  child: Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-                    child: Row(
-                      children: [
-                        Icon(
-                          route.icon,
-                        ),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        Expanded(
-                          child: Text(
-                            route.name,
-                            maxLines: 1,
-                            style: const TextStyle(
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                  icon: route.icon,
+                  buttonColor: selectedRoute == route.route
+                      ? Colors.deepPurple.shade900
+                      : Colors.deepPurpleAccent.withOpacity(0.1),
                 ),
               ),
             ],
