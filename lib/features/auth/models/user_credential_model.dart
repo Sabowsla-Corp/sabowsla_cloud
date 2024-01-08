@@ -1,4 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:objectbox/objectbox.dart';
+import 'package:sabowsla_server/features/auth/presentation/views/user_credential_property.dart';
 
 @Entity()
 class UserCredential {
@@ -27,6 +29,23 @@ class UserCredential {
   @Property()
   String passwordHash;
 
+  List<UIProperty> get properties => [
+        UIProperty(Icons.numbers, uid, 2),
+        UIProperty(Icons.person, displayName, 2),
+        UIProperty(Icons.email, email, 2),
+        UIProperty(Icons.calendar_month, creationDate, 2),
+        UIProperty(Icons.image, photoBase64, 1),
+      ];
+
+  List<Widget> get propertiesAsWidgets => properties
+      .map(
+        (e) => UserCredentialProperty(
+          property: e,
+          isImage: e.flex == 1,
+        ),
+      )
+      .toList();
+
   static UserCredential fromJson(Map<String, dynamic> json) {
     return UserCredential(
       email: json['email'],
@@ -51,4 +70,15 @@ class UserCredential {
   String toString() {
     return 'UserCredential(email: $email, displayName: $displayName, uid: $uid, creationDate: $creationDate, photoBase64: ${photoBase64.isNotEmpty}, passwordHash: ${passwordHash.isNotEmpty})';
   }
+}
+
+class UIProperty {
+  UIProperty(
+    this.icon,
+    this.property,
+    this.flex,
+  );
+  final IconData icon;
+  final String property;
+  final int flex;
 }

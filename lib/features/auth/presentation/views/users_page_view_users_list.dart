@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sabowsla_server/features/auth/models/user_credential_model.dart';
 import 'package:sabowsla_server/features/auth/controller/auth_controller.dart';
-import 'package:sabowsla_server/features/auth/presentation/views/user_information.dart';
 
 class UsersPageViewUsersList extends StatelessWidget {
   const UsersPageViewUsersList({super.key});
@@ -34,7 +33,7 @@ class UserListContentBuilder extends StatelessWidget {
           child: ListView.builder(
             shrinkWrap: true,
             itemCount: users.length,
-            itemBuilder: (c, i) => UserRowInformation(user: users[i]),
+            itemBuilder: (c, i) => Row(children: users[i].propertiesAsWidgets),
           ),
         );
       },
@@ -60,18 +59,32 @@ class UsersListFirstHeaders extends StatelessWidget {
     return const Row(
       children: [
         Expanded(
+          flex: 3,
+          child: Text(
+            "UID",
+          ),
+        ),
+        Expanded(
+          flex: 3,
+          child: Text(
+            "Name",
+          ),
+        ),
+        Expanded(
+          flex: 3,
           child: Text(
             "Email",
           ),
         ),
         Expanded(
+          flex: 3,
           child: Text(
-            "Date",
+            "Creation Date",
           ),
         ),
         Expanded(
           child: Text(
-            "UID",
+            "Photo",
           ),
         ),
       ],

@@ -109,9 +109,7 @@ class _CreateUserModalWidgetState extends State<CreateUserModalWidget> {
                                   onTap: onSelectImage,
                                   child: userCredential.photoBase64.isEmpty
                                       ? const Icon(Icons.upload, size: 100)
-                                      : ImageBase64(
-                                          base64: userCredential.photoBase64,
-                                        ),
+                                      : ImageBase64(userCredential.photoBase64),
                                 ),
                         ),
                       ),

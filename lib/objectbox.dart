@@ -31,6 +31,7 @@ class ObjectBox {
       log('The email ${user.email} is not valid');
       return RegisterResult(error: RegisterError.invalidEmail);
     }
+
     if (user.passwordHash.isEmpty) {
       return RegisterResult(error: RegisterError.weakPassword);
     }
