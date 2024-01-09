@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sabowsla_server/core/extensions/context_extension.dart';
 import 'package:sabowsla_server/features/auth/controller/auth_controller.dart';
-import 'package:sabowsla_server/features/auth/presentation/views/users_page_view_header.dart';
-import 'package:sabowsla_server/features/auth/presentation/views/users_page_view_users_list.dart';
+import 'package:sabowsla_server/features/auth/presentation/users_page_view/users_page_view_header.dart';
+import 'package:sabowsla_server/features/auth/presentation/users_page_view/users_page_view_users_list.dart';
 
 class UsersPageView extends StatefulWidget {
   const UsersPageView({super.key});

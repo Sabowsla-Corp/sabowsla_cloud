@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:objectbox/objectbox.dart';
-import 'package:sabowsla_server/features/auth/presentation/views/user_credential_property.dart';
+import 'package:sabowsla_server/features/auth/presentation/users_page_view/user_credential_property.dart';
 
 @Entity()
 class UserCredential {
