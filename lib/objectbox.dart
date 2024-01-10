@@ -1,8 +1,7 @@
 import 'dart:developer';
-import 'dart:isolate';
-import 'dart:ui';
+
 import 'package:email_validator/email_validator.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter/foundation.dart';
 import 'package:sabowsla_server/features/auth/models/register_result_model.dart';
 import 'package:sabowsla_server/features/auth/models/user_credential_model.dart';
 import 'package:sabowsla_server/objectbox/objectbox.g.dart';
@@ -58,9 +57,11 @@ class ObjectBox {
         .findFirst();
 
     if (userExists != null) {
-      print(
-        "The ${user.email} is already in use in userCredential $userExists",
-      );
+      if (kDebugMode) {
+        print(
+          "The ${user.email} is already in use in userCredential $userExists",
+        );
+      }
       return RegisterResult(error: RegisterError.emailAlreadyInUse);
     } else {
       _usersDb.put(user);
@@ -74,20 +75,4 @@ class ObjectBox {
   }) async {
     return _usersDb.getAll().skip(offset).take(limit).toList();
   }
-
-  Future<RegisterResult> registerWithIsolate(UserCredential user) async {
-    var root = RootIsolateToken.instance!;
-
-    Isolate isolate = await Isolate.spawn(_registerUser, root);
-    ReceivePort receivePort = ReceivePort();
-    isolate.controlPort.send(message);
-    receivePort.listen((dynamic message) {
-      // Handle message received from the Isolate
-    });
-  }
-}
-
-Future<void> _registerUser(RootIsolateToken rootIsolateToken) async {
-  BackgroundIsolateBinaryMessenger.ensureInitialized(rootIsolateToken);
-  
 }

@@ -24,7 +24,7 @@ class DatabaseDataSourceImpl implements DatabaseDataSource {
       dataBase = await ObjectBox.create();
       log('Database opened');
     } catch (e) {
-      log('Database failed to open');
+      log('Database failed to open $e');
     }
   }
 
