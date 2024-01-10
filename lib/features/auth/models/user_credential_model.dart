@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:objectbox/objectbox.dart';
 import 'package:sabowsla_server/features/auth/presentation/users_page_view/user_credential_property.dart';
@@ -69,6 +71,20 @@ class UserCredential {
   @override
   String toString() {
     return 'UserCredential(email: $email, displayName: $displayName, uid: $uid, creationDate: $creationDate, photoBase64: ${photoBase64.isNotEmpty}, passwordHash: ${passwordHash.isNotEmpty})';
+  }
+
+  static UserCredential randomUser() {
+    var emailDomainRandomized = Random().nextInt(1000000);
+    var randomEmail =
+        "${Random().nextInt(1000000)}@$emailDomainRandomized.random";
+    return UserCredential(
+      email: randomEmail,
+      displayName: "displayName",
+      uid: "",
+      creationDate: "creationDate",
+      photoBase64: "",
+      passwordHash: "asdasd",
+    );
   }
 }
 

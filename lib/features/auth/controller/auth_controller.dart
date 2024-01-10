@@ -3,11 +3,13 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
-
+import 'dart:isolate';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:image_compression_flutter/image_compression_flutter.dart';
+import 'package:rxdart/rxdart.dart';
 import 'package:rxdart/subjects.dart';
+import 'package:sabowsla_server/core/app_streams.dart';
 import 'package:sabowsla_server/features/auth/models/register_result_model.dart';
 import 'package:sabowsla_server/features/auth/models/user_credential_model.dart';
 import 'package:sabowsla_server/features/auth/presentation/auth_view_tabs.dart';
@@ -19,12 +21,27 @@ var authController = AuthController();
 class AuthController {
   var filePicker = FilePicker.platform;
   var displayedUsers = BehaviorSubject<List<UserCredential>>.seeded([]);
+  var totalUsers = BehaviorSubject<int>.seeded(0);
   var currentTab = BehaviorSubject<Enum>.seeded(AuthViewTab.Users);
 
-  void loadRecentUsers() async {
+  void loadAllUsers() async {
+    DateTime start = DateTime.now();
+    appStreams.loadingIndicator.add(true);
     var users = await dataBaseDataSource.getUsers(offset: 0);
     displayedUsers.add(users);
-    print("users loaded ${users.length}");
+    appStreams.loadingIndicator.add(false);
+    DateTime end = DateTime.now();
+    print("users loaded ${users.length} duration ${end.difference(start)}");
+  }
+
+  void loadRecentUsers() async {
+    DateTime start = DateTime.now();
+    appStreams.loadingIndicator.add(true);
+    var users = await dataBaseDataSource.getUsers(offset: 0);
+    displayedUsers.add(users);
+    appStreams.loadingIndicator.add(false);
+    DateTime end = DateTime.now();
+    print("users loaded ${users.length} duration ${end.difference(start)}");
   }
 
   void createUserModal(BuildContext context) async {

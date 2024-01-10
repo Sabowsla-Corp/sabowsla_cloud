@@ -20,18 +20,34 @@ class _UsersPageViewState extends State<UsersPageView> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(top: 30),
-      constraints: BoxConstraints(maxWidth: context.width * 0.7),
-      padding: const EdgeInsets.all(20),
-      child: const Card(
-        child: Column(
-          children: [
-            UsersPageViewHeader(),
-            UsersPageViewUsersList(),
-          ],
+    return Column(
+      children: [
+        Container(
+          margin: const EdgeInsets.only(top: 30),
+          constraints: BoxConstraints(maxWidth: context.width * 0.7),
+          padding: const EdgeInsets.all(20),
+          child: Card(
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        "Total Users ${authController.displayedUsers.value.length}",
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                    ),
+                    const Spacer(),
+                  ],
+                ),
+                const UsersPageViewHeader(),
+                const UsersPageViewUsersList(),
+              ],
+            ),
+          ),
         ),
-      ),
+      ],
     );
   }
 }

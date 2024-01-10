@@ -5,4 +5,5 @@ var appStreams = AppStreams();
 
 class AppStreams {
   var routeStream = BehaviorSubject<Routes>.seeded(Routes.home);
+  var loadingIndicator = BehaviorSubject<bool>.seeded(false);
 }

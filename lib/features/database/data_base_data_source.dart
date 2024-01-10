@@ -49,6 +49,11 @@ class DatabaseDataSourceImpl implements DatabaseDataSource {
     );
   }
 
+  Future<int> countUsers() async {
+    await ensureOpen();
+    return await dataBase.countUsers();
+  }
+
   @override
   Future<RegisterResult> registerUser(UserCredential user) async {
     await ensureOpen();

@@ -28,18 +28,19 @@ class UserListContentBuilder extends StatelessWidget {
       stream: authController.displayedUsers,
       builder: (context, snapshot) {
         var users = authController.displayedUsers.value;
+        var segmentUsers = users.take(10).toList();
         return Container(
           padding: const EdgeInsets.only(top: 10),
           child: ListView.builder(
             shrinkWrap: true,
-            itemCount: users.length,
+            itemCount: segmentUsers.length,
             itemBuilder: (c, i) => Row(
               children: [
-                ...users[i].propertiesAsWidgets,
+                ...segmentUsers[i].propertiesAsWidgets,
                 IconButton(
                   icon: const Icon(Icons.delete),
                   onPressed: () {
-                    authController.deleteUser(users[i].uid);
+                    authController.deleteUser(segmentUsers[i].uid);
                   },
                 ),
               ],

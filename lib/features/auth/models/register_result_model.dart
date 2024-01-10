@@ -19,7 +19,6 @@ enum RegisterError {
   invalidEmail,
   operationNotAllowed,
   weakPassword,
-
   userDisabled,
   userNotFound,
   wrongPassword,

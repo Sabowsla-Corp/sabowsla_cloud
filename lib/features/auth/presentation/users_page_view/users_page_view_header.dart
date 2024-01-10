@@ -40,7 +40,9 @@ class _UsersPageViewHeaderState extends State<UsersPageViewHeader> {
           const SizedBox(width: 10),
           CustomButtonIcon(
             icon: Icons.refresh,
-            onTap: () {},
+            onTap: () {
+              authController.loadRecentUsers();
+            },
             buttonColor: Colors.deepPurple,
           ),
         ],

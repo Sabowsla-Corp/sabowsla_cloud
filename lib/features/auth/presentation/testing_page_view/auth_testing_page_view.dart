@@ -3,6 +3,9 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sabowsla_server/features/auth/controller/auth_controller.dart';
+import 'package:sabowsla_server/features/auth/models/register_result_model.dart';
+import 'package:sabowsla_server/features/auth/models/user_credential_model.dart';
 import 'package:sabowsla_server/features/auth/presentation/testing_page_view/testing_module_view.dart';
 
 class AuthTestingPageView extends StatelessWidget {
@@ -25,12 +28,17 @@ class AuthTestingPageView extends StatelessWidget {
 
   Future<TestingResult?>? registerNUsers(int repeat) async {
     log("Registering users $repeat");
-    return const TestingResult(
-      title: "Email",
-      description: "Test email sending",
-      result: "Email sent",
-      success: true,
-    );
+    DateTime start = DateTime.now();
+    var results = <RegisterResult>[];
+    for (var i = 0; i < repeat; i++) {
+      var user = UserCredential.randomUser();
+      var result = await authController.createUser(user);
+      results.add(result);
+    }
+    DateTime end = DateTime.now();
+
+    log("Finished registering users $repeat   in ${end.difference(start)}");
+    return null;
   }
 
   Widget buildTestingSuite() {

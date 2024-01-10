@@ -49,7 +49,7 @@ class _TestingModuleViewState extends State<TestingModuleView> {
                       multiplier = v.toInt();
                       setState(() {});
                     },
-                    min: 500,
+                    min: 1,
                     max: 10000,
                     divisions: 9,
                   ),
