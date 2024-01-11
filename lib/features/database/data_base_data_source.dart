@@ -40,7 +40,7 @@ class DatabaseDataSourceImpl implements DatabaseDataSource {
   @override
   Future<List<UserCredential>> getUsers({
     required int offset,
-    int limit = 50,
+    int limit = 1000000,
   }) async {
     await ensureOpen();
     return await dataBase.getUsers(
@@ -51,7 +51,7 @@ class DatabaseDataSourceImpl implements DatabaseDataSource {
 
   Future<int> countUsers() async {
     await ensureOpen();
-    return await dataBase.countUsers();
+    return dataBase.countUsers();
   }
 
   @override

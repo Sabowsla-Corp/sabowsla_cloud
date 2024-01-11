@@ -6,9 +6,11 @@ class Styles {
 
   final double size;
 
-  TX white30 = const TextStyle(color: Colors.white, fontSize: 30);
-  TX white25 = const TextStyle(color: Colors.white, fontSize: 25);
-  TX white20 = const TextStyle(color: Colors.white, fontSize: 20);
+  TX get white30 => TextStyle(color: Colors.white30, fontSize: size);
+  TX get white24 => TextStyle(color: Colors.white24, fontSize: size);
+  TX get white54 => TextStyle(color: Colors.white54, fontSize: size);
 }
 
+var styles10 = Styles(10);
 var styles12 = Styles(12);
+var styles14 = Styles(14);

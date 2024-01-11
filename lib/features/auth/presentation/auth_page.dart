@@ -20,7 +20,8 @@ class _AuthPageState extends State<AuthPage> with TickerProviderStateMixin {
       child: Column(
         children: [
           AuthPageTabs(),
-          AuthPageContentBuilder(),
+          Expanded(
+              child: SingleChildScrollView(child: AuthPageContentBuilder())),
         ],
       ),
     );

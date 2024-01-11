@@ -3,7 +3,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
-import 'dart:isolate';
+
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:image_compression_flutter/image_compression_flutter.dart';
@@ -57,6 +57,10 @@ class AuthController {
     } else {
       print('Error deleting user $uid');
     }
+  }
+
+  void userSettingsModal(BuildContext context, UserCredential user) async {
+    await showModal(context, const CreateUserModalWidget());
   }
 
   Future showModal(BuildContext c, Widget widget) {

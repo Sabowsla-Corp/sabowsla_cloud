@@ -26,17 +26,7 @@ class _ServerUIState extends State<ServerUI> {
     return MaterialApp(
       theme: ThemeData(
         fontFamily: GoogleFonts.inter().fontFamily,
-        colorScheme: const ColorScheme.dark(
-          // ColorScheme.dark is deprecated
-          primary: Colors.deepPurple,
-          secondary: Colors.red,
-          secondaryContainer: Colors.deepPurpleAccent,
-          primaryContainer: Colors.deepPurpleAccent,
-          surface: Color.fromARGB(255, 8, 5, 26),
-          onPrimary: Colors.deepPurple,
-          onSecondary: Colors.red,
-          onPrimaryContainer: Colors.deepPurpleAccent,
-        ),
+        colorScheme: const ColorScheme.dark(),
       ),
       home: const DashboardPage(),
     );

@@ -1,26 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:sabowsla_server/features/auth/models/user_credential_model.dart';
+import 'package:sabowsla_server/core/presentation/atoms/custom_card.dart';
+import 'package:sabowsla_server/core/presentation/atoms/custom_credential_card.dart';
+import 'package:sabowsla_server/core/presentation/atoms/custom_menu_bar.dart';
 import 'package:sabowsla_server/features/auth/controller/auth_controller.dart';
+import 'package:sabowsla_server/features/auth/models/user_credential_model.dart';
 
-class UsersPageViewUsersList extends StatelessWidget {
+class UsersPageViewUsersList extends StatefulWidget {
   const UsersPageViewUsersList({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.only(left: 10, right: 10, bottom: 10),
-      child: Column(
-        children: [
-          UsersListFirstHeaders(),
-          UserListContentBuilder(),
-        ],
-      ),
-    );
-  }
+  State<UsersPageViewUsersList> createState() => _UsersPageViewUsersListState();
 }
 
-class UserListContentBuilder extends StatelessWidget {
-  const UserListContentBuilder({super.key});
+class _UsersPageViewUsersListState extends State<UsersPageViewUsersList> {
+  int currentPage = 1;
+  int totalPages = 1;
+  int usersPerPage = 50;
+
+  List<int> usersPerPageOptions = [10, 20, 50, 100, 1000];
 
   @override
   Widget build(BuildContext context) {
@@ -29,76 +26,30 @@ class UserListContentBuilder extends StatelessWidget {
       builder: (context, snapshot) {
         var users = authController.displayedUsers.value;
         var segmentUsers = users.take(10).toList();
-        return Container(
-          padding: const EdgeInsets.only(top: 10),
-          child: ListView.builder(
-            shrinkWrap: true,
-            itemCount: segmentUsers.length,
-            itemBuilder: (c, i) => Row(
-              children: [
-                ...segmentUsers[i].propertiesAsWidgets,
-                IconButton(
-                  icon: const Icon(Icons.delete),
-                  onPressed: () {
-                    authController.deleteUser(segmentUsers[i].uid);
-                  },
-                ),
-              ],
-            ),
+
+        return CustomCard(
+          child: Column(
+            children: [
+              CustomMenuBar.withTitle(
+                title: 'Users per page',
+                values: usersPerPageOptions,
+                value: usersPerPage,
+                onChanged: (newValue) {
+                  setState(() {
+                    usersPerPage = newValue;
+                  });
+                },
+              ),
+              ListView.builder(
+                shrinkWrap: true,
+                itemCount: segmentUsers.length,
+                itemBuilder: (c, i) =>
+                    CustomCredentialCard(userCredential: segmentUsers[i]),
+              ),
+            ],
           ),
         );
       },
-    );
-  }
-}
-
-/*
-///
-/// This is the first row of the users list
-/// 
-/// It contains the headers for the list
-/// 
-*/
-
-class UsersListFirstHeaders extends StatelessWidget {
-  const UsersListFirstHeaders({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return const Row(
-      children: [
-        Expanded(
-          flex: 3,
-          child: Text(
-            "UID",
-          ),
-        ),
-        Expanded(
-          flex: 3,
-          child: Text(
-            "Name",
-          ),
-        ),
-        Expanded(
-          flex: 3,
-          child: Text(
-            "Email",
-          ),
-        ),
-        Expanded(
-          flex: 3,
-          child: Text(
-            "Creation Date",
-          ),
-        ),
-        Expanded(
-          child: Text(
-            "Photo",
-          ),
-        ),
-      ],
     );
   }
 }

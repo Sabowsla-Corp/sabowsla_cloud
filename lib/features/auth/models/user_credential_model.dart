@@ -41,7 +41,7 @@ class UserCredential {
 
   List<Widget> get propertiesAsWidgets => properties
       .map(
-        (e) => UserCredentialProperty(
+        (e) => UserCredentialPropertyView(
           property: e,
           isImage: e.flex == 1,
         ),

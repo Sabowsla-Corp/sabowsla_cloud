@@ -1,32 +1,27 @@
 import 'package:flutter/material.dart';
 
-class CustomButtonIcon extends StatelessWidget {
-  const CustomButtonIcon({
+class CustomButton extends StatelessWidget {
+  const CustomButton({
     this.buttonText,
     super.key,
     this.onTap,
     this.buttonColor,
-    this.icon,
     this.padding,
     this.loading = false,
+    this.margin,
   });
   final Function()? onTap;
   final Color? buttonColor;
-  final IconData? icon;
+
   final String? buttonText;
   final EdgeInsets? padding;
+  final EdgeInsets? margin;
   final bool loading;
 
   @override
   Widget build(BuildContext context) {
-    Widget buildSpacer() {
-      if (buttonText != null && icon != null) {
-        return const SizedBox(width: 10);
-      }
-      return const SizedBox();
-    }
-
-    return DecoratedBox(
+    return Container(
+      margin: margin,
       decoration: BoxDecoration(
         color: buttonColor ?? Theme.of(context).primaryColor,
         borderRadius: BorderRadius.circular(5),
@@ -55,21 +50,15 @@ class CustomButtonIcon extends StatelessWidget {
                       ),
                     ],
                   )
-                : Row(
-                    children: [
-                      Icon(icon),
-                      buildSpacer(),
-                      buttonText != null
-                          ? Text(
-                              buttonText ?? '',
-                              maxLines: 1,
-                              style: const TextStyle(
-                                color: Colors.white,
-                              ),
-                            )
-                          : const SizedBox(),
-                    ],
-                  ),
+                : buttonText != null
+                    ? Text(
+                        buttonText ?? '',
+                        maxLines: 1,
+                        style: const TextStyle(
+                          color: Colors.white,
+                        ),
+                      )
+                    : const SizedBox(),
           ),
         ),
       ),

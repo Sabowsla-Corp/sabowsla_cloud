@@ -22,7 +22,7 @@ class ObjectBox {
     return ObjectBox._create(store);
   }
 
-  Future<int> countUsers() async {
+  int countUsers() {
     return _usersDb.count();
   }
 
