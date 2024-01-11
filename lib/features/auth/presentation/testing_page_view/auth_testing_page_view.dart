@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:sabowsla_server/core/styles.dart';
 import 'package:sabowsla_server/features/auth/controller/auth_controller.dart';
 import 'package:sabowsla_server/features/auth/models/register_result_model.dart';
 import 'package:sabowsla_server/features/auth/models/user_credential_model.dart';
@@ -71,10 +71,7 @@ class AuthTestingPageView extends StatelessWidget {
             const SizedBox(width: 10),
             Text(
               "Authentication Testing",
-              style: TextStyle(
-                fontFamily: GoogleFonts.delaGothicOne().fontFamily,
-                fontSize: 18,
-              ),
+              style: styles24.white.applyBold,
             ),
           ],
         ),

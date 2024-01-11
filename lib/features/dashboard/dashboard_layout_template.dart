@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:sabowsla_server/core/styles.dart';
 
 class DashboardLayoutTemplate extends StatelessWidget {
   const DashboardLayoutTemplate({
@@ -19,10 +19,7 @@ class DashboardLayoutTemplate extends StatelessWidget {
         children: [
           Text(
             title,
-            style: TextStyle(
-              fontFamily: GoogleFonts.delaGothicOne().fontFamily,
-              fontSize: 25,
-            ),
+            style: styles24.white.applyBold,
           ),
           const SizedBox(height: 10),
           Expanded(

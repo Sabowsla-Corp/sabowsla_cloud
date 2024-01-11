@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:sabowsla_server/core/app_streams.dart';
+import 'package:sabowsla_server/core/styles.dart';
 import 'package:sabowsla_server/features/dashboard/dashboard_content_builder.dart';
 import 'package:sabowsla_server/features/dashboard/dashboard_routes_drawer.dart';
 
@@ -16,9 +16,7 @@ class DashboardPage extends StatelessWidget {
         backgroundColor: Colors.black87,
         title: Text(
           "Sabowsla Server",
-          style: TextStyle(
-            fontFamily: GoogleFonts.delaGothicOne().fontFamily,
-          ),
+          style: styles24.white.applyBold,
         ),
       ),
       body: Column(

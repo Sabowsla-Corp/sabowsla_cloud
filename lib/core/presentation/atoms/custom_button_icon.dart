@@ -63,9 +63,6 @@ class CustomButtonIcon extends StatelessWidget {
                           ? Text(
                               buttonText ?? '',
                               maxLines: 1,
-                              style: const TextStyle(
-                                color: Colors.white,
-                              ),
                             )
                           : const SizedBox(),
                     ],

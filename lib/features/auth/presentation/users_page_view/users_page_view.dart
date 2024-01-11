@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:sabowsla_server/core/presentation/atoms/custom_card.dart';
 import 'package:sabowsla_server/features/auth/controller/auth_controller.dart';
-import 'package:sabowsla_server/features/auth/presentation/users_page_view/users_page_view_header.dart';
 import 'package:sabowsla_server/features/auth/presentation/users_page_view/users_page_view_users_list.dart';
 
 class UsersPageView extends StatefulWidget {
@@ -19,33 +19,17 @@ class _UsersPageViewState extends State<UsersPageView> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          margin: const EdgeInsets.only(top: 30),
-          padding: const EdgeInsets.all(10),
-          child: Card(
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        "Total Users ${authController.displayedUsers.value.length}",
-                        style: Theme.of(context).textTheme.titleLarge,
-                      ),
-                    ),
-                    const Spacer(),
-                  ],
-                ),
-                const UsersPageViewHeader(),
-                const UsersPageViewUsersList(),
-              ],
+    return const Expanded(
+      child: CustomCard(
+        child: Row(
+          children: [
+            CustomCard(
+              child: Text("Card"),
             ),
-          ),
+            Expanded(child: UsersPageViewUsersList()),
+          ],
         ),
-      ],
+      ),
     );
   }
 }

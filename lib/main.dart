@@ -25,7 +25,7 @@ class _ServerUIState extends State<ServerUI> {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        fontFamily: GoogleFonts.inter().fontFamily,
+        fontFamily: GoogleFonts.poppins().fontFamily,
         colorScheme: const ColorScheme.dark(),
       ),
       home: const DashboardPage(),

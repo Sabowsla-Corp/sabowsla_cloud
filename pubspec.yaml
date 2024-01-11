@@ -28,6 +28,7 @@ dependencies:
   uuid: ^4.2.2
   email_validator: ^2.1.17
   crypto: ^3.0.3
+  ionicons: ^0.2.2
 
 dev_dependencies:
   flutter_test:

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sabowsla_server/core/presentation/atoms/custom_button_icon.dart';
+import 'package:sabowsla_server/core/styles.dart';
 import 'package:sabowsla_server/features/auth/controller/auth_controller.dart';
 
 class UsersPageViewHeader extends StatefulWidget {
@@ -13,9 +14,9 @@ class _UsersPageViewHeaderState extends State<UsersPageViewHeader> {
   @override
   Widget build(BuildContext context) {
     var outlineInputBorder = const OutlineInputBorder(
-      borderRadius: BorderRadius.all(Radius.circular(5)),
+      borderRadius: BorderRadius.all(Radius.circular(8)),
       borderSide: BorderSide(
-        color: Colors.deepPurpleAccent,
+        color: Colors.white24,
       ),
     );
     return Container(
@@ -26,12 +27,14 @@ class _UsersPageViewHeaderState extends State<UsersPageViewHeader> {
           Expanded(
             flex: 3,
             child: TextFormField(
-              decoration: InputDecoration(
+              style: styles14.white.applyW400,
+              decoration: InputDecoration.collapsed(
                 hintText: "Search for email, name, or UID",
-                contentPadding: const EdgeInsets.symmetric(horizontal: 10),
                 border: outlineInputBorder,
+              ).copyWith(
+                contentPadding: const EdgeInsets.all(10),
                 enabledBorder: outlineInputBorder,
-                focusedBorder: outlineInputBorder,
+                errorBorder: outlineInputBorder,
               ),
             ),
           ),
@@ -43,7 +46,6 @@ class _UsersPageViewHeaderState extends State<UsersPageViewHeader> {
             onTap: () {
               authController.loadRecentUsers();
             },
-            buttonColor: Colors.deepPurple,
           ),
         ],
       ),
@@ -62,7 +64,6 @@ class CreateUserButton extends StatelessWidget {
       child: CustomButtonIcon(
         buttonText: "Add User",
         icon: Icons.add,
-        buttonColor: Colors.deepPurple,
         onTap: () {
           authController.createUserModal(context);
         },
