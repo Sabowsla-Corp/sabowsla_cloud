@@ -18,10 +18,12 @@ class _AuthPageState extends State<AuthPage> with TickerProviderStateMixin {
     return const DashboardLayoutTemplate(
       title: 'Authentication',
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           AuthPageTabs(),
           Expanded(
-              child: SingleChildScrollView(child: AuthPageContentBuilder())),
+            child: SingleChildScrollView(child: AuthPageContentBuilder()),
+          ),
         ],
       ),
     );

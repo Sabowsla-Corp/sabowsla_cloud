@@ -13,6 +13,7 @@ class CustomButton extends StatelessWidget {
     this.border,
     this.width,
     this.height,
+    this.onHover,
   });
   final Function()? onTap;
   final Color? buttonColor;
@@ -24,6 +25,7 @@ class CustomButton extends StatelessWidget {
   final Border? border;
   final double? width;
   final double? height;
+  final Function(bool)? onHover;
 
   static Widget box({
     double? size,
@@ -100,11 +102,12 @@ class CustomButton extends StatelessWidget {
         child: InkWell(
           borderRadius: BorderRadius.circular(5),
           onTap: onTap,
+          onHover: onHover,
           child: Padding(
             padding: padding ??
                 const EdgeInsets.symmetric(
                   horizontal: 10,
-                  vertical: 6,
+                  vertical: 2,
                 ),
             child: loading
                 ? const Row(

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:sabowsla_server/core/extensions/context_extension.dart';
+import 'package:sabowsla_server/core/presentation/atoms/custom_button.dart';
 import 'package:sabowsla_server/features/auth/controller/auth_controller.dart';
 
 class DashboardTabButton extends StatefulWidget {
@@ -18,38 +20,26 @@ class _DashboardTabButtonState extends State<DashboardTabButton> {
 
   @override
   Widget build(BuildContext context) {
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(5),
-        color: widget.selected
-            ? Colors.white24
-            : (hovering ? Colors.white12 : Colors.transparent),
+    return CustomButton(
+      onTap: () {
+        authController.currentTab.add(widget.e);
+      },
+      onHover: (value) {
+        setState(() {
+          hovering = value;
+        });
+      },
+      buttonColor: Colors.black,
+      border: Border.all(
+        color: widget.selected ? Colors.white24 : Colors.transparent,
       ),
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          borderRadius: BorderRadius.circular(5),
-          onHover: (value) {
-            setState(() {
-              hovering = value;
-            });
-          },
-          onTap: () {
-            authController.currentTab.add(widget.e);
-          },
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Center(
-              child: Text(
-                widget.e.name,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontWeight:
-                      widget.selected ? FontWeight.bold : FontWeight.normal,
-                ),
-              ),
-            ),
+      child: Center(
+        child: Text(
+          widget.e.name,
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: context.relative(12),
+            fontWeight: widget.selected ? FontWeight.bold : FontWeight.normal,
           ),
         ),
       ),

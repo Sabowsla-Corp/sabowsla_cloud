@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:sabowsla_server/features/dashboard/atoms/dashboard_tab_button.dart';
 
 class DashboardTabButtons extends StatelessWidget {
@@ -13,12 +12,18 @@ class DashboardTabButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
       height: 40,
-      child: ListView.builder(
+      decoration: BoxDecoration(
+        color: Colors.black,
+        borderRadius: BorderRadius.circular(15),
+      ),
+      child: ListView.separated(
         itemCount: tabs.length,
+        shrinkWrap: true,
         physics: const BouncingScrollPhysics(),
         scrollDirection: Axis.horizontal,
+        separatorBuilder: (c, i) => const SizedBox(width: 5),
         itemBuilder: (c, s) {
           return DashboardTabButton(
             e: tabs[s],
