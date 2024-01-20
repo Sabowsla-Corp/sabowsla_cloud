@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_function_literals_in_foreach_calls
+
 import 'package:flutter/material.dart';
 import 'package:sabowsla_server/core/presentation/atoms/data_point.dart';
 import 'package:sabowsla_server/core/styles.dart';
