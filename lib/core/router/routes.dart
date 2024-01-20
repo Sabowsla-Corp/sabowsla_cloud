@@ -4,6 +4,11 @@ enum Routes {
   home,
   authentication,
   database,
+  firestore,
+  functions,
+  realtime,
+  logs,
+  settings,
 }
 
 class RouteDrawer {

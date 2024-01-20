@@ -9,6 +9,9 @@ class CustomButtonIcon extends StatelessWidget {
     this.icon,
     this.padding,
     this.loading = false,
+    this.iconSize = 20,
+    this.iconColor,
+    this.textStyle,
   });
   final Function()? onTap;
   final Color? buttonColor;
@@ -16,12 +19,15 @@ class CustomButtonIcon extends StatelessWidget {
   final String? buttonText;
   final EdgeInsets? padding;
   final bool loading;
+  final double? iconSize;
+  final Color? iconColor;
+  final TextStyle? textStyle;
 
   @override
   Widget build(BuildContext context) {
     Widget buildSpacer() {
       if (buttonText != null && icon != null) {
-        return const SizedBox(width: 10);
+        return const SizedBox(width: 15);
       }
       return const SizedBox();
     }
@@ -56,13 +62,21 @@ class CustomButtonIcon extends StatelessWidget {
                     ],
                   )
                 : Row(
+                    mainAxisAlignment: buttonText == null
+                        ? MainAxisAlignment.center
+                        : MainAxisAlignment.start,
                     children: [
-                      Icon(icon),
+                      Icon(
+                        icon,
+                        size: iconSize,
+                        color: iconColor,
+                      ),
                       buildSpacer(),
                       buttonText != null
                           ? Text(
                               buttonText ?? '',
                               maxLines: 1,
+                              style: textStyle,
                             )
                           : const SizedBox(),
                     ],
