@@ -19,36 +19,32 @@ class _UsersPageViewHeaderState extends State<UsersPageViewHeader> {
         color: Colors.white24,
       ),
     );
-    return Container(
-      padding: const EdgeInsets.all(10),
-      height: 70,
-      child: Row(
-        children: [
-          Expanded(
-            flex: 3,
-            child: TextFormField(
-              style: styles14.white.applyW400,
-              decoration: InputDecoration.collapsed(
-                hintText: "Search for email, name, or UID",
-                border: outlineInputBorder,
-              ).copyWith(
-                contentPadding: const EdgeInsets.all(10),
-                enabledBorder: outlineInputBorder,
-                errorBorder: outlineInputBorder,
-              ),
+    return Row(
+      children: [
+        Expanded(
+          flex: 3,
+          child: TextFormField(
+            style: styles14.white.applyW400,
+            decoration: InputDecoration.collapsed(
+              hintText: "Search for email, name, or UID",
+              border: outlineInputBorder,
+            ).copyWith(
+              contentPadding: const EdgeInsets.all(10),
+              enabledBorder: outlineInputBorder,
+              errorBorder: outlineInputBorder,
             ),
           ),
-          const SizedBox(width: 10),
-          const CreateUserButton(),
-          const SizedBox(width: 10),
-          CustomButtonIcon(
-            icon: Icons.refresh,
-            onTap: () {
-              authController.loadRecentUsers();
-            },
-          ),
-        ],
-      ),
+        ),
+        const SizedBox(width: 10),
+        const CreateUserButton(),
+        const SizedBox(width: 10),
+        CustomButtonIcon(
+          icon: Icons.refresh,
+          onTap: () {
+            authController.loadRecentUsers();
+          },
+        ),
+      ],
     );
   }
 }

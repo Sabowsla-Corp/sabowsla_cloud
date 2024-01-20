@@ -24,6 +24,7 @@ class _ServerUIState extends State<ServerUI> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         fontFamily: GoogleFonts.poppins().fontFamily,
         colorScheme: const ColorScheme.dark(),

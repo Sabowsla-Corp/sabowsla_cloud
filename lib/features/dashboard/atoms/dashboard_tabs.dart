@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sabowsla_server/core/paddings.dart';
 import 'package:sabowsla_server/features/dashboard/atoms/dashboard_tab_button.dart';
 
 class DashboardTabButtons extends StatelessWidget {
@@ -13,7 +14,8 @@ class DashboardTabButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 40,
+      height: 35,
+      padding: paddings.horizontalv0,
       decoration: BoxDecoration(
         color: Colors.black,
         borderRadius: BorderRadius.circular(15),

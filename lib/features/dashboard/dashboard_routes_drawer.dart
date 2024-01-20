@@ -75,7 +75,14 @@ class _DashboardRoutesDrawerState extends State<DashboardRoutesDrawer> {
           Expanded(
             child: Column(
               children: [
-                const ProjectIcon(),
+                ProjectIcon(
+                  size: expanded ? 100 : 40,
+                  padding: expanded ? const EI.symmetric(vertical: 20) : null,
+                ),
+                ProjectName(
+                  expanded: expanded,
+                ),
+                const CustomDivider(),
                 ListView.separated(
                   itemCount: routes.length,
                   shrinkWrap: true,
@@ -96,16 +103,16 @@ class _DashboardRoutesDrawerState extends State<DashboardRoutesDrawer> {
     );
   }
 
-  void setRoute(Routes route) {
+  void setRoute(RouteDrawer route) {
     appStreams.routeStream.add(route);
   }
 
   Widget buildRoute(RouteDrawer route) {
-    return StreamBuilder<Routes>(
+    return StreamBuilder<RouteDrawer>(
       stream: appStreams.routeStream,
       builder: (context, snapshot) {
         var selectedRoute = appStreams.routeStream.value;
-        bool selected = selectedRoute == route.route;
+        bool selected = selectedRoute.route == route.route;
         var buttonColor = selected ? Colors.white10 : Colors.black;
         var textStyle =
             TextStyle(color: selected ? Colors.white : Colors.white54);
@@ -116,7 +123,7 @@ class _DashboardRoutesDrawerState extends State<DashboardRoutesDrawer> {
               child: CustomButtonIcon(
                 buttonText: expanded ? route.name : null,
                 onTap: () {
-                  setRoute(route.route);
+                  setRoute(route);
                 },
                 icon: route.icon,
                 buttonColor: buttonColor,
@@ -133,19 +140,39 @@ class _DashboardRoutesDrawerState extends State<DashboardRoutesDrawer> {
 }
 
 class ProjectIcon extends StatelessWidget {
-  const ProjectIcon({super.key});
+  const ProjectIcon({required this.size, super.key, this.padding});
+  final double size;
+  final EdgeInsets? padding;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: padding ?? const EdgeInsets.all(8.0),
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(50),
+        borderRadius: BorderRadius.circular(size),
         child: Assets.userIcons.male.image(
-          width: 40,
-          height: 40,
+          width: size,
+          height: size,
           fit: BoxFit.contain,
         ),
+      ),
+    );
+  }
+}
+
+class ProjectName extends StatelessWidget {
+  const ProjectName({required this.expanded, super.key});
+  final bool expanded;
+
+  @override
+  Widget build(BuildContext context) {
+    if (!expanded) return const SizedBox();
+    return Text(
+      'Sabowsla Server',
+      style: TextStyle(
+        color: Colors.white,
+        fontSize: expanded ? 20 : 8,
+        fontWeight: FontWeight.bold,
       ),
     );
   }

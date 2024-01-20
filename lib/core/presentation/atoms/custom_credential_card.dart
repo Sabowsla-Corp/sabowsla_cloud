@@ -27,18 +27,22 @@ class CustomCredentialCard extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 10),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
+          Row(
             children: [
-              Text(
-                userCredential.displayName,
-                style: const TextStyle(color: Colors.white),
-              ),
-              const SizedBox(height: 2),
-              Text(
-                userCredential.email,
-                style: const TextStyle(color: Colors.white54, fontSize: 12),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    userCredential.displayName,
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                  const SizedBox(height: 2),
+                  Text(
+                    userCredential.email,
+                    style: const TextStyle(color: Colors.white54, fontSize: 12),
+                  ),
+                ],
               ),
             ],
           ),

@@ -31,14 +31,17 @@ class _DashboardTabButtonState extends State<DashboardTabButton> {
       },
       buttonColor: Colors.black,
       border: Border.all(
-        color: widget.selected ? Colors.white24 : Colors.transparent,
+        color: widget.selected ? Colors.white12 : Colors.transparent,
+      ),
+      padding: EdgeInsets.symmetric(
+        horizontal: context.relative(15),
       ),
       child: Center(
         child: Text(
           widget.e.name,
           style: TextStyle(
-            color: Colors.white,
-            fontSize: context.relative(12),
+            color: widget.selected ? Colors.white : Colors.white38,
+            fontSize: context.relative(10),
             fontWeight: widget.selected ? FontWeight.bold : FontWeight.normal,
           ),
         ),

@@ -10,6 +10,8 @@ class Styles {
   TX get white30 => TX(color: Colors.white30, fontSize: s, fontFamily: _fon);
   TX get white24 => TX(color: Colors.white24, fontSize: s, fontFamily: _fon);
   TX get white54 => TX(color: Colors.white54, fontSize: s, fontFamily: _fon);
+
+  TX get white70 => TX(color: Colors.white70, fontSize: s, fontFamily: _fon);
   TX get white => TX(color: Colors.white, fontSize: s, fontFamily: _fon);
   TX get whiteBold => TX(
         color: Colors.white,

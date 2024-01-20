@@ -10,4 +10,9 @@ class Paddings {
   var all20 = const EdgeInsets.all(20);
   var all25 = const EdgeInsets.all(25);
   var all30 = const EdgeInsets.all(30);
+
+  var v0 = 8;
+  var v1 = 10;
+
+  var horizontalv0 = const EdgeInsets.symmetric(horizontal: 8);
 }

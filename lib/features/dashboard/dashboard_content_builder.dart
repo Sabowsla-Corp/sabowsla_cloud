@@ -18,35 +18,36 @@ class DashboardContentView extends StatelessWidget {
 
   Widget builder(c, s) {
     var route = appStreams.routeStream.value;
-    switch (route) {
+    switch (route.route) {
       case Routes.home:
-        return getBaseLayout('General');
+        return getBaseLayout(route);
       case Routes.database:
-        return getBaseLayout('Database');
+        return getBaseLayout(route);
       case Routes.authentication:
         return const AuthPage();
       case Routes.firestore:
-        return getBaseLayout('Firestore');
+        return getBaseLayout(route);
       case Routes.functions:
-        return getBaseLayout('Functions');
+        return getBaseLayout(route);
       case Routes.realtime:
-        return getBaseLayout('Realtime');
+        return getBaseLayout(route);
       case Routes.logs:
-        return getBaseLayout('Logs');
+        return getBaseLayout(route);
       case Routes.settings:
-        return getBaseLayout('Settings');
+        return getBaseLayout(route);
     }
   }
 
-  Widget getBaseLayout(String title) {
+  Widget getBaseLayout(RouteDrawer route) {
     return DashboardLayoutTemplate(
-      title: title,
+      title: route.name,
+      icon: route.icon,
       // ignore: use_colored_box
       child: Container(
         color: Colors.black87,
         child: Center(
           child: Text(
-            title,
+            route.name,
             style: const TextStyle(
               color: Colors.white,
               fontSize: 30,
