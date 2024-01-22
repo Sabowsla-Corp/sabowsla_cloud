@@ -5,7 +5,7 @@
   "entities": [
     {
       "id": "1:7564469805248504584",
-      "lastPropertyId": "6:8335910415887778948",
+      "lastPropertyId": "7:7708228299035446151",
       "name": "UserCredential",
       "properties": [
         {
@@ -37,6 +37,11 @@
         {
           "id": "6:8335910415887778948",
           "name": "photoBase64",
+          "type": 9
+        },
+        {
+          "id": "7:7708228299035446151",
+          "name": "passwordHash",
           "type": 9
         }
       ],

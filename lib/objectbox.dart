@@ -4,6 +4,7 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/foundation.dart';
 import 'package:sabowsla_server/features/auth/models/register_result_model.dart';
 import 'package:sabowsla_server/features/auth/models/user_credential_model.dart';
+import 'package:sabowsla_server/features/log/models/log_model.dart';
 import 'package:sabowsla_server/objectbox/objectbox.g.dart';
 import 'package:uuid/uuid.dart';
 
@@ -12,11 +13,13 @@ class ObjectBox {
 
   ObjectBox._create(this.store) {
     _usersDb = Box<UserCredential>(store);
+    logsDb = Box<LogModel>(store);
   }
+  late final Box<UserCredential> _usersDb;
+  late final Box<LogModel> logsDb;
   bool logLevel = true;
   late Store store;
 
-  late final Box<UserCredential> _usersDb;
   static Future<ObjectBox> create() async {
     final store = await openStore();
     return ObjectBox._create(store);

@@ -23,14 +23,17 @@ class AuthController {
   var displayedUsers = BehaviorSubject<List<UserCredential>>.seeded([]);
   var totalUsers = BehaviorSubject<int>.seeded(0);
   var currentTab = BehaviorSubject<Enum>.seeded(AuthViewTab.Users);
+  var loading = BehaviorSubject<bool>.seeded(false);
 
   void loadAllUsers() async {
+    loading.add(true);
     DateTime start = DateTime.now();
     appStreams.loadingIndicator.add(true);
     var users = await dataBaseDataSource.getUsers(offset: 0);
     displayedUsers.add(users);
     appStreams.loadingIndicator.add(false);
     DateTime end = DateTime.now();
+    loading.add(false);
     print("users loaded ${users.length} duration ${end.difference(start)}");
   }
 

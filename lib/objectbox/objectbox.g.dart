@@ -4,7 +4,7 @@
 // With a Dart package, run `dart run build_runner build`.
 // See also https://docs.objectbox.io/getting-started#generate-objectbox-code
 
-// ignore_for_file: camel_case_types, depend_on_referenced_packages, require_trailing_commas
+// ignore_for_file: camel_case_types, depend_on_referenced_packages
 // coverage:ignore-file
 
 import 'dart:typed_data';
@@ -14,7 +14,7 @@ import 'package:objectbox/internal.dart'; // generated code can access "internal
 import 'package:objectbox/objectbox.dart';
 import 'package:objectbox_flutter_libs/objectbox_flutter_libs.dart';
 
-import 'package:sabowsla_server/features/auth/models/user_credential_model.dart';
+import '../features/auth/models/user_credential_model.dart';
 
 export 'package:objectbox/objectbox.dart'; // so that callers only have to import this file
 
@@ -22,7 +22,7 @@ final _entities = <ModelEntity>[
   ModelEntity(
       id: const IdUid(1, 7564469805248504584),
       name: 'UserCredential',
-      lastPropertyId: const IdUid(6, 8335910415887778948),
+      lastPropertyId: const IdUid(7, 7708228299035446151),
       flags: 0,
       properties: <ModelProperty>[
         ModelProperty(
@@ -54,19 +54,18 @@ final _entities = <ModelEntity>[
             id: const IdUid(6, 8335910415887778948),
             name: 'photoBase64',
             type: 9,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(7, 7708228299035446151),
+            name: 'passwordHash',
+            type: 9,
             flags: 0)
       ],
       relations: <ModelRelation>[],
       backlinks: <ModelBacklink>[])
 ];
 
-/// Shortcut for [Store.new] that passes [getObjectBoxModel] and for Flutter
-/// apps by default a [directory] using `defaultStoreDirectory()` from the
-/// ObjectBox Flutter library.
-///
-/// Note: for desktop apps it is recommended to specify a unique [directory].
-///
-/// See [Store.new] for an explanation of all parameters.
+/// Open an ObjectBox store with the model declared in this file.
 Future<Store> openStore(
         {String? directory,
         int? maxDBSizeInKB,
@@ -82,8 +81,7 @@ Future<Store> openStore(
         queriesCaseSensitiveDefault: queriesCaseSensitiveDefault,
         macosApplicationGroup: macosApplicationGroup);
 
-/// Returns the ObjectBox model definition for this project for use with
-/// [Store.new].
+/// ObjectBox model definition, pass it to [Store] - Store(getObjectBoxModel())
 ModelDefinition getObjectBoxModel() {
   final model = ModelInfo(
       entities: _entities,
@@ -114,41 +112,36 @@ ModelDefinition getObjectBoxModel() {
           final uidOffset = fbb.writeString(object.uid);
           final creationDateOffset = fbb.writeString(object.creationDate);
           final photoBase64Offset = fbb.writeString(object.photoBase64);
-          fbb.startTable(7);
+          final passwordHashOffset = fbb.writeString(object.passwordHash);
+          fbb.startTable(8);
           fbb.addInt64(0, object.id);
           fbb.addOffset(1, emailOffset);
           fbb.addOffset(2, displayNameOffset);
           fbb.addOffset(3, uidOffset);
           fbb.addOffset(4, creationDateOffset);
           fbb.addOffset(5, photoBase64Offset);
+          fbb.addOffset(6, passwordHashOffset);
           fbb.finish(fbb.endTable());
           return object.id;
         },
         objectFromFB: (Store store, ByteData fbData) {
           final buffer = fb.BufferContext(fbData);
           final rootOffset = buffer.derefObject(0);
-          final emailParam = const fb.StringReader(asciiOptimization: true)
-              .vTableGet(buffer, rootOffset, 6, '');
-          final displayNameParam =
-              const fb.StringReader(asciiOptimization: true)
-                  .vTableGet(buffer, rootOffset, 8, '');
-          final uidParam = const fb.StringReader(asciiOptimization: true)
-              .vTableGet(buffer, rootOffset, 10, '');
-          final creationDateParam =
-              const fb.StringReader(asciiOptimization: true)
-                  .vTableGet(buffer, rootOffset, 12, '');
-          final photoBase64Param =
-              const fb.StringReader(asciiOptimization: true)
-                  .vTableGet(buffer, rootOffset, 14, '');
-          final idParam =
-              const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0);
+
           final object = UserCredential(
-              email: emailParam,
-              displayName: displayNameParam,
-              uid: uidParam,
-              creationDate: creationDateParam,
-              photoBase64: photoBase64Param,
-              id: idParam);
+              email: const fb.StringReader(asciiOptimization: true)
+                  .vTableGet(buffer, rootOffset, 6, ''),
+              displayName: const fb.StringReader(asciiOptimization: true)
+                  .vTableGet(buffer, rootOffset, 8, ''),
+              uid: const fb.StringReader(asciiOptimization: true)
+                  .vTableGet(buffer, rootOffset, 10, ''),
+              creationDate: const fb.StringReader(asciiOptimization: true)
+                  .vTableGet(buffer, rootOffset, 12, ''),
+              photoBase64: const fb.StringReader(asciiOptimization: true)
+                  .vTableGet(buffer, rootOffset, 14, ''),
+              passwordHash: const fb.StringReader(asciiOptimization: true)
+                  .vTableGet(buffer, rootOffset, 16, ''),
+              id: const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0));
 
           return object;
         })
@@ -182,4 +175,8 @@ class UserCredential_ {
   /// see [UserCredential.photoBase64]
   static final photoBase64 =
       QueryStringProperty<UserCredential>(_entities[0].properties[5]);
+
+  /// see [UserCredential.passwordHash]
+  static final passwordHash =
+      QueryStringProperty<UserCredential>(_entities[0].properties[6]);
 }
