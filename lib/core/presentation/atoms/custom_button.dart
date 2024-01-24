@@ -14,6 +14,7 @@ class CustomButton extends StatelessWidget {
     this.width,
     this.height,
     this.onHover,
+    this.tooltip,
   });
   final Function()? onTap;
   final Color? buttonColor;
@@ -26,6 +27,7 @@ class CustomButton extends StatelessWidget {
   final double? width;
   final double? height;
   final Function(bool)? onHover;
+  final String? tooltip;
 
   static Widget box({
     double? size,
@@ -99,43 +101,46 @@ class CustomButton extends StatelessWidget {
       ),
       child: Material(
         color: Colors.transparent,
-        child: InkWell(
-          borderRadius: BorderRadius.circular(5),
-          onTap: onTap,
-          onHover: onHover,
-          child: Padding(
-            padding: padding ??
-                const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 2,
-                ),
-            child: loading
-                ? Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.symmetric(
-                          horizontal: 15,
-                          vertical: 2,
+        child: Tooltip(
+          message: tooltip ?? '',
+          child: InkWell(
+            borderRadius: BorderRadius.circular(5),
+            onTap: onTap,
+            onHover: onHover,
+            child: Padding(
+              padding: padding ??
+                  const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 2,
+                  ),
+              child: loading
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.symmetric(
+                            horizontal: 15,
+                            vertical: 2,
+                          ),
+                          width: 15,
+                          height: 15,
+                          child: const CircularProgressIndicator(
+                            color: Colors.deepPurpleAccent,
+                            strokeWidth: 3,
+                          ),
                         ),
-                        width: 15,
-                        height: 15,
-                        child: const CircularProgressIndicator(
-                          color: Colors.deepPurpleAccent,
-                          strokeWidth: 3,
-                        ),
-                      ),
-                    ],
-                  )
-                : buttonText != null
-                    ? Text(
-                        buttonText ?? '',
-                        maxLines: 1,
-                        style: const TextStyle(
-                          color: Colors.white,
-                        ),
-                      )
-                    : child ?? Container(),
+                      ],
+                    )
+                  : buttonText != null
+                      ? Text(
+                          buttonText ?? '',
+                          maxLines: 1,
+                          style: const TextStyle(
+                            color: Colors.white,
+                          ),
+                        )
+                      : child ?? Container(),
+            ),
           ),
         ),
       ),
