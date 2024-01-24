@@ -68,6 +68,7 @@ class _ServerConfigurationCardState
           Text("Server Status: ${status.name}"),
           const Spacer(),
           CustomButton(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             loading: loading,
             buttonColor: status == LocalServerStatus.running
                 ? Colors.deepPurpleAccent

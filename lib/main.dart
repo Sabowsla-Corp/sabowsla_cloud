@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sabowsla_server/features/auth/source/auth_data_source.dart';
 import 'package:sabowsla_server/features/dashboard/dashboard_page.dart';
-import 'package:sabowsla_server/features/server/source/server_data_source.dart';
 import 'package:sabowsla_server/objectbox.dart';
 
 void main() async {
@@ -21,13 +20,6 @@ class ServerUI extends StatefulWidget {
 }
 
 class _ServerUIState extends State<ServerUI> {
-  @override
-  void initState() {
-    sabowslaServer.startRunningServer();
-
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

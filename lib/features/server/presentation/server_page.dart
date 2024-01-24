@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sabowsla_server/features/dashboard/dashboard_layout_template.dart';
+import 'package:sabowsla_server/features/server/presentation/server_code_example_card.dart';
 import 'package:sabowsla_server/features/server/presentation/server_configuration_card.dart';
+
+import 'package:sabowsla_server/features/server/presentation/server_logs_card.dart';
 
 class ServerPage extends StatelessWidget {
   const ServerPage({super.key});
@@ -12,9 +15,15 @@ class ServerPage extends StatelessWidget {
       title: "Server",
       icon: FontAwesomeIcons.server,
       // ignore: use_colored_box
-      child: Row(
+      child: Column(
         children: [
-          ServerConfigurationCard(),
+          Row(
+            children: [
+              ServerConfigurationCard(),
+              ServerCodeExampleCard(),
+            ],
+          ),
+          ServerLogsCard(),
         ],
       ),
     );

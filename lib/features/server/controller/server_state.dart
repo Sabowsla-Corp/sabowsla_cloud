@@ -1,3 +1,4 @@
+import 'package:sabowsla_server/features/log/models/log_model.dart';
 import 'package:sabowsla_server/features/server/models/local_server_status.dart';
 
 class ServerState {
@@ -6,22 +7,30 @@ class ServerState {
     required this.cors,
     required this.port,
     required this.localServerStatus,
+    required this.logs,
+    required this.jwtSecret,
   });
   final bool cors;
   final int port;
   final bool verbose;
   final LocalServerStatus localServerStatus;
+  final List<LogModel> logs;
+  final String jwtSecret;
   ServerState copyWith({
     bool? cors,
     int? port,
     bool? verbose,
     LocalServerStatus? localServerStatus,
+    List<LogModel>? logs,
+    String? jwtSecret,
   }) {
     return ServerState(
       cors: cors ?? this.cors,
       port: port ?? this.port,
       verbose: verbose ?? this.verbose,
       localServerStatus: localServerStatus ?? this.localServerStatus,
+      logs: logs ?? this.logs,
+      jwtSecret: jwtSecret ?? this.jwtSecret,
     );
   }
 }

@@ -3,12 +3,14 @@ import 'dart:developer';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:sabowsla_server/api/env.dart';
 import 'package:sabowsla_server/features/auth/models/delete_user_result.dart';
 import 'package:sabowsla_server/features/auth/models/login_request_model.dart';
 import 'package:sabowsla_server/features/auth/models/login_result_model.dart';
 import 'package:sabowsla_server/features/auth/models/register_request_model.dart';
 import 'package:sabowsla_server/features/auth/models/register_result_model.dart';
 import 'package:sabowsla_server/features/auth/models/user_credential_model.dart';
+import 'package:sabowsla_server/features/auth/source/auth_jwt.dart';
 import 'package:sabowsla_server/objectbox/objectbox.g.dart';
 import 'package:uuid/uuid.dart';
 
@@ -104,11 +106,18 @@ class AuthDataSourceImpl implements AuthDataSource {
         .build()
         .findFirst();
     if (user == null) {
-      return LoginResult(error: LoginError.userNotFound);
+      return LoginResult.errored(
+        LoginError.userNotFound,
+      );
     }
     if (user.passwordHash == request.password) {
-      return LoginResult(userCredential: user);
+      //Create a token for this user using crypto package
+      var jwtToken = createJwt(user.toMapSimple(), jwtSecret);
+
+      return LoginResult.success(user, jwtToken);
     }
-    return LoginResult(error: LoginError.unknown);
+    return LoginResult.errored(
+      LoginError.wrongPassword,
+    );
   }
 }

@@ -70,8 +70,16 @@ class UserCredential {
         'uid': uid,
         'creationDate': creationDate,
         'photoBase64': photoBase64,
-        'passwordHash': passwordHash,
       };
+
+  Map<String, dynamic> toMapSimple() {
+    return {
+      'email': email,
+      'displayName': displayName,
+      'uid': uid,
+      'creationDate': creationDate?.toIso8601String(),
+    };
+  }
 
   @override
   String toString() {
