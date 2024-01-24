@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:objectbox/objectbox.dart';
+import 'package:sabowsla_server/features/auth/models/register_request_model.dart';
 import 'package:sabowsla_server/features/auth/presentation/users_page_view/user_credential_property.dart';
 
 @Entity()
@@ -24,8 +25,8 @@ class UserCredential {
   String displayName;
   @Property()
   String uid;
-  @Property()
-  String creationDate;
+  @Property(type: PropertyType.date)
+  DateTime? creationDate;
   @Property()
   String photoBase64;
   @Property()
@@ -35,7 +36,11 @@ class UserCredential {
         UIProperty(Icons.numbers, uid, 2),
         UIProperty(Icons.person, displayName, 2),
         UIProperty(Icons.email, email, 2),
-        UIProperty(Icons.calendar_month, creationDate, 2),
+        UIProperty(
+          Icons.calendar_month,
+          creationDate?.toIso8601String() ?? '',
+          2,
+        ),
         UIProperty(Icons.image, photoBase64, 1),
       ];
 
@@ -81,7 +86,7 @@ class UserCredential {
       email: randomEmail,
       displayName: "displayName",
       uid: "",
-      creationDate: "creationDate",
+      creationDate: DateTime.now(),
       photoBase64: "",
       passwordHash: "asdasd",
     );
@@ -97,4 +102,13 @@ class UIProperty {
   final IconData icon;
   final String property;
   final int flex;
+}
+
+extension UserCredentialExtension on UserCredential {
+  RegisterRequest asRegisterRequest() {
+    return RegisterRequest(
+      email: email,
+      passwordHash: passwordHash,
+    );
+  }
 }

@@ -30,7 +30,7 @@ class _CreateUserModalWidgetState extends State<CreateUserModalWidget> {
     displayName: "",
     email: "",
     uid: "",
-    creationDate: "",
+    creationDate: DateTime.now(),
     photoBase64: "",
   );
 

@@ -10,11 +10,13 @@ import 'package:image_compression_flutter/image_compression_flutter.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:sabowsla_server/core/app_streams.dart';
+import 'package:sabowsla_server/features/auth/models/delete_user_result.dart';
+
 import 'package:sabowsla_server/features/auth/models/register_result_model.dart';
 import 'package:sabowsla_server/features/auth/models/user_credential_model.dart';
 import 'package:sabowsla_server/features/auth/presentation/auth_view_tabs.dart';
 import 'package:sabowsla_server/features/auth/presentation/modals/create_user_modal_widget.dart';
-import 'package:sabowsla_server/features/database/data_base_data_source.dart';
+import 'package:sabowsla_server/features/auth/source/auth_data_source.dart';
 
 var authController = AuthController();
 
@@ -29,7 +31,7 @@ class AuthController {
     loading.add(true);
     DateTime start = DateTime.now();
     appStreams.loadingIndicator.add(true);
-    var users = await dataBaseDataSource.getUsers(offset: 0);
+    var users = await authDataSource.getAllUsers();
     displayedUsers.add(users);
     appStreams.loadingIndicator.add(false);
     DateTime end = DateTime.now();
@@ -40,7 +42,7 @@ class AuthController {
   void loadRecentUsers() async {
     DateTime start = DateTime.now();
     appStreams.loadingIndicator.add(true);
-    var users = await dataBaseDataSource.getUsers(offset: 0);
+    var users = await authDataSource.getAllUsers();
     displayedUsers.add(users);
     appStreams.loadingIndicator.add(false);
     DateTime end = DateTime.now();
@@ -52,8 +54,8 @@ class AuthController {
   }
 
   void deleteUser(String uid) async {
-    bool deleted = await dataBaseDataSource.deleteUser(uid);
-    if (deleted) {
+    DeleteUserResult result = await authDataSource.deleteUser(uid);
+    if (result.deleted) {
       var list = displayedUsers.value;
       list.removeWhere((element) => element.uid == uid);
       displayedUsers.add(list);
@@ -76,7 +78,7 @@ class AuthController {
   }
 
   Future<RegisterResult> createUser(UserCredential user) async {
-    var result = await dataBaseDataSource.registerUser(user);
+    var result = await authDataSource.register(user.asRegisterRequest());
     if (result.error == null) {
       var list = [user, ...displayedUsers.value];
       displayedUsers.add(list);

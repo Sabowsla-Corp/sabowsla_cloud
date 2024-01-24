@@ -1,13 +1,24 @@
+import 'package:sabowsla_server/features/auth/models/user_credential_model.dart';
+
 class RegisterRequest {
   RegisterRequest({
     required this.email,
-    required this.password,
+    required this.passwordHash,
   });
   final String email;
-  final String password;
+  final String passwordHash;
 
   Map<String, dynamic> toJson() => {
         'email': email,
-        'password': password,
+        'passwordHash': passwordHash,
       };
+
+  UserCredential get asUserCredential => UserCredential(
+        email: email,
+        displayName: email,
+        uid: '',
+        creationDate: DateTime.now(),
+        photoBase64: '',
+        passwordHash: passwordHash,
+      );
 }

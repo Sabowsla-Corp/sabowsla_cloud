@@ -4,7 +4,7 @@
 // With a Dart package, run `dart run build_runner build`.
 // See also https://docs.objectbox.io/getting-started#generate-objectbox-code
 
-// ignore_for_file: camel_case_types, depend_on_referenced_packages, require_trailing_commas, always_use_package_imports
+// ignore_for_file: camel_case_types, depend_on_referenced_packages, always_use_package_imports, require_trailing_commas
 // coverage:ignore-file
 
 import 'dart:typed_data';
@@ -49,7 +49,7 @@ final _entities = <ModelEntity>[
         ModelProperty(
             id: const IdUid(5, 746938658343397371),
             name: 'creationDate',
-            type: 9,
+            type: 10,
             flags: 0),
         ModelProperty(
             id: const IdUid(6, 8335910415887778948),
@@ -152,7 +152,6 @@ ModelDefinition getObjectBoxModel() {
           final emailOffset = fbb.writeString(object.email);
           final displayNameOffset = fbb.writeString(object.displayName);
           final uidOffset = fbb.writeString(object.uid);
-          final creationDateOffset = fbb.writeString(object.creationDate);
           final photoBase64Offset = fbb.writeString(object.photoBase64);
           final passwordHashOffset = fbb.writeString(object.passwordHash);
           fbb.startTable(8);
@@ -160,7 +159,7 @@ ModelDefinition getObjectBoxModel() {
           fbb.addOffset(1, emailOffset);
           fbb.addOffset(2, displayNameOffset);
           fbb.addOffset(3, uidOffset);
-          fbb.addOffset(4, creationDateOffset);
+          fbb.addInt64(4, object.creationDate?.millisecondsSinceEpoch);
           fbb.addOffset(5, photoBase64Offset);
           fbb.addOffset(6, passwordHashOffset);
           fbb.finish(fbb.endTable());
@@ -169,6 +168,8 @@ ModelDefinition getObjectBoxModel() {
         objectFromFB: (Store store, ByteData fbData) {
           final buffer = fb.BufferContext(fbData);
           final rootOffset = buffer.derefObject(0);
+          final creationDateValue =
+              const fb.Int64Reader().vTableGetNullable(buffer, rootOffset, 12);
           final emailParam = const fb.StringReader(asciiOptimization: true)
               .vTableGet(buffer, rootOffset, 6, '');
           final displayNameParam =
@@ -176,9 +177,9 @@ ModelDefinition getObjectBoxModel() {
                   .vTableGet(buffer, rootOffset, 8, '');
           final uidParam = const fb.StringReader(asciiOptimization: true)
               .vTableGet(buffer, rootOffset, 10, '');
-          final creationDateParam =
-              const fb.StringReader(asciiOptimization: true)
-                  .vTableGet(buffer, rootOffset, 12, '');
+          final creationDateParam = creationDateValue == null
+              ? null
+              : DateTime.fromMillisecondsSinceEpoch(creationDateValue);
           final photoBase64Param =
               const fb.StringReader(asciiOptimization: true)
                   .vTableGet(buffer, rootOffset, 14, '');
@@ -266,7 +267,7 @@ class UserCredential_ {
 
   /// see [UserCredential.creationDate]
   static final creationDate =
-      QueryStringProperty<UserCredential>(_entities[0].properties[4]);
+      QueryIntegerProperty<UserCredential>(_entities[0].properties[4]);
 
   /// see [UserCredential.photoBase64]
   static final photoBase64 =
