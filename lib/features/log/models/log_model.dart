@@ -1,4 +1,4 @@
-import 'package:sabowsla_server/objectbox/objectbox.g.dart';
+import 'package:objectbox/objectbox.dart';
 
 @Entity()
 class LogModel {
@@ -14,8 +14,8 @@ class LogModel {
   int id;
   @Property()
   final String log;
-  @Property()
-  final String date;
+  @Property(type: PropertyType.date)
+  final DateTime date;
   @Property()
   final String severity;
   @Property()
@@ -24,7 +24,7 @@ class LogModel {
   LogModel copyWith({
     int? id,
     String? log,
-    String? date,
+    DateTime? date,
     String? severity,
     String? source,
   }) {

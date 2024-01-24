@@ -46,9 +46,43 @@
         }
       ],
       "relations": []
+    },
+    {
+      "id": "2:8042770405943039730",
+      "lastPropertyId": "5:5178964928888496354",
+      "name": "LogModel",
+      "properties": [
+        {
+          "id": "1:5651948883757028595",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:4314513446878018759",
+          "name": "log",
+          "type": 9
+        },
+        {
+          "id": "3:1814513725563379981",
+          "name": "date",
+          "type": 10
+        },
+        {
+          "id": "4:7111021189713135717",
+          "name": "severity",
+          "type": 9
+        },
+        {
+          "id": "5:5178964928888496354",
+          "name": "source",
+          "type": 9
+        }
+      ],
+      "relations": []
     }
   ],
-  "lastEntityId": "1:7564469805248504584",
+  "lastEntityId": "2:8042770405943039730",
   "lastIndexId": "0:0",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",

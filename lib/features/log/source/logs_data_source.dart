@@ -23,29 +23,31 @@ class LogsDataSourceImpl implements LogsDataSource {
   Box<LogModel> get logsDb => box.logsDb;
 
   @override
-  List<LogModel> getAll() {
-    return logsDb.getAll();
-  }
+  List<LogModel> getAll() => logsDb.getAll();
 
   @override
   Future<List<LogModel>> getByDateRange({
     required DateTime start,
     required DateTime end,
   }) async {
-    await ensureOpen();
-    return await box.getLogsByDateRange(
-      start: start,
-      end: end,
-    );
+    return logsDb
+        .query(
+          LogModel_.date.between(
+            start.millisecondsSinceEpoch,
+            end.millisecondsSinceEpoch,
+          ),
+        )
+        .build()
+        .find();
   }
 
   @override
   Future<List<LogModel>> getByDate({
     required DateTime date,
   }) async {
-    await ensureOpen();
-    return await box.getLogsByDate(
-      date: date,
-    );
+    return logsDb
+        .query(LogModel_.date.equals(date.millisecondsSinceEpoch))
+        .build()
+        .find();
   }
 }

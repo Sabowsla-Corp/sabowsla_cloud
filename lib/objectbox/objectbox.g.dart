@@ -4,7 +4,7 @@
 // With a Dart package, run `dart run build_runner build`.
 // See also https://docs.objectbox.io/getting-started#generate-objectbox-code
 
-// ignore_for_file: camel_case_types, depend_on_referenced_packages
+// ignore_for_file: camel_case_types, depend_on_referenced_packages, require_trailing_commas, always_use_package_imports
 // coverage:ignore-file
 
 import 'dart:typed_data';
@@ -15,6 +15,7 @@ import 'package:objectbox/objectbox.dart';
 import 'package:objectbox_flutter_libs/objectbox_flutter_libs.dart';
 
 import '../features/auth/models/user_credential_model.dart';
+import '../features/log/models/log_model.dart';
 
 export 'package:objectbox/objectbox.dart'; // so that callers only have to import this file
 
@@ -62,10 +63,50 @@ final _entities = <ModelEntity>[
             flags: 0)
       ],
       relations: <ModelRelation>[],
+      backlinks: <ModelBacklink>[]),
+  ModelEntity(
+      id: const IdUid(2, 8042770405943039730),
+      name: 'LogModel',
+      lastPropertyId: const IdUid(5, 5178964928888496354),
+      flags: 0,
+      properties: <ModelProperty>[
+        ModelProperty(
+            id: const IdUid(1, 5651948883757028595),
+            name: 'id',
+            type: 6,
+            flags: 1),
+        ModelProperty(
+            id: const IdUid(2, 4314513446878018759),
+            name: 'log',
+            type: 9,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(3, 1814513725563379981),
+            name: 'date',
+            type: 10,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(4, 7111021189713135717),
+            name: 'severity',
+            type: 9,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(5, 5178964928888496354),
+            name: 'source',
+            type: 9,
+            flags: 0)
+      ],
+      relations: <ModelRelation>[],
       backlinks: <ModelBacklink>[])
 ];
 
-/// Open an ObjectBox store with the model declared in this file.
+/// Shortcut for [Store.new] that passes [getObjectBoxModel] and for Flutter
+/// apps by default a [directory] using `defaultStoreDirectory()` from the
+/// ObjectBox Flutter library.
+///
+/// Note: for desktop apps it is recommended to specify a unique [directory].
+///
+/// See [Store.new] for an explanation of all parameters.
 Future<Store> openStore(
         {String? directory,
         int? maxDBSizeInKB,
@@ -81,11 +122,12 @@ Future<Store> openStore(
         queriesCaseSensitiveDefault: queriesCaseSensitiveDefault,
         macosApplicationGroup: macosApplicationGroup);
 
-/// ObjectBox model definition, pass it to [Store] - Store(getObjectBoxModel())
+/// Returns the ObjectBox model definition for this project for use with
+/// [Store.new].
 ModelDefinition getObjectBoxModel() {
   final model = ModelInfo(
       entities: _entities,
-      lastEntityId: const IdUid(1, 7564469805248504584),
+      lastEntityId: const IdUid(2, 8042770405943039730),
       lastIndexId: const IdUid(0, 0),
       lastRelationId: const IdUid(0, 0),
       lastSequenceId: const IdUid(0, 0),
@@ -127,21 +169,75 @@ ModelDefinition getObjectBoxModel() {
         objectFromFB: (Store store, ByteData fbData) {
           final buffer = fb.BufferContext(fbData);
           final rootOffset = buffer.derefObject(0);
-
+          final emailParam = const fb.StringReader(asciiOptimization: true)
+              .vTableGet(buffer, rootOffset, 6, '');
+          final displayNameParam =
+              const fb.StringReader(asciiOptimization: true)
+                  .vTableGet(buffer, rootOffset, 8, '');
+          final uidParam = const fb.StringReader(asciiOptimization: true)
+              .vTableGet(buffer, rootOffset, 10, '');
+          final creationDateParam =
+              const fb.StringReader(asciiOptimization: true)
+                  .vTableGet(buffer, rootOffset, 12, '');
+          final photoBase64Param =
+              const fb.StringReader(asciiOptimization: true)
+                  .vTableGet(buffer, rootOffset, 14, '');
+          final passwordHashParam =
+              const fb.StringReader(asciiOptimization: true)
+                  .vTableGet(buffer, rootOffset, 16, '');
+          final idParam =
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0);
           final object = UserCredential(
-              email: const fb.StringReader(asciiOptimization: true)
-                  .vTableGet(buffer, rootOffset, 6, ''),
-              displayName: const fb.StringReader(asciiOptimization: true)
-                  .vTableGet(buffer, rootOffset, 8, ''),
-              uid: const fb.StringReader(asciiOptimization: true)
-                  .vTableGet(buffer, rootOffset, 10, ''),
-              creationDate: const fb.StringReader(asciiOptimization: true)
-                  .vTableGet(buffer, rootOffset, 12, ''),
-              photoBase64: const fb.StringReader(asciiOptimization: true)
-                  .vTableGet(buffer, rootOffset, 14, ''),
-              passwordHash: const fb.StringReader(asciiOptimization: true)
-                  .vTableGet(buffer, rootOffset, 16, ''),
-              id: const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0));
+              email: emailParam,
+              displayName: displayNameParam,
+              uid: uidParam,
+              creationDate: creationDateParam,
+              photoBase64: photoBase64Param,
+              passwordHash: passwordHashParam,
+              id: idParam);
+
+          return object;
+        }),
+    LogModel: EntityDefinition<LogModel>(
+        model: _entities[1],
+        toOneRelations: (LogModel object) => [],
+        toManyRelations: (LogModel object) => {},
+        getId: (LogModel object) => object.id,
+        setId: (LogModel object, int id) {
+          object.id = id;
+        },
+        objectToFB: (LogModel object, fb.Builder fbb) {
+          final logOffset = fbb.writeString(object.log);
+          final severityOffset = fbb.writeString(object.severity);
+          final sourceOffset = fbb.writeString(object.source);
+          fbb.startTable(6);
+          fbb.addInt64(0, object.id);
+          fbb.addOffset(1, logOffset);
+          fbb.addInt64(2, object.date.millisecondsSinceEpoch);
+          fbb.addOffset(3, severityOffset);
+          fbb.addOffset(4, sourceOffset);
+          fbb.finish(fbb.endTable());
+          return object.id;
+        },
+        objectFromFB: (Store store, ByteData fbData) {
+          final buffer = fb.BufferContext(fbData);
+          final rootOffset = buffer.derefObject(0);
+          final logParam = const fb.StringReader(asciiOptimization: true)
+              .vTableGet(buffer, rootOffset, 6, '');
+          final dateParam = DateTime.fromMillisecondsSinceEpoch(
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 8, 0));
+          final severityParam = const fb.StringReader(asciiOptimization: true)
+              .vTableGet(buffer, rootOffset, 10, '');
+          final sourceParam = const fb.StringReader(asciiOptimization: true)
+              .vTableGet(buffer, rootOffset, 12, '');
+          final idParam =
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0);
+          final object = LogModel(
+              log: logParam,
+              date: dateParam,
+              severity: severityParam,
+              source: sourceParam,
+              id: idParam);
 
           return object;
         })
@@ -179,4 +275,25 @@ class UserCredential_ {
   /// see [UserCredential.passwordHash]
   static final passwordHash =
       QueryStringProperty<UserCredential>(_entities[0].properties[6]);
+}
+
+/// [LogModel] entity fields to define ObjectBox queries.
+class LogModel_ {
+  /// see [LogModel.id]
+  static final id = QueryIntegerProperty<LogModel>(_entities[1].properties[0]);
+
+  /// see [LogModel.log]
+  static final log = QueryStringProperty<LogModel>(_entities[1].properties[1]);
+
+  /// see [LogModel.date]
+  static final date =
+      QueryIntegerProperty<LogModel>(_entities[1].properties[2]);
+
+  /// see [LogModel.severity]
+  static final severity =
+      QueryStringProperty<LogModel>(_entities[1].properties[3]);
+
+  /// see [LogModel.source]
+  static final source =
+      QueryStringProperty<LogModel>(_entities[1].properties[4]);
 }
