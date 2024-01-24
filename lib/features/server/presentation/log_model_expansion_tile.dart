@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sabowsla_server/core/presentation/atoms/custom_button.dart';
@@ -14,6 +13,7 @@ class LogModelExpansionTile extends StatefulWidget {
 }
 
 class _LogModelExpansionTileState extends State<LogModelExpansionTile> {
+  bool expanded = false;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -22,11 +22,21 @@ class _LogModelExpansionTileState extends State<LogModelExpansionTile> {
         children: [
           Row(
             children: [
-              const CustomButton(
-                child: Icon(
-                  FontAwesomeIcons.chevronRight,
-                  color: Colors.white,
-                  size: 8,
+              CustomButton(
+                onTap: () {
+                  setState(() {
+                    expanded = !expanded;
+                  });
+                },
+                tooltip: expanded ? "Collapse" : "Expand",
+                child: AnimatedRotation(
+                  duration: const Duration(milliseconds: 200),
+                  turns: expanded ? 0.25 : 0,
+                  child: const Icon(
+                    FontAwesomeIcons.chevronRight,
+                    color: Colors.white,
+                    size: 8,
+                  ),
                 ),
               ),
               const SizedBox(width: 5),
@@ -45,20 +55,42 @@ class _LogModelExpansionTileState extends State<LogModelExpansionTile> {
               ),
               const SizedBox(width: 5),
               Expanded(
-                child: Tooltip(
-                  message: "Copy Log",
-                  child: InkWell(
-                    onTap: () {},
-                    child: Text(
-                      widget.log.log,
-                      style: styles12.white70,
-                      maxLines: 1,
-                    ),
-                  ),
+                child: Text(
+                  widget.log.log,
+                  style: styles12.white70,
+                  maxLines: 1,
+                ),
+              ),
+              const SizedBox(width: 5),
+              //COPY
+              CustomButton(
+                onTap: () {},
+                tooltip: "Copy Log",
+                child: const Icon(
+                  FontAwesomeIcons.copy,
+                  color: Colors.white,
+                  size: 15,
                 ),
               ),
             ],
           ),
+          expanded
+              ? Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  child: Row(
+                    children: [
+                      const SizedBox(width: 20),
+                      Flexible(
+                        child: Text(
+                          widget.log.log,
+                          style: styles12.white70,
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              : const SizedBox(),
         ],
       ),
     );

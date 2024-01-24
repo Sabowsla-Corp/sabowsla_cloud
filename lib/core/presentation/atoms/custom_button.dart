@@ -103,6 +103,7 @@ class CustomButton extends StatelessWidget {
         color: Colors.transparent,
         child: Tooltip(
           message: tooltip ?? '',
+          waitDuration: const Duration(milliseconds: 500),
           child: InkWell(
             borderRadius: BorderRadius.circular(5),
             onTap: onTap,
