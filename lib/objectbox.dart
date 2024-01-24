@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:path_provider/path_provider.dart';
 import 'package:sabowsla_server/features/auth/models/user_credential_model.dart';
 import 'package:sabowsla_server/features/log/models/log_model.dart';
 import 'package:sabowsla_server/objectbox/objectbox.g.dart';
@@ -15,7 +18,14 @@ class ObjectBox {
   late Store store;
 
   static Future<ObjectBox> create() async {
-    final store = await openStore();
-    return ObjectBox._create(store);
+    try {
+      final store = await openStore();
+      return ObjectBox._create(store);
+    } catch (e) {
+      log('Error creating objectbox: $e');
+      var newPath = await getApplicationDocumentsDirectory();
+      final store = await openStore(directory: newPath.path);
+      return ObjectBox._create(store);
+    }
   }
 }

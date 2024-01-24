@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sabowsla_server/features/auth/source/auth_data_source.dart';
 import 'package:sabowsla_server/features/dashboard/dashboard_page.dart';
-import 'package:sabowsla_server/features/server/sabowsla_server.dart';
+import 'package:sabowsla_server/features/server/source/server_data_source.dart';
 import 'package:sabowsla_server/objectbox.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   var box = await ObjectBox.create();
   authDataSource.usersDb = box.usersDb;
-  runApp(const ServerUI());
+  runApp(const ProviderScope(child: ServerUI()));
 }
 
 class ServerUI extends StatefulWidget {

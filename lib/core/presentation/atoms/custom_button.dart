@@ -110,14 +110,19 @@ class CustomButton extends StatelessWidget {
                   vertical: 2,
                 ),
             child: loading
-                ? const Row(
+                ? Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SizedBox(
-                        width: 20,
-                        height: 20,
-                        child: CircularProgressIndicator(
-                          color: Colors.deepPurple,
+                      Container(
+                        margin: const EdgeInsets.symmetric(
+                          horizontal: 15,
+                          vertical: 2,
+                        ),
+                        width: 15,
+                        height: 15,
+                        child: const CircularProgressIndicator(
+                          color: Colors.deepPurpleAccent,
+                          strokeWidth: 3,
                         ),
                       ),
                     ],

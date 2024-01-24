@@ -9,6 +9,7 @@ enum Routes {
   realtime,
   logs,
   settings,
+  server
 }
 
 class RouteDrawer {

@@ -44,7 +44,7 @@ class _DashboardRoutesDrawerState extends State<DashboardRoutesDrawer> {
     ),
     RouteDrawer(
       route: Routes.functions,
-      name: 'Funtions',
+      name: 'Functions',
       icon: FontAwesomeIcons.connectdevelop,
     ),
     RouteDrawer(
@@ -56,6 +56,11 @@ class _DashboardRoutesDrawerState extends State<DashboardRoutesDrawer> {
       route: Routes.logs,
       name: 'Logs',
       icon: FontAwesomeIcons.bars,
+    ),
+    RouteDrawer(
+      route: Routes.server,
+      name: 'Server',
+      icon: FontAwesomeIcons.server,
     ),
     RouteDrawer(
       route: Routes.settings,

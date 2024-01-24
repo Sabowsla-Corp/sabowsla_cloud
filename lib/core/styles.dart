@@ -20,6 +20,8 @@ class Styles {
         fontWeight: FontWeight.bold,
       );
 
+  TX get grey => TX(color: Colors.grey, fontSize: s, fontFamily: _fon);
+
   String? get _fon => GoogleFonts.poppins().fontFamily;
 }
 
