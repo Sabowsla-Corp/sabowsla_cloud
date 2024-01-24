@@ -18,8 +18,8 @@ dependencies:
   google_fonts: ^4.0.0
   http: ^0.13.5
   http_parser: ^4.0.2
-  objectbox: ^2.4.0
-  objectbox_flutter_libs: ^2.4.0
+  objectbox: ^2.0.0
+  objectbox_flutter_libs: any
   path_provider: ^2.1.1
   responsive_builder: ^0.7.0
   rxdart: ^0.27.7
@@ -36,8 +36,8 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   riverpod_generator: ^2.3.1
   build_runner: ^2.3.0
-  objectbox_generator: ^2.0.0
-  flutter_gen_runner:
+  objectbox_generator: any
+  flutter_gen_runner: any
 
 
 objectbox:
