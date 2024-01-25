@@ -26,33 +26,30 @@ class _ServerConfigurationCardState
     bool cors = ref.watch(serverControllerProvider).cors;
     int port = ref.watch(serverControllerProvider).port;
     return Expanded(
-      child: Container(
-        padding: const EdgeInsets.all(4),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              "Start a local HTTP server that behaves like a firebase API",
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            "Start a local HTTP server that behaves like a firebase API",
+          ),
+          const SizedBox(height: 20),
+          CustomCard(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Configuration",
+                  style: styles12.grey,
+                ),
+                const CustomDivider(),
+                buildServerPortField(port, ref),
+                buildCorsToggle(cors, ref),
+                buildVerboseToggle(ref),
+                buildServerStatusButton(),
+              ],
             ),
-            const SizedBox(height: 20),
-            CustomCard(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Configuration",
-                    style: styles12.grey,
-                  ),
-                  const CustomDivider(),
-                  buildServerPortField(port, ref),
-                  buildCorsToggle(cors, ref),
-                  buildVerboseToggle(ref),
-                  buildServerStatusButton(),
-                ],
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

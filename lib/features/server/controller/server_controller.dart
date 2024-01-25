@@ -44,8 +44,17 @@ class ServerController extends _$ServerController {
         state = state.copyWith(localServerStatus: LocalServerStatus.running);
         log('Local server started at port ${state.port}');
       }
-    } else {
-      state = state.copyWith(localServerStatus: LocalServerStatus.stopped);
+    }
+    if (state.localServerStatus == LocalServerStatus.running) {
+      state = state.copyWith(localServerStatus: LocalServerStatus.stopping);
+      bool stoped = await sabowslaServer.stop();
+      if (stoped) {
+        state = state.copyWith(localServerStatus: LocalServerStatus.stopped);
+        log('Local server stopped');
+      } else {
+        state = state.copyWith(localServerStatus: LocalServerStatus.running);
+        log('Error stopping local server');
+      }
     }
   }
 

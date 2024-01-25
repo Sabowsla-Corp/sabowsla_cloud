@@ -11,9 +11,14 @@ class SabowslaServer {
   ServerSettings serverSettings = ServerSettings.defaultSettings();
   HttpServer? server;
 
-  Future<String?> stop() async {
-    await server?.close(force: true);
-    return null;
+  Future<bool> stop() async {
+    try {
+      await server?.close(force: true);
+      server = null;
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 
   Future<String?> start(
