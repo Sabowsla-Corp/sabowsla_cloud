@@ -5,8 +5,11 @@ import 'package:sabowsla_server/features/auth/source/auth_data_source.dart';
 import 'package:sabowsla_server/features/dashboard/dashboard_page.dart';
 import 'package:sabowsla_server/objectbox.dart';
 
+import 'package:window_manager/window_manager.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await windowManager.ensureInitialized();
   var box = await ObjectBox.create();
   authDataSource.usersDb = box.usersDb;
   runApp(const ProviderScope(child: ServerUI()));
@@ -24,6 +27,7 @@ class _ServerUIState extends State<ServerUI> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      navigatorKey: navigatorKey,
       theme: ThemeData(
         fontFamily: GoogleFonts.poppins().fontFamily,
         colorScheme: const ColorScheme.dark(),
@@ -32,3 +36,5 @@ class _ServerUIState extends State<ServerUI> {
     );
   }
 }
+
+var navigatorKey = GlobalKey<NavigatorState>();

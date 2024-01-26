@@ -5,6 +5,7 @@ import 'package:sabowsla_server/features/server/presentation/client_code_example
 import 'package:sabowsla_server/features/server/presentation/server_configuration_card.dart';
 
 import 'package:sabowsla_server/features/server/presentation/server_logs_card.dart';
+import 'package:sabowsla_server/features/server/presentation/server_web_view.dart';
 
 class ServerPage extends StatelessWidget {
   const ServerPage({super.key});
@@ -27,7 +28,12 @@ class ServerPage extends StatelessWidget {
               ],
             ),
             SizedBox(height: 4),
-            ServerLogsCard(),
+            Row(
+              children: [
+                Expanded(child: ServerLogsCard()),
+                ServerWebView(),
+              ],
+            ),
           ],
         ),
       ),

@@ -31,6 +31,8 @@ dependencies:
   ionicons: ^0.2.2
   flutter_riverpod: ^2.4.9
   riverpod_annotation: ^2.3.3
+  webview_windows: ^0.3.0
+  window_manager: ^0.3.7
 
 dev_dependencies:
   flutter_test:

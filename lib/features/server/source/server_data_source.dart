@@ -59,25 +59,30 @@ class SabowslaServer {
   Future<bool> loginEndPoint(HttpRequest request) async {
     bool called = request.uri.path == 'login';
     bool post = request.method == 'POST';
-    if (post && called) {
-      String content = await utf8.decoder.bind(request).join();
-      var data = jsonDecode(content) as Map<String, dynamic>;
+    try {
+      if (post && called) {
+        String content = await utf8.decoder.bind(request).join();
+        var data = jsonDecode(content) as Map<String, dynamic>;
 
-      var email = data['email'] as String;
-      var password = data['password'] as String;
-      var loginRequest = LoginRequest(email: email, password: password);
-      LoginResult result = await authDataSource.login(loginRequest);
-      if (result.error != null) {
-        request.response.statusCode = 400;
-        request.response.write(result.error);
-        await request.response.close();
-      } else {
-        request.response.statusCode = 200;
-        request.response.write(result.toJson());
-        await request.response.close();
+        var email = data['email'] as String;
+        var password = data['password'] as String;
+        var loginRequest = LoginRequest(email: email, password: password);
+        LoginResult result = await authDataSource.login(loginRequest);
+        if (result.error != null) {
+          request.response.statusCode = 400;
+          request.response.write(result.error);
+          await request.response.close();
+        } else {
+          request.response.statusCode = 200;
+          request.response.write(result.toJson());
+          await request.response.close();
+        }
       }
+    } catch (e) {
+      request.response.statusCode = 400;
+      request.response.write("INTERNAL SERVER ERROR $e");
+      await request.response.close();
     }
-
     return called;
   }
 }
