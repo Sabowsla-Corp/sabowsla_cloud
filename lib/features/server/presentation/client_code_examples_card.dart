@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sabowsla_server/core/extensions/context_extension.dart';
+import 'package:sabowsla_server/core/presentation/atoms/custom_button.dart';
 import 'package:sabowsla_server/core/presentation/atoms/custom_card.dart';
+import 'package:sabowsla_server/core/styles.dart';
 import 'package:sabowsla_server/features/server/models/client_code_example_model.dart';
 
 class ClientCodeExamplesCard extends StatefulWidget {
@@ -28,29 +30,47 @@ class _ClientCodeExamplesCardState extends State<ClientCodeExamplesCard> {
     return Expanded(
       child: CustomCard(
         height: context.relative(300),
-        header: Row(
+        header: const Row(
           children: [
-            const Text('Client Code Example:'),
+            Text('Client Code Example:'),
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            buildCodeSelector(),
             Expanded(
-              child: ListView.builder(
-                itemBuilder: (c, i) {
-                  var example = codeExamples[i];
-                  return TextButton(
-                    onPressed: () {
-                      selected = example;
-                      setState(() {});
-                    },
-                    child: Text(example.functionName),
-                  );
-                },
-                itemCount: codeExamples.length,
-                shrinkWrap: true,
-                scrollDirection: Axis.horizontal,
-              ),
+              flex: 6,
+              child: buildCodeExampleSelected(),
             ),
           ],
         ),
-        child: buildCodeExampleSelected(),
+      ),
+    );
+  }
+
+  Widget buildCodeSelector() {
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.all(5),
+        child: ListView.builder(
+          itemCount: codeExamples.length,
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (context, index) {
+            final item = codeExamples[index];
+            bool active = selected == item;
+            return CustomButton(
+              width: 100,
+              height: 35,
+              buttonColor: active ? Colors.deepPurple : Colors.white30,
+              buttonText: item.functionName,
+              onTap: () {
+                selected = item;
+                setState(() {});
+              },
+            );
+          },
+        ),
       ),
     );
   }
@@ -58,10 +78,12 @@ class _ClientCodeExamplesCardState extends State<ClientCodeExamplesCard> {
   Widget buildCodeExampleSelected() {
     if (selected != null) {
       return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(selected!.functionName),
-          const SizedBox(height: 4),
-          Text(selected!.functionDescription),
+          Text(
+            "## ${selected!.functionDescription}",
+            style: styles12.grey,
+          ),
           const SizedBox(height: 4),
           Text(selected!.functionCode),
         ],
@@ -73,8 +95,8 @@ class _ClientCodeExamplesCardState extends State<ClientCodeExamplesCard> {
   List<ClientCodeExampleModel> codeExamples = [
     ClientCodeExampleModel(
       functionCode: '''import 'dart:developer''',
-      functionDescription: '''import 'dart:developer''',
-      functionName: '''import 'dart:developer''',
+      functionDescription: 'Logins the user with its email and password',
+      functionName: 'Login',
       runFunction: () {},
     ),
   ];

@@ -1,8 +1,10 @@
 // ignore_for_file: avoid_print, unawaited_futures
 
+import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 import 'package:sabowsla_server/features/auth/models/login_request_model.dart';
+import 'package:sabowsla_server/features/auth/models/login_result_model.dart';
 import 'package:sabowsla_server/features/auth/source/auth_data_source.dart';
 
 var sabowslaServer = SabowslaServer();
@@ -56,16 +58,26 @@ class SabowslaServer {
 
   Future<bool> loginEndPoint(HttpRequest request) async {
     bool called = request.uri.path == 'login';
-    if (called) {
-      var email = request.uri.queryParameters['email'] ?? '';
-      var password = request.uri.queryParameters['password'] ?? '';
+    bool post = request.method == 'POST';
+    if (post && called) {
+      String content = await utf8.decoder.bind(request).join();
+      var data = jsonDecode(content) as Map<String, dynamic>;
+
+      var email = data['email'] as String;
+      var password = data['password'] as String;
       var loginRequest = LoginRequest(email: email, password: password);
-      var token = await authDataSource.login(loginRequest);
-      request.response
-        ..statusCode = 200
-        ..write(token)
-        ..close();
+      LoginResult result = await authDataSource.login(loginRequest);
+      if (result.error != null) {
+        request.response.statusCode = 400;
+        request.response.write(result.error);
+        await request.response.close();
+      } else {
+        request.response.statusCode = 200;
+        request.response.write(result.toJson());
+        await request.response.close();
+      }
     }
+
     return called;
   }
 }

@@ -133,11 +133,13 @@ class CustomButton extends StatelessWidget {
                       ],
                     )
                   : buttonText != null
-                      ? Text(
-                          buttonText ?? '',
-                          maxLines: 1,
-                          style: const TextStyle(
-                            color: Colors.white,
+                      ? Center(
+                          child: Text(
+                            buttonText ?? '',
+                            maxLines: 1,
+                            style: const TextStyle(
+                              color: Colors.white,
+                            ),
                           ),
                         )
                       : child ?? Container(),
