@@ -16,6 +16,7 @@ class ServerController extends _$ServerController {
         localServerStatus: LocalServerStatus.stopped,
         logs: [],
         jwtSecret: 'REPLACE-WITH-YOUR-SECRET-KEY',
+        serverUrl: '',
       );
 
   void setPort(int port) {
@@ -36,16 +37,17 @@ class ServerController extends _$ServerController {
         verbose: state.verbose,
         jwtSecret: state.jwtSecret,
       );
-      var error = await sabowslaServer.start(settings);
-      if (error is String) {
-        state = state.copyWith(localServerStatus: LocalServerStatus.stopped);
-        log('Error starting local server: $error');
+      var serverUrl = await sabowslaServer.start(settings);
+      if (serverUrl is String) {
+        state = state.copyWith(
+          localServerStatus: LocalServerStatus.running,
+          serverUrl: serverUrl,
+        );
+        log('Error starting local server: $serverUrl');
       } else {
-        state = state.copyWith(localServerStatus: LocalServerStatus.running);
-        log('Local server started at port ${state.port}');
+        state = state.copyWith(localServerStatus: LocalServerStatus.stopped);
       }
-    }
-    if (state.localServerStatus == LocalServerStatus.running) {
+    } else if (state.localServerStatus == LocalServerStatus.running) {
       state = state.copyWith(localServerStatus: LocalServerStatus.stopping);
       bool stoped = await sabowslaServer.stop();
       if (stoped) {

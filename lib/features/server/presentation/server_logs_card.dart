@@ -18,28 +18,22 @@ class ServerLogsCard extends ConsumerWidget {
       return LogModelExpansionTile(log: log);
     }
 
-    return Expanded(
-      child: CustomCard(
-        header: const Row(
-          children: [
-            Icon(
-              FontAwesomeIcons.listUl,
-              color: Colors.white,
-              size: 15,
-            ),
-            SizedBox(width: 10),
-            Text('Server Logs'),
-          ],
-        ),
-        child: Column(
-          children: [
-            ListView.builder(
-              itemBuilder: itemBuilder,
-              itemCount: logs.length,
-              shrinkWrap: true,
-            ),
-          ],
-        ),
+    return CustomCard(
+      header: const Row(
+        children: [
+          Icon(
+            FontAwesomeIcons.listUl,
+            color: Colors.white,
+            size: 15,
+          ),
+          SizedBox(width: 10),
+          Text('Server Logs'),
+        ],
+      ),
+      child: ListView.builder(
+        itemBuilder: itemBuilder,
+        itemCount: logs.length,
+        shrinkWrap: true,
       ),
     );
   }

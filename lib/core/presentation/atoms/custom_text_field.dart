@@ -2,9 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:sabowsla_server/core/styles.dart';
 
 class CustomTextField extends StatelessWidget {
-  const CustomTextField({super.key, this.controller, this.onChanged});
+  const CustomTextField({
+    super.key,
+    this.controller,
+    this.onChanged,
+    this.textAlign,
+  });
   final TextEditingController? controller;
   final ValueChanged<String>? onChanged;
+  final TextAlign? textAlign;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +24,7 @@ class CustomTextField extends StatelessWidget {
       onChanged: onChanged,
       controller: controller,
       style: styles10.white,
-      textAlign: TextAlign.center,
+      textAlign: textAlign ?? TextAlign.center,
       decoration: InputDecoration(
         fillColor: Colors.grey.shade900.withOpacity(0.5),
         contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),

@@ -29,13 +29,17 @@ class SabowslaServer {
     try {
       serverSettings = settings ?? serverSettings;
       server = await HttpServer.bind(
-        InternetAddress.loopbackIPv6,
+        InternetAddress.loopbackIPv4,
         serverSettings.port,
       );
+      log("Starting server at host ${server!.address} port ${server!.port}");
       listenToServer(server!);
-      return null;
+      var serverUrl = 'http://${server!.address.host}:${server!.port}';
+      log("Server started at $serverUrl");
+      return serverUrl;
     } catch (e) {
-      return e.toString();
+      log("Error starting server $e");
+      return null;
     }
   }
 

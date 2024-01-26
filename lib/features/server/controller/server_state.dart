@@ -9,6 +9,7 @@ class ServerState {
     required this.localServerStatus,
     required this.logs,
     required this.jwtSecret,
+    required this.serverUrl,
   });
   final bool cors;
   final int port;
@@ -16,6 +17,8 @@ class ServerState {
   final LocalServerStatus localServerStatus;
   final List<LogModel> logs;
   final String jwtSecret;
+  final String serverUrl;
+
   ServerState copyWith({
     bool? cors,
     int? port,
@@ -23,8 +26,10 @@ class ServerState {
     LocalServerStatus? localServerStatus,
     List<LogModel>? logs,
     String? jwtSecret,
+    String? serverUrl,
   }) {
     return ServerState(
+      serverUrl: serverUrl ?? this.serverUrl,
       cors: cors ?? this.cors,
       port: port ?? this.port,
       verbose: verbose ?? this.verbose,

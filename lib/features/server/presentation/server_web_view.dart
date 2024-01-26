@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:sabowsla_server/core/extensions/context_extension.dart';
+import 'package:sabowsla_server/core/presentation/atoms/custom_button.dart';
+import 'package:sabowsla_server/core/presentation/atoms/custom_text_field.dart';
 import 'package:sabowsla_server/main.dart';
 import 'dart:async';
 
@@ -17,7 +20,7 @@ class _ServerWebView extends State<ServerWebView> {
   final _controller = WebviewController();
   final _textController = TextEditingController();
   final List<StreamSubscription> _subscriptions = [];
-  bool _isWebviewSuspended = false;
+  bool expanded = false;
 
   @override
   void initState() {
@@ -25,7 +28,7 @@ class _ServerWebView extends State<ServerWebView> {
     initPlatformState();
   }
 
-  Future<void> initPlatformState() async {
+  void initPlatformState() async {
     // Optionally initialize the webview environment using
     // a custom user data directory
     // and/or a custom browser executable directory
@@ -50,7 +53,7 @@ class _ServerWebView extends State<ServerWebView> {
 
       await _controller.setBackgroundColor(Colors.transparent);
       await _controller.setPopupWindowPolicy(WebviewPopupWindowPolicy.deny);
-      await _controller.loadUrl('https://flutter.dev');
+      await _controller.loadUrl('https://localhost:1203');
 
       if (!mounted) return;
       setState(() {});
@@ -92,62 +95,48 @@ class _ServerWebView extends State<ServerWebView> {
         ),
       );
     } else {
-      return Padding(
-        padding: const EdgeInsets.all(20),
+      return Container(
+        width: context.width,
+        decoration: BoxDecoration(
+          color: Colors.black,
+          borderRadius: BorderRadius.circular(5),
+        ),
         child: Column(
           children: [
-            Card(
-              elevation: 0,
+            SizedBox(
+              height: 35,
               child: Row(
                 children: [
                   Expanded(
-                    child: TextField(
-                      decoration: const InputDecoration(
-                        hintText: 'URL',
-                        contentPadding: EdgeInsets.all(10.0),
+                    child: Padding(
+                      padding: const EdgeInsets.all(4),
+                      child: CustomTextField(
+                        controller: _textController,
+                        textAlign: TextAlign.start,
                       ),
-                      textAlignVertical: TextAlignVertical.center,
-                      controller: _textController,
-                      onSubmitted: _controller.loadUrl,
                     ),
                   ),
-                  IconButton(
-                    icon: const Icon(Icons.refresh),
-                    splashRadius: 20,
-                    onPressed: _controller.reload,
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.developer_mode),
-                    tooltip: 'Open DevTools',
-                    splashRadius: 20,
-                    onPressed: _controller.openDevTools,
+                  Padding(
+                    padding: const EdgeInsets.all(4),
+                    child: CustomButton.box(
+                      buttonText: "Refresh",
+                      onTap: () {
+                        unawaited(_controller.reload());
+                      },
+                    ),
                   ),
                 ],
               ),
             ),
             Expanded(
               child: Card(
-                color: Colors.transparent,
+                color: Colors.white,
                 elevation: 0,
+                margin: const EdgeInsets.all(5),
                 clipBehavior: Clip.antiAliasWithSaveLayer,
-                child: Stack(
-                  children: [
-                    Webview(
-                      _controller,
-                      permissionRequested: _onPermissionRequested,
-                    ),
-                    StreamBuilder<LoadingState>(
-                      stream: _controller.loadingState,
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData &&
-                            snapshot.data == LoadingState.loading) {
-                          return const LinearProgressIndicator();
-                        } else {
-                          return const SizedBox();
-                        }
-                      },
-                    ),
-                  ],
+                child: Webview(
+                  _controller,
+                  permissionRequested: _onPermissionRequested,
                 ),
               ),
             ),
@@ -159,34 +148,8 @@ class _ServerWebView extends State<ServerWebView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        tooltip: _isWebviewSuspended ? 'Resume webview' : 'Suspend webview',
-        onPressed: () async {
-          if (_isWebviewSuspended) {
-            await _controller.resume();
-          } else {
-            await _controller.suspend();
-          }
-          setState(() {
-            _isWebviewSuspended = !_isWebviewSuspended;
-          });
-        },
-        child: Icon(_isWebviewSuspended ? Icons.play_arrow : Icons.pause),
-      ),
-      appBar: AppBar(
-        title: StreamBuilder<String>(
-          stream: _controller.title,
-          builder: (context, snapshot) {
-            return Text(
-              snapshot.hasData ? snapshot.data! : 'WebView (Windows) Example',
-            );
-          },
-        ),
-      ),
-      body: Center(
-        child: compositeView(),
-      ),
+    return Center(
+      child: compositeView(),
     );
   }
 
@@ -221,9 +184,9 @@ class _ServerWebView extends State<ServerWebView> {
   @override
   void dispose() {
     for (var s in _subscriptions) {
-      s.cancel();
+      unawaited(s.cancel());
     }
-    _controller.dispose();
+    unawaited(_controller.dispose());
     super.dispose();
   }
 }

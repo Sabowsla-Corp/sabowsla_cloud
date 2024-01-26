@@ -37,17 +37,15 @@ class CustomCard extends StatelessWidget {
               ),
               child: header,
             ),
-            Expanded(
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade800.withOpacity(0.2),
-                  borderRadius: const BorderRadius.only(
-                    bottomLeft: Radius.circular(10),
-                    bottomRight: Radius.circular(10),
-                  ),
+            DecoratedBox(
+              decoration: BoxDecoration(
+                color: Colors.grey.shade800.withOpacity(0.2),
+                borderRadius: const BorderRadius.only(
+                  bottomLeft: Radius.circular(10),
+                  bottomRight: Radius.circular(10),
                 ),
-                child: child,
               ),
+              child: child,
             ),
           ],
         ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sabowsla_server/core/extensions/context_extension.dart';
-import 'package:sabowsla_server/core/presentation/atoms/custom_button.dart';
 import 'package:sabowsla_server/core/presentation/atoms/custom_card.dart';
+import 'package:sabowsla_server/core/presentation/atoms/custom_menu_bar.dart';
 import 'package:sabowsla_server/core/styles.dart';
 import 'package:sabowsla_server/features/server/models/client_code_example_model.dart';
 
@@ -18,6 +18,7 @@ class _ClientCodeExamplesCardState extends State<ClientCodeExamplesCard> {
   @override
   void initState() {
     super.initState();
+    init();
   }
 
   void init() {
@@ -27,66 +28,62 @@ class _ClientCodeExamplesCardState extends State<ClientCodeExamplesCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: CustomCard(
-        height: context.relative(300),
-        header: const Row(
-          children: [
-            Text('Client Code Example:'),
-          ],
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            buildCodeSelector(),
-            Expanded(
-              flex: 6,
-              child: buildCodeExampleSelected(),
-            ),
-          ],
-        ),
+    return CustomCard(
+      height: context.relative(300),
+      header: const Row(
+        children: [
+          Text('Client Code Example:'),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 4),
+          buildCodeSelector(),
+          buildCodeExampleSelected(),
+        ],
       ),
     );
   }
 
   Widget buildCodeSelector() {
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.all(5),
-        child: ListView.builder(
-          itemCount: codeExamples.length,
-          scrollDirection: Axis.horizontal,
-          itemBuilder: (context, index) {
-            final item = codeExamples[index];
-            bool active = selected == item;
-            return CustomButton(
-              width: 100,
-              height: 35,
-              buttonColor: active ? Colors.deepPurple : Colors.white30,
-              buttonText: item.functionName,
-              onTap: () {
-                selected = item;
-                setState(() {});
-              },
-            );
-          },
-        ),
+    return SizedBox(
+      height: 45,
+      child: ListView(
+        scrollDirection: Axis.horizontal,
+        children: [
+          CustomMenuBar(
+            values: codeExamples.map((e) => e.functionName).toList(),
+            onChanged: (value) {
+              selected = codeExamples
+                  .firstWhere((element) => element.functionName == value);
+              setState(() {});
+            },
+            value: selected?.functionName,
+          ),
+        ],
       ),
     );
   }
 
   Widget buildCodeExampleSelected() {
     if (selected != null) {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "## ${selected!.functionDescription}",
-            style: styles12.grey,
-          ),
-          const SizedBox(height: 4),
-          Text(selected!.functionCode),
-        ],
+      return Padding(
+        padding: const EdgeInsets.all(5),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "## ${selected!.functionDescription}",
+              style: styles12.grey,
+            ),
+            const SizedBox(height: 4),
+            Text(
+              selected!.functionCode,
+              style: styles12.white,
+            ),
+          ],
+        ),
       );
     }
     return const SizedBox();
