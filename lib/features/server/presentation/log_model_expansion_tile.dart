@@ -1,5 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:oktoast/oktoast.dart';
 import 'package:sabowsla_server/core/presentation/atoms/custom_button.dart';
 import 'package:sabowsla_server/core/styles.dart';
 import 'package:sabowsla_server/features/log/models/log_model.dart';
@@ -64,7 +68,16 @@ class _LogModelExpansionTileState extends State<LogModelExpansionTile> {
               const SizedBox(width: 5),
               //COPY
               CustomButton(
-                onTap: () {},
+                onTap: () async {
+                  try {
+                    await Clipboard.setData(
+                      ClipboardData(text: widget.log.log),
+                    );
+                    showToast('Copied to clipboard ${widget.log.log}');
+                  } catch (e) {
+                    print(e);
+                  }
+                },
                 tooltip: "Copy Log",
                 child: const Icon(
                   FontAwesomeIcons.copy,

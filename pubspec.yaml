@@ -33,6 +33,7 @@ dependencies:
   riverpod_annotation: ^2.3.3
   webview_windows: ^0.3.0
   window_manager: ^0.3.7
+  oktoast: ^3.4.0
 
 dev_dependencies:
   flutter_test:

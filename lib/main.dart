@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:oktoast/oktoast.dart';
 import 'package:sabowsla_server/features/auth/source/auth_data_source.dart';
 import 'package:sabowsla_server/features/dashboard/dashboard_page.dart';
 import 'package:sabowsla_server/objectbox.dart';
@@ -33,6 +34,9 @@ class _ServerUIState extends State<ServerUI> {
         colorScheme: const ColorScheme.dark(),
       ),
       home: const DashboardPage(),
+      builder: (c, s) {
+        return OKToast(child: s ?? Container());
+      },
     );
   }
 }

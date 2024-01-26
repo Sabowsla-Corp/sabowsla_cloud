@@ -29,7 +29,7 @@ class ServerController extends _$ServerController {
 
   void toggleServerStatus() async {
     if (state.localServerStatus == LocalServerStatus.stopped) {
-      log('Starting local server');
+      log('Starting server');
       state = state.copyWith(localServerStatus: LocalServerStatus.starting);
       var settings = ServerSettings(
         cors: state.cors,
@@ -43,7 +43,8 @@ class ServerController extends _$ServerController {
           localServerStatus: LocalServerStatus.running,
           serverUrl: serverUrl,
         );
-        log('Error starting local server: $serverUrl');
+        log('Server running at:  ');
+        log(serverUrl);
       } else {
         state = state.copyWith(localServerStatus: LocalServerStatus.stopped);
       }
