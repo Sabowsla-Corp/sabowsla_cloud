@@ -9,11 +9,12 @@ class CustomMenuBar extends StatelessWidget {
     super.key,
     this.value,
     this.onChanged,
+    this.textBuilder,
   });
   final dynamic value;
   final List<dynamic> values;
   final Function(dynamic newValue)? onChanged;
-
+  final String Function(int index)? textBuilder;
   @override
   Widget build(BuildContext context) {
     return DecoratedBox(
@@ -26,24 +27,33 @@ class CustomMenuBar extends StatelessWidget {
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
-        children: [
-          ...values.map((e) {
-            return CustomButton(
-              margin: paddings.all5,
-              onTap: () {
-                onChanged?.call(e);
-              },
-              buttonColor: value == e ? Colors.white12 : Colors.black,
-              buttonText: e.toString(),
-              padding: const EdgeInsets.symmetric(
-                horizontal: 10,
-                vertical: 4,
-              ),
-            );
-          }),
-        ],
+        children: itemBuilder(),
       ),
     );
+  }
+
+  List<Widget> itemBuilder() {
+    var list = <Widget>[];
+    for (int i = 0; i < values.length; i++) {
+      var e = values[i];
+      var text = textBuilder != null ? textBuilder!(i) : e.toString();
+
+      list.add(
+        CustomButton(
+          margin: paddings.all5,
+          onTap: () {
+            onChanged?.call(e);
+          },
+          buttonColor: value == e ? Colors.white12 : Colors.black,
+          buttonText: text,
+          padding: const EdgeInsets.symmetric(
+            horizontal: 10,
+            vertical: 4,
+          ),
+        ),
+      );
+    }
+    return list;
   }
 
   static Widget withTitle({

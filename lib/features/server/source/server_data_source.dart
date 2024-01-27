@@ -54,7 +54,7 @@ class SabowslaServer {
       if (invokedFunctions == 0) {
         request.response
           ..statusCode = 404
-          ..write('Not found')
+          ..write('Welcome to Sabowsla Cloud Server')
           ..close();
       }
     }

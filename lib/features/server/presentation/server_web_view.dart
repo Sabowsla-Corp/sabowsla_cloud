@@ -1,22 +1,26 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sabowsla_cloud/core/extensions/context_extension.dart';
 import 'package:sabowsla_cloud/core/presentation/atoms/custom_button.dart';
 import 'package:sabowsla_cloud/core/presentation/atoms/custom_text_field.dart';
+import 'package:sabowsla_cloud/features/server/controller/server_controller.dart';
 import 'package:sabowsla_cloud/main.dart';
 import 'dart:async';
 
 import 'package:webview_windows/webview_windows.dart';
 import 'package:window_manager/window_manager.dart';
 
-class ServerWebView extends StatefulWidget {
+class ServerWebView extends ConsumerStatefulWidget {
   const ServerWebView({super.key});
 
   @override
-  State<ServerWebView> createState() => _ServerWebView();
+  ConsumerState<ServerWebView> createState() => _ServerWebView();
 }
 
-class _ServerWebView extends State<ServerWebView> {
+class _ServerWebView extends ConsumerState<ServerWebView> {
   final _controller = WebviewController();
   final _textController = TextEditingController();
   final List<StreamSubscription> _subscriptions = [];
@@ -29,13 +33,8 @@ class _ServerWebView extends State<ServerWebView> {
   }
 
   void initPlatformState() async {
-    // Optionally initialize the webview environment using
-    // a custom user data directory
-    // and/or a custom browser executable directory
-    // and/or custom chromium command line flags
-    //await WebviewController.initializeEnvironment(
-    //    additionalArguments: '--show-fps-counter');
-
+    var serverUrl = ref.read(serverControllerProvider).serverUrl;
+    log("serverUrl: $serverUrl");
     try {
       await _controller.initialize();
       _subscriptions.add(
@@ -53,7 +52,7 @@ class _ServerWebView extends State<ServerWebView> {
 
       await _controller.setBackgroundColor(Colors.transparent);
       await _controller.setPopupWindowPolicy(WebviewPopupWindowPolicy.deny);
-      await _controller.loadUrl('https://localhost:1203');
+      await _controller.loadUrl(serverUrl);
 
       if (!mounted) return;
       setState(() {});
@@ -130,7 +129,6 @@ class _ServerWebView extends State<ServerWebView> {
             ),
             Expanded(
               child: Card(
-                color: Colors.white,
                 elevation: 0,
                 margin: const EdgeInsets.all(5),
                 clipBehavior: Clip.antiAliasWithSaveLayer,

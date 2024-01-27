@@ -9,12 +9,14 @@ class CustomCard extends StatelessWidget {
     this.width,
     this.height,
     this.header,
+    this.bodyColor,
   });
   final Widget? header;
   final Widget child;
   final double? width;
   final double? height;
   final EI? margin;
+  final Color? bodyColor;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +41,8 @@ class CustomCard extends StatelessWidget {
             ),
             DecoratedBox(
               decoration: BoxDecoration(
-                color: Colors.grey.shade800.withOpacity(0.2),
+                color: bodyColor ??
+                    const Color.fromARGB(255, 66, 58, 58).withOpacity(0.2),
                 borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(10),
                   bottomRight: Radius.circular(10),

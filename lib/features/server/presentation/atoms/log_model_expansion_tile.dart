@@ -20,7 +20,8 @@ class _LogModelExpansionTileState extends State<LogModelExpansionTile> {
   bool expanded = false;
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return Container(
+      height: 30,
       padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
       child: Column(
         children: [
