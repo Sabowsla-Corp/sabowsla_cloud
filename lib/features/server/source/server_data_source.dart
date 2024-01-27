@@ -3,9 +3,9 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
-import 'package:sabowsla_server/features/auth/models/login_request_model.dart';
-import 'package:sabowsla_server/features/auth/models/login_result_model.dart';
-import 'package:sabowsla_server/features/auth/source/auth_data_source.dart';
+import 'package:sabowsla_cloud/features/auth/models/login_request_model.dart';
+import 'package:sabowsla_cloud/features/auth/models/login_result_model.dart';
+import 'package:sabowsla_cloud/features/auth/source/auth_data_source.dart';
 
 var sabowslaServer = SabowslaServer();
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:sabowsla_server/core/constants/type_def.dart';
-import 'package:sabowsla_server/core/presentation/atoms/custom_button.dart';
-import 'package:sabowsla_server/core/styles.dart';
+import 'package:sabowsla_cloud/core/constants/type_def.dart';
+import 'package:sabowsla_cloud/core/presentation/atoms/custom_button.dart';
+import 'package:sabowsla_cloud/core/styles.dart';
 
 class CustomPagination extends StatelessWidget {
   const CustomPagination({

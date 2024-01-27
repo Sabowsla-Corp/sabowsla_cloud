@@ -1,5 +1,5 @@
-import 'package:sabowsla_server/features/log/models/log_model.dart';
-import 'package:sabowsla_server/features/server/models/local_server_status.dart';
+import 'package:sabowsla_cloud/features/log/models/log_model.dart';
+import 'package:sabowsla_cloud/features/server/models/local_server_status.dart';
 
 class ServerState {
   ServerState({

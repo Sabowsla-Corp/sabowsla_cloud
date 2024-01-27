@@ -1,6 +1,6 @@
 {
-    "name": "sabowsla_server",
-    "short_name": "sabowsla_server",
+    "name": "sabowsla_cloud",
+    "short_name": "sabowsla_cloud",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

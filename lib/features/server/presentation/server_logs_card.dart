@@ -1,10 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:sabowsla_server/core/presentation/atoms/custom_card.dart';
-import 'package:sabowsla_server/features/log/models/log_model.dart';
-import 'package:sabowsla_server/features/server/controller/server_controller.dart';
-import 'package:sabowsla_server/features/server/presentation/log_model_expansion_tile.dart';
+import 'package:sabowsla_cloud/core/presentation/atoms/custom_card.dart';
+import 'package:sabowsla_cloud/features/log/models/log_model.dart';
+import 'package:sabowsla_cloud/features/server/controller/server_controller.dart';
+import 'package:sabowsla_cloud/features/server/presentation/log_model_expansion_tile.dart';
 
 class ServerLogsCard extends ConsumerWidget {
   const ServerLogsCard({super.key});

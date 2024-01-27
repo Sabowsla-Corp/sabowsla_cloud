@@ -3,8 +3,8 @@
 import 'dart:developer';
 
 import 'package:http/http.dart';
-import 'package:sabowsla_server/api/env.dart';
-import 'package:sabowsla_server/core/network/http_client.dart';
+import 'package:sabowsla_cloud/api/env.dart';
+import 'package:sabowsla_cloud/core/network/http_client.dart';
 
 class SabowslaTrinityApi {
   CustomClient client = HttpClientImpl(client: Client());

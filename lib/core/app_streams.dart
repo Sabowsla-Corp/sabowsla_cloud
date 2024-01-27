@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:sabowsla_server/core/router/routes.dart';
+import 'package:sabowsla_cloud/core/router/routes.dart';
 
 var appStreams = AppStreams();
 

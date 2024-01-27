@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sabowsla_server/core/presentation/custom_image_base_64.dart';
-import 'package:sabowsla_server/features/auth/models/user_credential_model.dart';
+import 'package:sabowsla_cloud/core/presentation/custom_image_base_64.dart';
+import 'package:sabowsla_cloud/features/auth/models/user_credential_model.dart';
 
 class UserCredentialPropertyView extends StatelessWidget {
   const UserCredentialPropertyView({

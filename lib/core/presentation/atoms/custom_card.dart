@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sabowsla_server/core/constants/type_def.dart';
+import 'package:sabowsla_cloud/core/constants/type_def.dart';
 
 class CustomCard extends StatelessWidget {
   const CustomCard({

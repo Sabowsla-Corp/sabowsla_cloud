@@ -5,18 +5,18 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "sabowsla_server",
+            "name": "sabowsla_cloud",
             "request": "launch",
             "type": "dart"
         },
         {
-            "name": "sabowsla_server (profile mode)",
+            "name": "sabowsla_cloud (profile mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile"
         },
         {
-            "name": "sabowsla_server (release mode)",
+            "name": "sabowsla_cloud (release mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"

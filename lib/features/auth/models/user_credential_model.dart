@@ -2,8 +2,8 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:objectbox/objectbox.dart';
-import 'package:sabowsla_server/features/auth/models/register_request_model.dart';
-import 'package:sabowsla_server/features/auth/presentation/users_page_view/user_credential_property.dart';
+import 'package:sabowsla_cloud/features/auth/models/register_request_model.dart';
+import 'package:sabowsla_cloud/features/auth/presentation/users_page_view/user_credential_property.dart';
 
 @Entity()
 class UserCredential {

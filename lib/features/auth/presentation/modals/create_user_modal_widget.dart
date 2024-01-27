@@ -4,11 +4,11 @@ import 'dart:convert';
 
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
-import 'package:sabowsla_server/core/presentation/atoms/custom_button_icon.dart';
-import 'package:sabowsla_server/core/presentation/custom_image_base_64.dart';
-import 'package:sabowsla_server/features/auth/controller/auth_controller.dart';
-import 'package:sabowsla_server/features/auth/models/register_result_model.dart';
-import 'package:sabowsla_server/features/auth/models/user_credential_model.dart';
+import 'package:sabowsla_cloud/core/presentation/atoms/custom_button_icon.dart';
+import 'package:sabowsla_cloud/core/presentation/custom_image_base_64.dart';
+import 'package:sabowsla_cloud/features/auth/controller/auth_controller.dart';
+import 'package:sabowsla_cloud/features/auth/models/register_result_model.dart';
+import 'package:sabowsla_cloud/features/auth/models/user_credential_model.dart';
 
 class CreateUserModalWidget extends StatefulWidget {
   const CreateUserModalWidget({

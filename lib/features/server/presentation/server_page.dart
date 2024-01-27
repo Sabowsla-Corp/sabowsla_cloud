@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:sabowsla_server/core/extensions/context_extension.dart';
-import 'package:sabowsla_server/core/presentation/atoms/custom_menu_bar.dart';
-import 'package:sabowsla_server/features/dashboard/dashboard_layout_template.dart';
-import 'package:sabowsla_server/features/server/presentation/client_code_examples_card.dart';
-import 'package:sabowsla_server/features/server/presentation/server_configuration_card.dart';
+import 'package:sabowsla_cloud/core/extensions/context_extension.dart';
+import 'package:sabowsla_cloud/core/presentation/atoms/custom_menu_bar.dart';
+import 'package:sabowsla_cloud/features/dashboard/dashboard_layout_template.dart';
+import 'package:sabowsla_cloud/features/server/presentation/client_code_examples_card.dart';
+import 'package:sabowsla_cloud/features/server/presentation/server_configuration_card.dart';
 
-import 'package:sabowsla_server/features/server/presentation/server_logs_card.dart';
-import 'package:sabowsla_server/features/server/presentation/server_web_view.dart';
+import 'package:sabowsla_cloud/features/server/presentation/server_logs_card.dart';
+import 'package:sabowsla_cloud/features/server/presentation/server_web_view.dart';
 
 class ServerPage extends StatefulWidget {
   const ServerPage({super.key});

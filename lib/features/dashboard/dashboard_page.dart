@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:sabowsla_server/core/app_streams.dart';
-import 'package:sabowsla_server/features/dashboard/dashboard_content_builder.dart';
-import 'package:sabowsla_server/features/dashboard/dashboard_routes_drawer.dart';
+import 'package:sabowsla_cloud/core/app_streams.dart';
+import 'package:sabowsla_cloud/features/dashboard/dashboard_content_builder.dart';
+import 'package:sabowsla_cloud/features/dashboard/dashboard_routes_drawer.dart';
 
 class DashboardPage extends StatelessWidget {
   const DashboardPage({

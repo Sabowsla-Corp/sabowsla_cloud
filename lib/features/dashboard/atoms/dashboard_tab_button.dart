@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:sabowsla_server/core/extensions/context_extension.dart';
-import 'package:sabowsla_server/core/presentation/atoms/custom_button.dart';
-import 'package:sabowsla_server/features/auth/controller/auth_controller.dart';
+import 'package:sabowsla_cloud/core/extensions/context_extension.dart';
+import 'package:sabowsla_cloud/core/presentation/atoms/custom_button.dart';
+import 'package:sabowsla_cloud/features/auth/controller/auth_controller.dart';
 
 class DashboardTabButton extends StatefulWidget {
   const DashboardTabButton({

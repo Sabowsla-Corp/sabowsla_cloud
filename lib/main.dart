@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:oktoast/oktoast.dart';
-import 'package:sabowsla_server/features/auth/source/auth_data_source.dart';
-import 'package:sabowsla_server/features/dashboard/dashboard_page.dart';
-import 'package:sabowsla_server/objectbox.dart';
+import 'package:sabowsla_cloud/features/auth/source/auth_data_source.dart';
+import 'package:sabowsla_cloud/features/dashboard/dashboard_page.dart';
+import 'package:sabowsla_cloud/objectbox.dart';
 
 import 'package:window_manager/window_manager.dart';
 

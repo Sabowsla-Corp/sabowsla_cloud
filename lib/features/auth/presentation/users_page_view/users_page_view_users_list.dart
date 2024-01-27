@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:sabowsla_server/core/presentation/atoms/custom_credential_card.dart';
-import 'package:sabowsla_server/core/presentation/atoms/custom_menu_bar.dart';
-import 'package:sabowsla_server/core/presentation/atoms/custom_pagination.dart';
-import 'package:sabowsla_server/core/styles.dart';
-import 'package:sabowsla_server/features/auth/controller/auth_controller.dart';
-import 'package:sabowsla_server/features/auth/models/user_credential_model.dart';
-import 'package:sabowsla_server/features/auth/presentation/users_page_view/users_page_view_header.dart';
+import 'package:sabowsla_cloud/core/presentation/atoms/custom_credential_card.dart';
+import 'package:sabowsla_cloud/core/presentation/atoms/custom_menu_bar.dart';
+import 'package:sabowsla_cloud/core/presentation/atoms/custom_pagination.dart';
+import 'package:sabowsla_cloud/core/styles.dart';
+import 'package:sabowsla_cloud/features/auth/controller/auth_controller.dart';
+import 'package:sabowsla_cloud/features/auth/models/user_credential_model.dart';
+import 'package:sabowsla_cloud/features/auth/presentation/users_page_view/users_page_view_header.dart';
 
 class UsersPageViewUsersList extends StatefulWidget {
   const UsersPageViewUsersList({super.key});

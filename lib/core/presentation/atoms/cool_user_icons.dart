@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:sabowsla_server/gen/assets.gen.dart';
+import 'package:sabowsla_cloud/gen/assets.gen.dart';
 
 class CoolUserIcons extends StatelessWidget {
   const CoolUserIcons({super.key});

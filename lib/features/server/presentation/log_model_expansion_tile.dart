@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:oktoast/oktoast.dart';
-import 'package:sabowsla_server/core/presentation/atoms/custom_button.dart';
-import 'package:sabowsla_server/core/styles.dart';
-import 'package:sabowsla_server/features/log/models/log_model.dart';
+import 'package:sabowsla_cloud/core/presentation/atoms/custom_button.dart';
+import 'package:sabowsla_cloud/core/styles.dart';
+import 'package:sabowsla_cloud/features/log/models/log_model.dart';
 
 class LogModelExpansionTile extends StatefulWidget {
   const LogModelExpansionTile({required this.log, super.key});

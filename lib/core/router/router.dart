@@ -1,7 +1,7 @@
 // ignore_for_file: unused_local_variable
 
 import 'package:flutter/material.dart';
-import 'package:sabowsla_server/features/dashboard/dashboard_page.dart';
+import 'package:sabowsla_cloud/features/dashboard/dashboard_page.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   dynamic arguments = settings.arguments;

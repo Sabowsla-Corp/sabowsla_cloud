@@ -1,4 +1,4 @@
-import 'package:sabowsla_server/features/auth/models/user_credential_model.dart';
+import 'package:sabowsla_cloud/features/auth/models/user_credential_model.dart';
 
 class LoginResult {
   LoginResult({

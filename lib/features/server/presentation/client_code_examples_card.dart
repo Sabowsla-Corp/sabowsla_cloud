@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:sabowsla_server/core/extensions/context_extension.dart';
-import 'package:sabowsla_server/core/presentation/atoms/custom_card.dart';
-import 'package:sabowsla_server/core/presentation/atoms/custom_menu_bar.dart';
-import 'package:sabowsla_server/core/styles.dart';
-import 'package:sabowsla_server/features/server/models/client_code_example_model.dart';
+import 'package:sabowsla_cloud/core/extensions/context_extension.dart';
+import 'package:sabowsla_cloud/core/presentation/atoms/custom_card.dart';
+import 'package:sabowsla_cloud/core/presentation/atoms/custom_menu_bar.dart';
+import 'package:sabowsla_cloud/core/styles.dart';
+import 'package:sabowsla_cloud/features/server/models/client_code_example_model.dart';
 
 class ClientCodeExamplesCard extends StatefulWidget {
   const ClientCodeExamplesCard({super.key});

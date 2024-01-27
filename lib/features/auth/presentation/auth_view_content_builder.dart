@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:sabowsla_server/features/auth/controller/auth_controller.dart';
+import 'package:sabowsla_cloud/features/auth/controller/auth_controller.dart';
 
-import 'package:sabowsla_server/features/auth/presentation/auth_view_tabs.dart';
-import 'package:sabowsla_server/features/auth/presentation/testing_page_view/auth_testing_page_view.dart';
-import 'package:sabowsla_server/features/auth/presentation/users_page_view/users_page_view.dart';
+import 'package:sabowsla_cloud/features/auth/presentation/auth_view_tabs.dart';
+import 'package:sabowsla_cloud/features/auth/presentation/testing_page_view/auth_testing_page_view.dart';
+import 'package:sabowsla_cloud/features/auth/presentation/users_page_view/users_page_view.dart';
 
 class AuthPageContentBuilder extends StatelessWidget {
   const AuthPageContentBuilder({super.key});

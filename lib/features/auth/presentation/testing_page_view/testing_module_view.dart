@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sabowsla_server/core/presentation/atoms/custom_button_icon.dart';
+import 'package:sabowsla_cloud/core/presentation/atoms/custom_button_icon.dart';
 
 class TestingModuleView extends StatefulWidget {
   const TestingModuleView({this.module, super.key});

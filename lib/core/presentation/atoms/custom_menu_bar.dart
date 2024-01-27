@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:sabowsla_server/core/paddings.dart';
-import 'package:sabowsla_server/core/presentation/atoms/custom_button.dart';
-import 'package:sabowsla_server/core/styles.dart';
+import 'package:sabowsla_cloud/core/paddings.dart';
+import 'package:sabowsla_cloud/core/presentation/atoms/custom_button.dart';
+import 'package:sabowsla_cloud/core/styles.dart';
 
 class CustomMenuBar extends StatelessWidget {
   const CustomMenuBar({

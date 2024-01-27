@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:http_parser/http_parser.dart';
 
-import 'package:sabowsla_server/core/network/api_response.dart';
+import 'package:sabowsla_cloud/core/network/api_response.dart';
 
 abstract class CustomClient {
   Future<ApiResponse<T>> get<T>(

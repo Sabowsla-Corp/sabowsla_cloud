@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sabowsla_server/core/paddings.dart';
-import 'package:sabowsla_server/features/dashboard/atoms/dashboard_tab_button.dart';
+import 'package:sabowsla_cloud/core/paddings.dart';
+import 'package:sabowsla_cloud/features/dashboard/atoms/dashboard_tab_button.dart';
 
 class DashboardTabButtons extends StatelessWidget {
   const DashboardTabButtons({

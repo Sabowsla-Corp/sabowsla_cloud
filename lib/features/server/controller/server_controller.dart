@@ -1,8 +1,8 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:sabowsla_server/features/log/models/log_model.dart';
-import 'package:sabowsla_server/features/server/controller/server_state.dart';
-import 'package:sabowsla_server/features/server/models/local_server_status.dart';
-import 'package:sabowsla_server/features/server/source/server_data_source.dart';
+import 'package:sabowsla_cloud/features/log/models/log_model.dart';
+import 'package:sabowsla_cloud/features/server/controller/server_state.dart';
+import 'package:sabowsla_cloud/features/server/models/local_server_status.dart';
+import 'package:sabowsla_cloud/features/server/source/server_data_source.dart';
 
 part 'server_controller.g.dart';
 

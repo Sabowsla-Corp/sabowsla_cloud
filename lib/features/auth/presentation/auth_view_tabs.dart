@@ -1,8 +1,8 @@
 // ignore_for_file: constant_identifier_names
 
 import 'package:flutter/material.dart';
-import 'package:sabowsla_server/features/auth/controller/auth_controller.dart';
-import 'package:sabowsla_server/features/dashboard/atoms/dashboard_tabs.dart';
+import 'package:sabowsla_cloud/features/auth/controller/auth_controller.dart';
+import 'package:sabowsla_cloud/features/dashboard/atoms/dashboard_tabs.dart';
 
 class AuthPageTabs extends StatelessWidget {
   const AuthPageTabs({

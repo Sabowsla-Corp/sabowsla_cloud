@@ -9,14 +9,14 @@ import 'package:flutter/material.dart';
 import 'package:image_compression_flutter/image_compression_flutter.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:rxdart/subjects.dart';
-import 'package:sabowsla_server/core/app_streams.dart';
-import 'package:sabowsla_server/features/auth/models/delete_user_result.dart';
+import 'package:sabowsla_cloud/core/app_streams.dart';
+import 'package:sabowsla_cloud/features/auth/models/delete_user_result.dart';
 
-import 'package:sabowsla_server/features/auth/models/register_result_model.dart';
-import 'package:sabowsla_server/features/auth/models/user_credential_model.dart';
-import 'package:sabowsla_server/features/auth/presentation/auth_view_tabs.dart';
-import 'package:sabowsla_server/features/auth/presentation/modals/create_user_modal_widget.dart';
-import 'package:sabowsla_server/features/auth/source/auth_data_source.dart';
+import 'package:sabowsla_cloud/features/auth/models/register_result_model.dart';
+import 'package:sabowsla_cloud/features/auth/models/user_credential_model.dart';
+import 'package:sabowsla_cloud/features/auth/presentation/auth_view_tabs.dart';
+import 'package:sabowsla_cloud/features/auth/presentation/modals/create_user_modal_widget.dart';
+import 'package:sabowsla_cloud/features/auth/source/auth_data_source.dart';
 
 var authController = AuthController();
 

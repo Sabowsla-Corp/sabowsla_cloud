@@ -1,9 +1,9 @@
 import 'dart:developer';
 
 import 'package:path_provider/path_provider.dart';
-import 'package:sabowsla_server/features/auth/models/user_credential_model.dart';
-import 'package:sabowsla_server/features/log/models/log_model.dart';
-import 'package:sabowsla_server/objectbox/objectbox.g.dart';
+import 'package:sabowsla_cloud/features/auth/models/user_credential_model.dart';
+import 'package:sabowsla_cloud/features/log/models/log_model.dart';
+import 'package:sabowsla_cloud/objectbox/objectbox.g.dart';
 
 class ObjectBox {
   ObjectBox(this.store);

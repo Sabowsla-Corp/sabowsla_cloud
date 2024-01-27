@@ -1,4 +1,4 @@
-import 'package:sabowsla_server/features/log/models/log_model.dart';
+import 'package:sabowsla_cloud/features/log/models/log_model.dart';
 
 class LogExplorerState {
   LogExplorerState({required this.logs});

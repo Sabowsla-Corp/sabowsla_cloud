@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:sabowsla_server/core/extensions/context_extension.dart';
-import 'package:sabowsla_server/core/presentation/atoms/cool_user_icons.dart';
-import 'package:sabowsla_server/core/presentation/custom_image_base_64.dart';
-import 'package:sabowsla_server/features/auth/controller/auth_controller.dart';
-import 'package:sabowsla_server/features/auth/models/user_credential_model.dart';
+import 'package:sabowsla_cloud/core/extensions/context_extension.dart';
+import 'package:sabowsla_cloud/core/presentation/atoms/cool_user_icons.dart';
+import 'package:sabowsla_cloud/core/presentation/custom_image_base_64.dart';
+import 'package:sabowsla_cloud/features/auth/controller/auth_controller.dart';
+import 'package:sabowsla_cloud/features/auth/models/user_credential_model.dart';
 
 class CustomCredentialCard extends StatelessWidget {
   const CustomCredentialCard({required this.userCredential, super.key});

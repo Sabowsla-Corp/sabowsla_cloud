@@ -1,6 +1,6 @@
-import 'package:sabowsla_server/features/log/models/log_model.dart';
-import 'package:sabowsla_server/objectbox.dart';
-import 'package:sabowsla_server/objectbox/objectbox.g.dart';
+import 'package:sabowsla_cloud/features/log/models/log_model.dart';
+import 'package:sabowsla_cloud/objectbox.dart';
+import 'package:sabowsla_cloud/objectbox/objectbox.g.dart';
 
 abstract class LogsDataSource {
   List<LogModel> getAll();

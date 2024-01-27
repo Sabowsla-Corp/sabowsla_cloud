@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:sabowsla_server/core/app_streams.dart';
-import 'package:sabowsla_server/core/router/routes.dart';
-import 'package:sabowsla_server/features/auth/presentation/auth_page.dart';
-import 'package:sabowsla_server/features/dashboard/dashboard_layout_template.dart';
-import 'package:sabowsla_server/features/server/presentation/server_page.dart';
+import 'package:sabowsla_cloud/core/app_streams.dart';
+import 'package:sabowsla_cloud/core/router/routes.dart';
+import 'package:sabowsla_cloud/features/auth/presentation/auth_page.dart';
+import 'package:sabowsla_cloud/features/dashboard/dashboard_layout_template.dart';
+import 'package:sabowsla_cloud/features/server/presentation/server_page.dart';
 
 class DashboardContentView extends StatelessWidget {
   const DashboardContentView({

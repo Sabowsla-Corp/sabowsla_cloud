@@ -2,11 +2,11 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:sabowsla_server/core/styles.dart';
-import 'package:sabowsla_server/features/auth/controller/auth_controller.dart';
-import 'package:sabowsla_server/features/auth/models/register_result_model.dart';
-import 'package:sabowsla_server/features/auth/models/user_credential_model.dart';
-import 'package:sabowsla_server/features/auth/presentation/testing_page_view/testing_module_view.dart';
+import 'package:sabowsla_cloud/core/styles.dart';
+import 'package:sabowsla_cloud/features/auth/controller/auth_controller.dart';
+import 'package:sabowsla_cloud/features/auth/models/register_result_model.dart';
+import 'package:sabowsla_cloud/features/auth/models/user_credential_model.dart';
+import 'package:sabowsla_cloud/features/auth/presentation/testing_page_view/testing_module_view.dart';
 
 class AuthTestingPageView extends StatelessWidget {
   const AuthTestingPageView({super.key});

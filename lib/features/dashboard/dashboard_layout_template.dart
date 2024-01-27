@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sabowsla_server/core/presentation/atoms/custom_divider.dart';
-import 'package:sabowsla_server/core/styles.dart';
+import 'package:sabowsla_cloud/core/presentation/atoms/custom_divider.dart';
+import 'package:sabowsla_cloud/core/styles.dart';
 
 class DashboardLayoutTemplate extends StatelessWidget {
   const DashboardLayoutTemplate({

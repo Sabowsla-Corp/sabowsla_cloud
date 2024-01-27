@@ -1,13 +1,13 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
-import 'package:sabowsla_server/core/presentation/atoms/custom_button.dart';
-import 'package:sabowsla_server/core/presentation/atoms/custom_card.dart';
-import 'package:sabowsla_server/core/presentation/atoms/custom_divider.dart';
-import 'package:sabowsla_server/core/presentation/atoms/custom_text_field.dart';
-import 'package:sabowsla_server/core/presentation/atoms/custom_toggle.dart';
-import 'package:sabowsla_server/core/styles.dart';
-import 'package:sabowsla_server/features/server/controller/server_controller.dart';
-import 'package:sabowsla_server/features/server/models/local_server_status.dart';
+import 'package:sabowsla_cloud/core/presentation/atoms/custom_button.dart';
+import 'package:sabowsla_cloud/core/presentation/atoms/custom_card.dart';
+import 'package:sabowsla_cloud/core/presentation/atoms/custom_divider.dart';
+import 'package:sabowsla_cloud/core/presentation/atoms/custom_text_field.dart';
+import 'package:sabowsla_cloud/core/presentation/atoms/custom_toggle.dart';
+import 'package:sabowsla_cloud/core/styles.dart';
+import 'package:sabowsla_cloud/features/server/controller/server_controller.dart';
+import 'package:sabowsla_cloud/features/server/models/local_server_status.dart';
 
 class ServerConfigurationCard extends ConsumerStatefulWidget {
   const ServerConfigurationCard({
