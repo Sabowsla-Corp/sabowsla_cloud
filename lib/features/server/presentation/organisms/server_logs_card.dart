@@ -1,8 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:sabowsla_cloud/core/extensions/context_extension.dart';
-import 'package:sabowsla_cloud/core/presentation/atoms/custom_card.dart';
 import 'package:sabowsla_cloud/features/log/models/log_model.dart';
 import 'package:sabowsla_cloud/features/server/controller/server_controller.dart';
 import 'package:sabowsla_cloud/features/server/presentation/atoms/log_model_expansion_tile.dart';
@@ -24,7 +22,7 @@ class ServerLogsCard extends ConsumerWidget {
 
     Expanded buildScrollableScrollView() {
       return Expanded(
-        child: Container(
+        child: ColoredBox(
           color: Colors.grey.shade900.withOpacity(0.5),
           child: SingleChildScrollView(
             child: Column(
@@ -38,8 +36,33 @@ class ServerLogsCard extends ConsumerWidget {
     return Expanded(
       child: Column(
         children: [
+          buildLogsTimeLine(),
           buildListViewHeader(),
           buildScrollableScrollView(),
+        ],
+      ),
+    );
+  }
+
+  Container buildLogsTimeLine() {
+    return Container(
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: Colors.grey.shade900,
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(10),
+          topRight: Radius.circular(10),
+        ),
+      ),
+      child: const Row(
+        children: [
+          Icon(
+            FontAwesomeIcons.clockRotateLeft,
+            color: Colors.white,
+            size: 15,
+          ),
+          SizedBox(width: 10),
+          Text('Logs Timeline'),
         ],
       ),
     );

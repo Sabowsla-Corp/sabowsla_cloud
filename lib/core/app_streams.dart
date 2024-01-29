@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:oktoast/oktoast.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:sabowsla_cloud/core/router/routes.dart';
 
@@ -13,4 +14,8 @@ class AppStreams {
     ),
   );
   var loadingIndicator = BehaviorSubject<bool>.seeded(false);
+
+  void showNotification(String message) {
+    showToast(message);
+  }
 }

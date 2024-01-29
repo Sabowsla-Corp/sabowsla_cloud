@@ -1,9 +1,8 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:oktoast/oktoast.dart';
+
+import 'package:sabowsla_cloud/core/app_streams.dart';
 import 'package:sabowsla_cloud/core/presentation/atoms/custom_button.dart';
 import 'package:sabowsla_cloud/core/styles.dart';
 import 'package:sabowsla_cloud/features/log/models/log_model.dart';
@@ -74,9 +73,13 @@ class _LogModelExpansionTileState extends State<LogModelExpansionTile> {
                     await Clipboard.setData(
                       ClipboardData(text: widget.log.log),
                     );
-                    showToast('Copied to clipboard ${widget.log.log}');
+                    appStreams.showNotification(
+                      'Copied to clipboard ${widget.log.log}',
+                    );
                   } catch (e) {
-                    print(e);
+                    appStreams.showNotification(
+                      'Error copying to clipboard ${widget.log.log}',
+                    );
                   }
                 },
                 tooltip: "Copy Log",

@@ -3,6 +3,7 @@ import 'package:sabowsla_cloud/core/app_streams.dart';
 import 'package:sabowsla_cloud/core/router/routes.dart';
 import 'package:sabowsla_cloud/features/auth/presentation/auth_page.dart';
 import 'package:sabowsla_cloud/features/dashboard/dashboard_layout_template.dart';
+import 'package:sabowsla_cloud/features/home/home_page.dart';
 import 'package:sabowsla_cloud/features/server/presentation/server_page.dart';
 
 class DashboardContentView extends StatelessWidget {
@@ -21,7 +22,7 @@ class DashboardContentView extends StatelessWidget {
     var route = appStreams.routeStream.value;
     switch (route.route) {
       case Routes.home:
-        return getBaseLayout(route);
+        return const HomePage();
       case Routes.database:
         return getBaseLayout(route);
       case Routes.authentication:
