@@ -1,19 +1,17 @@
+import 'package:sabowsla_cloud/features/home/models/sabowsla_project_model.dart';
+
 class HomePageState {
   HomePageState({
-    this.projectName = "Sabowsla Server",
-    this.databasePath = "default",
+    this.projects = const [],
   });
 
-  final String projectName;
-  final String databasePath;
+  final List<SabowslaProjectModel> projects;
 
   HomePageState copyWith({
-    String? projectName,
-    String? databasePath,
+    List<SabowslaProjectModel>? projects,
   }) {
     return HomePageState(
-      projectName: projectName ?? this.projectName,
-      databasePath: databasePath ?? this.databasePath,
+      projects: projects ?? this.projects,
     );
   }
 }

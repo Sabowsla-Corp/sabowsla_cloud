@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:oktoast/oktoast.dart';
+import 'package:sabowsla_cloud/core/router.dart';
 import 'package:sabowsla_cloud/features/auth/source/auth_data_source.dart';
-import 'package:sabowsla_cloud/features/dashboard/dashboard_page.dart';
 import 'package:sabowsla_cloud/objectbox.dart';
-
 import 'package:window_manager/window_manager.dart';
 
 void main() async {
@@ -16,24 +15,18 @@ void main() async {
   runApp(const ProviderScope(child: ServerUI()));
 }
 
-class ServerUI extends StatefulWidget {
+class ServerUI extends ConsumerWidget {
   const ServerUI({super.key});
 
   @override
-  State<ServerUI> createState() => _ServerUIState();
-}
-
-class _ServerUIState extends State<ServerUI> {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
+  Widget build(BuildContext context, WidgetRef ref) {
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      navigatorKey: navigatorKey,
+      routerConfig: ref.read(navigationService.goRouterProvider),
       theme: ThemeData(
         fontFamily: GoogleFonts.poppins().fontFamily,
         colorScheme: const ColorScheme.dark(),
       ),
-      home: const DashboardPage(),
       builder: (c, s) {
         return OKToast(child: s ?? Container());
       },
