@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sabowsla_cloud/core/constants/type_def.dart';
 import 'package:sabowsla_cloud/core/presentation/atoms/custom_divider.dart';
 import 'package:sabowsla_cloud/core/styles.dart';
 
@@ -9,11 +10,17 @@ class DashboardLayoutTemplate extends StatelessWidget {
     this.trailing = const SizedBox(),
     super.key,
     this.icon,
+    this.titleStyle,
+    this.dividerColor,
+    this.iconWidget,
   });
+  final Widget? iconWidget;
   final IconData? icon;
   final String title;
   final Widget child;
   final Widget trailing;
+  final TextStyle? titleStyle;
+  final Color? dividerColor;
 
   @override
   Widget build(BuildContext context) {
@@ -24,23 +31,26 @@ class DashboardLayoutTemplate extends StatelessWidget {
           padding: const EdgeInsets.only(left: 8, top: 8),
           child: Row(
             children: [
+              if (iconWidget != null) iconWidget!,
               if (icon != null)
                 Icon(
                   icon,
                   color: Colors.white70,
                   size: 20,
                 ),
-              if (icon != null) const SizedBox(width: 12),
+              if (icon != null || iconWidget != null) const SizedBox(width: 12),
               Text(
                 title,
-                style: styles24.white70.applyBold,
+                style: titleStyle ?? styles24.white70.applyBold,
               ),
               const Spacer(),
               trailing,
             ],
           ),
         ),
-        const CustomDivider(),
+        CustomDivider(
+          color: dividerColor,
+        ),
         const SizedBox(height: 10),
         Expanded(
           child: child,

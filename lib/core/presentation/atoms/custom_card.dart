@@ -10,6 +10,8 @@ class CustomCard extends StatelessWidget {
     this.height,
     this.header,
     this.bodyColor,
+    this.maxWidth,
+    this.padding,
   });
   final Widget? header;
   final Widget child;
@@ -17,6 +19,8 @@ class CustomCard extends StatelessWidget {
   final double? height;
   final EI? margin;
   final Color? bodyColor;
+  final double? maxWidth;
+  final EI? padding;
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +61,10 @@ class CustomCard extends StatelessWidget {
     return Container(
       margin: margin,
       width: width,
-      padding: const EdgeInsets.all(10),
+      padding: padding ?? const EdgeInsets.all(10),
+      constraints: BoxConstraints(
+        maxWidth: maxWidth ?? double.infinity,
+      ),
       decoration: BoxDecoration(
         color: Colors.black,
         borderRadius: BorderRadius.circular(10),

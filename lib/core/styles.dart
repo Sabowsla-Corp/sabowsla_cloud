@@ -28,6 +28,8 @@ class Styles {
 var styles10 = Styles(10);
 var styles12 = Styles(12);
 var styles14 = Styles(14);
+
+var styles18 = Styles(18);
 var styles24 = Styles(24);
 var styles26 = Styles(26);
 var styles30 = Styles(30);

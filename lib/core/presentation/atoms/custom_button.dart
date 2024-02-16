@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sabowsla_cloud/core/router.dart';
 
 class CustomButton extends StatelessWidget {
   const CustomButton({
@@ -15,6 +16,7 @@ class CustomButton extends StatelessWidget {
     this.height,
     this.onHover,
     this.tooltip,
+    this.borderRadius,
   });
   final Function()? onTap;
   final Color? buttonColor;
@@ -28,6 +30,7 @@ class CustomButton extends StatelessWidget {
   final double? height;
   final Function(bool)? onHover;
   final String? tooltip;
+  final double? borderRadius;
 
   static Widget box({
     double? size,
@@ -47,6 +50,21 @@ class CustomButton extends StatelessWidget {
       border: border,
       height: size,
       child: child,
+    );
+  }
+
+  static Widget get closeRouterPage {
+    return CustomButton(
+      buttonColor: Colors.black,
+      onTap: () {
+        navigationService.pop();
+      },
+      padding: const EdgeInsets.all(5),
+      borderRadius: 50,
+      child: const Icon(
+        Icons.close,
+        color: Colors.white70,
+      ),
     );
   }
 
@@ -96,7 +114,7 @@ class CustomButton extends StatelessWidget {
       height: height,
       decoration: BoxDecoration(
         color: buttonColor ?? Theme.of(context).primaryColor,
-        borderRadius: BorderRadius.circular(5),
+        borderRadius: BorderRadius.circular(borderRadius ?? 5),
         border: border,
       ),
       child: Material(
@@ -105,7 +123,7 @@ class CustomButton extends StatelessWidget {
           message: tooltip ?? '',
           waitDuration: const Duration(milliseconds: 500),
           child: InkWell(
-            borderRadius: BorderRadius.circular(5),
+            borderRadius: BorderRadius.circular(borderRadius ?? 5),
             onTap: onTap,
             onHover: onHover,
             child: Padding(
