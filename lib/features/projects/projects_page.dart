@@ -6,7 +6,7 @@ import 'package:sabowsla_cloud/core/presentation/atoms/custom_box.dart';
 import 'package:sabowsla_cloud/core/presentation/atoms/custom_button_icon.dart';
 import 'package:sabowsla_cloud/core/styles.dart';
 import 'package:sabowsla_cloud/features/dashboard/dashboard_layout_template.dart';
-import 'package:sabowsla_cloud/features/home/atoms/create_project_card.dart';
+import 'package:sabowsla_cloud/features/projects/atoms/create_project_card.dart';
 import 'package:sabowsla_cloud/gen/assets.gen.dart';
 
 class HomePage extends ConsumerStatefulWidget {

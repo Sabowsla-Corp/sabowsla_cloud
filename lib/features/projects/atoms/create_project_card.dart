@@ -7,7 +7,7 @@ import 'package:sabowsla_cloud/core/presentation/atoms/custom_box.dart';
 import 'package:sabowsla_cloud/core/presentation/atoms/custom_card.dart';
 import 'package:sabowsla_cloud/core/presentation/atoms/custom_divider.dart';
 import 'package:sabowsla_cloud/core/styles.dart';
-import 'package:sabowsla_cloud/features/home/home_page_controller.dart';
+import 'package:sabowsla_cloud/features/projects/controller/projects_page_controller.dart';
 
 class CreateProjectCard extends ConsumerWidget {
   const CreateProjectCard({
@@ -24,7 +24,9 @@ class CreateProjectCard extends ConsumerWidget {
         child: InkWell(
           borderRadius: BorderRadius.circular(10),
           onTap: () {
-            ref.read(homePageControllerProvider.notifier).createProject();
+            ref
+                .read(projectsControllerProvider.notifier)
+                .toCreateProjectsPage();
           },
           child: Column(
             children: [

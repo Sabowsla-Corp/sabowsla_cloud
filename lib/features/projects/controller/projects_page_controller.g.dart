@@ -1,27 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'home_page_controller.dart';
+part of 'projects_page_controller.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$homePageControllerHash() =>
-    r'b8f919df2a602e204784c7bf367f42758be44133';
+String _$projectsControllerHash() =>
+    r'2516b4173249cffdade8a64d5a5f5da53a605c4b';
 
-/// See also [HomePageController].
-@ProviderFor(HomePageController)
-final homePageControllerProvider =
-    AutoDisposeNotifierProvider<HomePageController, HomePageState>.internal(
-  HomePageController.new,
-  name: r'homePageControllerProvider',
+/// See also [ProjectsController].
+@ProviderFor(ProjectsController)
+final projectsControllerProvider =
+    AutoDisposeNotifierProvider<ProjectsController, ProjectsState>.internal(
+  ProjectsController.new,
+  name: r'projectsControllerProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$homePageControllerHash,
+      : _$projectsControllerHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$HomePageController = AutoDisposeNotifier<HomePageState>;
+typedef _$ProjectsController = AutoDisposeNotifier<ProjectsState>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

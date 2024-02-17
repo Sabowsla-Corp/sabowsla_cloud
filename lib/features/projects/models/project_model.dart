@@ -19,3 +19,5 @@ class ProjectModel {
   @Index(type: IndexType.value)
   final String uid;
 }
+
+typedef ProjectModels = List<ProjectModel>;

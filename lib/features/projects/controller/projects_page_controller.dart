@@ -1,9 +1,10 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:sabowsla_cloud/core/router.dart';
-import 'package:sabowsla_cloud/features/projects/project_model.dart';
-import 'package:sabowsla_cloud/features/projects/projects_data_source.dart';
+import 'package:sabowsla_cloud/features/projects/models/project_model.dart';
+import 'package:sabowsla_cloud/features/projects/source/projects_data_source.dart';
+import 'package:sabowsla_cloud/features/projects/views/create_project_view.dart';
 
-part 'projects_controller.g.dart';
+part 'projects_page_controller.g.dart';
 
 List<ProjectModel> _projects = [];
 
@@ -12,6 +13,13 @@ class ProjectsController extends _$ProjectsController {
   @override
   ProjectsState build() => ProjectsState(projects: _projects);
   ProjectsDataSource get source => ref.read(projectsDataSourceProvider);
+
+  void loadProjects() async {
+    var ps = await source.getAllProjects();
+    state = state.copyWith(projects: ps);
+    print("loaded projects: ${ps.length}");
+    _projects = ps;
+  }
 
   Future<void> createNewProjectFromSettings({
     required String name,
@@ -59,6 +67,10 @@ class ProjectsController extends _$ProjectsController {
         );
         break;
     }
+  }
+
+  void toCreateProjectsPage() {
+    CreateProjectView.open(ref);
   }
 }
 

@@ -6,8 +6,8 @@ import 'package:sabowsla_cloud/core/constants/colors.dart';
 import 'package:sabowsla_cloud/core/constants/type_def.dart';
 import 'package:sabowsla_cloud/core/styles.dart';
 import 'package:sabowsla_cloud/features/dashboard/dashboard_page.dart';
-import 'package:sabowsla_cloud/features/home/home_page.dart';
-import 'package:sabowsla_cloud/features/home/views/create_project_view.dart';
+import 'package:sabowsla_cloud/features/projects/projects_page.dart';
+import 'package:sabowsla_cloud/features/projects/views/create_project_view.dart';
 import 'package:shimmer/shimmer.dart';
 
 var navigationService = NavigationService();

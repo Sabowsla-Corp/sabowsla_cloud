@@ -13,7 +13,7 @@ import 'package:sabowsla_cloud/core/presentation/atoms/custom_text_field.dart';
 import 'package:sabowsla_cloud/core/router.dart';
 import 'package:sabowsla_cloud/core/styles.dart';
 import 'package:sabowsla_cloud/features/dashboard/dashboard_layout_template.dart';
-import 'package:sabowsla_cloud/features/projects/projects_controller.dart';
+import 'package:sabowsla_cloud/features/projects/controller/projects_page_controller.dart';
 
 class CreateProjectView extends ConsumerStatefulWidget {
   const CreateProjectView({super.key});

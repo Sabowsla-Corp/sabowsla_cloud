@@ -7,7 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sabowsla_cloud/core/extensions/nullable_extensions.dart';
-import 'package:sabowsla_cloud/features/projects/project_model.dart';
+import 'package:sabowsla_cloud/features/projects/models/project_model.dart';
 
 var projectsDataSourceProvider = Provider<ProjectsDataSource>(
   (ref) => throw UnimplementedError(),
@@ -81,6 +81,15 @@ class ProjectsDataSource {
       log("Error creating project: $e");
       return CreateSabowslaProjectResult.unknownError;
     }
+  }
+
+  Future<ProjectModels> getAllProjects() async {
+    while (initing) {
+      await Future.delayed(const Duration(milliseconds: 100));
+      print('Waiting for isar to init');
+    }
+    var db = _isarDb!;
+    return db.projectModels.where().anyId().build().findAll();
   }
 
   Future<CreateSabowslaProjectResult> createNewProjectFromSettings({
