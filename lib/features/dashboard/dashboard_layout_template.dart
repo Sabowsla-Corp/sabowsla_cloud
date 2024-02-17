@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sabowsla_cloud/core/constants/type_def.dart';
 import 'package:sabowsla_cloud/core/presentation/atoms/custom_divider.dart';
 import 'package:sabowsla_cloud/core/styles.dart';
 

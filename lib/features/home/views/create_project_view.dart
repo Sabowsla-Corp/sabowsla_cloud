@@ -1,7 +1,6 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sabowsla_cloud/core/constants/colors.dart';
 import 'package:sabowsla_cloud/core/constants/type_def.dart';
 import 'package:sabowsla_cloud/core/extensions/context_extension.dart';
 import 'package:sabowsla_cloud/core/presentation/atoms/custom_box.dart';
@@ -11,7 +10,6 @@ import 'package:sabowsla_cloud/core/presentation/atoms/custom_chip.dart';
 import 'package:sabowsla_cloud/core/presentation/atoms/custom_text_field.dart';
 import 'package:sabowsla_cloud/core/router.dart';
 import 'package:sabowsla_cloud/core/styles.dart';
-import 'package:sabowsla_cloud/features/dashboard/dashboard_content_builder.dart';
 import 'package:sabowsla_cloud/features/dashboard/dashboard_layout_template.dart';
 
 class CreateProjectView extends StatefulWidget {

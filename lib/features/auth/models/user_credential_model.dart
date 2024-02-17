@@ -1,11 +1,13 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:objectbox/objectbox.dart';
+import 'package:isar/isar.dart';
 import 'package:sabowsla_cloud/features/auth/models/register_request_model.dart';
 import 'package:sabowsla_cloud/features/auth/presentation/users_page_view/user_credential_property.dart';
 
-@Entity()
+part 'user_credential_model.g.dart';
+
+@collection
 class UserCredential {
   UserCredential({
     required this.email,
@@ -17,21 +19,22 @@ class UserCredential {
     this.id = 0,
   });
 
-  @Id()
-  int id;
-  @Property()
+  Id id = Isar.autoIncrement; // you can also use id = null to auto increment
+
+  @Index(type: IndexType.value)
   String email;
-  @Property()
+  @Index(type: IndexType.value)
   String displayName;
-  @Property()
+  @Index(type: IndexType.value, name: 'uid')
   String uid;
-  @Property(type: PropertyType.date)
+  @Index(type: IndexType.value, name: 'creationDate')
   DateTime? creationDate;
-  @Property()
+  @Index(type: IndexType.value)
   String photoBase64;
-  @Property()
+  @Index(type: IndexType.value)
   String passwordHash;
 
+  @ignore
   List<UIProperty> get properties => [
         UIProperty(Icons.numbers, uid, 2),
         UIProperty(Icons.person, displayName, 2),
@@ -44,6 +47,7 @@ class UserCredential {
         UIProperty(Icons.image, photoBase64, 1),
       ];
 
+  @ignore
   List<Widget> get propertiesAsWidgets => properties
       .map(
         (e) => UserCredentialPropertyView(

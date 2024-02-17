@@ -3,9 +3,9 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
+
 import 'package:sabowsla_cloud/features/auth/models/login_request_model.dart';
 import 'package:sabowsla_cloud/features/auth/models/login_result_model.dart';
-import 'package:sabowsla_cloud/features/auth/source/auth_data_source.dart';
 
 var sabowslaServer = SabowslaServer();
 
@@ -71,7 +71,9 @@ class SabowslaServer {
         var email = data['email'] as String;
         var password = data['password'] as String;
         var loginRequest = LoginRequest(email: email, password: password);
-        LoginResult result = await authDataSource.login(loginRequest);
+        LoginResult result = LoginResult.errored(
+          LoginError.invalidEmail,
+        ); // await authDataSource.login(loginRequest);
         if (result.error != null) {
           request.response.statusCode = 400;
           request.response.write(result.error);

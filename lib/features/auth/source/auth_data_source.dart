@@ -1,50 +1,44 @@
 import 'dart:developer';
 
 import 'package:email_validator/email_validator.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:sabowsla_cloud/api/env.dart';
+import 'package:isar/isar.dart';
 import 'package:sabowsla_cloud/features/auth/models/delete_user_result.dart';
 import 'package:sabowsla_cloud/features/auth/models/login_request_model.dart';
 import 'package:sabowsla_cloud/features/auth/models/login_result_model.dart';
 import 'package:sabowsla_cloud/features/auth/models/register_request_model.dart';
 import 'package:sabowsla_cloud/features/auth/models/register_result_model.dart';
 import 'package:sabowsla_cloud/features/auth/models/user_credential_model.dart';
-import 'package:sabowsla_cloud/features/auth/source/auth_jwt.dart';
-import 'package:sabowsla_cloud/objectbox/objectbox.g.dart';
 import 'package:uuid/uuid.dart';
 
-var authDataSource = AuthDataSourceImpl();
+late final AuthDataSource authDataSource;
 
 abstract class AuthDataSource {
   Future<LoginResult> login(LoginRequest request);
   Future<RegisterResult> register(RegisterRequest request);
   Future<DeleteUserResult> deleteUser(String uid);
   Future<List<UserCredential>> getAllUsers();
-  int countUsers();
-  late Box<UserCredential> usersDb;
+  Future<int> countUsers();
+  late final Isar usersDb;
 }
 
 class AuthDataSourceImpl implements AuthDataSource {
-  AuthDataSourceImpl();
+  AuthDataSourceImpl(this.usersDb) {
+    //TODO attach schemas
+  }
 
   @override
-  late Box<UserCredential> usersDb;
+  late final Isar usersDb;
 
   @override
-  int countUsers() {
-    return usersDb.count();
+  Future<int> countUsers() async {
+    return await usersDb.collection().count();
   }
 
   @override
   Future<DeleteUserResult> deleteUser(String uid) async {
-    final user =
-        usersDb.query(UserCredential_.uid.equals(uid)).build().findFirst();
-    if (user != null) {
-      usersDb.remove(user.id);
-      return DeleteUserResult.success;
-    }
-    return DeleteUserResult.userNotFound;
+    bool deleted = await usersDb.collection().deleteByIndex('uid', [uid]);
+    return deleted ? DeleteUserResult.success : DeleteUserResult.userNotFound;
   }
 
   @override
@@ -63,11 +57,8 @@ class AuthDataSourceImpl implements AuthDataSource {
     if (user.passwordHash.isEmpty) {
       return RegisterResult(error: RegisterError.weakPassword);
     }
-
-    final userExists = usersDb
-        .query(UserCredential_.email.equals(request.email))
-        .build()
-        .findFirst();
+/*
+    final userExists = usersDb.attachCollections()
 
     if (userExists != null) {
       if (kDebugMode) {
@@ -79,32 +70,41 @@ class AuthDataSourceImpl implements AuthDataSource {
     } else {
       usersDb.put(user);
     }
+  */
     return RegisterResult(userCredential: user);
   }
 
   @override
   Future<List<UserCredential>> getAllUsers() async {
-    return await usersDb.getAllAsync();
+    //return await usersDb.getAllAsync();
+    throw UnimplementedError();
   }
 
   Future<List<UserCredential>> getUsersByCreationDate({
     required DateTimeRange range,
   }) async {
+    /*
     final query = usersDb.query(
       UserCredential_.creationDate.between(
         range.start.millisecondsSinceEpoch,
         range.end.millisecondsSinceEpoch,
       ),
     );
-    return query.build().find();
+    */
+    throw UnimplementedError();
   }
 
   @override
   Future<LoginResult> login(LoginRequest request) async {
-    final user = usersDb
+    /*
+      final user = usersDb
+  
         .query(UserCredential_.email.equals(request.email))
         .build()
         .findFirst();
+        */
+    throw UnimplementedError();
+    /*
     if (user == null) {
       return LoginResult.errored(
         LoginError.userNotFound,
@@ -118,6 +118,6 @@ class AuthDataSourceImpl implements AuthDataSource {
     }
     return LoginResult.errored(
       LoginError.wrongPassword,
-    );
+    );*/
   }
 }

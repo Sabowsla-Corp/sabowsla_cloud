@@ -1,6 +1,5 @@
+import 'package:isar/isar.dart';
 import 'package:sabowsla_cloud/features/log/models/log_model.dart';
-import 'package:sabowsla_cloud/objectbox.dart';
-import 'package:sabowsla_cloud/objectbox/objectbox.g.dart';
 
 abstract class LogsDataSource {
   List<LogModel> getAll();
@@ -12,24 +11,27 @@ abstract class LogsDataSource {
     required DateTime date,
   });
 
-  late final ObjectBox box;
+  late final Isar logsDb;
 }
 
 class LogsDataSourceImpl implements LogsDataSource {
-  LogsDataSourceImpl(this.box);
+  LogsDataSourceImpl(this.logsDb);
 
   @override
-  late final ObjectBox box;
-  Box<LogModel> get logsDb => box.logsDb;
+  late final Isar logsDb;
 
   @override
-  List<LogModel> getAll() => logsDb.getAll();
+  List<LogModel> getAll() {
+    throw UnimplementedError();
+  }
 
   @override
   Future<List<LogModel>> getByDateRange({
     required DateTime start,
     required DateTime end,
   }) async {
+    throw UnimplementedError();
+    /*
     return logsDb
         .query(
           LogModel_.date.between(
@@ -39,15 +41,20 @@ class LogsDataSourceImpl implements LogsDataSource {
         )
         .build()
         .find();
+        */
   }
 
   @override
   Future<List<LogModel>> getByDate({
     required DateTime date,
   }) async {
+    throw UnimplementedError();
+    /*
+
     return logsDb
         .query(LogModel_.date.equals(date.millisecondsSinceEpoch))
         .build()
         .find();
+        */
   }
 }

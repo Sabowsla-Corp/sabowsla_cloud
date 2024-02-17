@@ -1,6 +1,8 @@
-import 'package:objectbox/objectbox.dart';
+import 'package:isar/isar.dart';
 
-@Entity()
+part 'log_model.g.dart';
+
+@collection
 class LogModel {
   LogModel({
     required this.log,
@@ -10,15 +12,15 @@ class LogModel {
     this.id = 0,
   });
 
-  @Id()
-  int id;
-  @Property()
+  Id id = Isar.autoIncrement; // you can also use id = null to auto increment
+
+  @Index(type: IndexType.value)
   final String log;
-  @Property(type: PropertyType.date)
+  @Index(type: IndexType.value)
   final DateTime date;
-  @Property()
+  @Index(type: IndexType.value)
   final String severity;
-  @Property()
+  @Index(type: IndexType.value)
   final String source;
 
   LogModel copyWith({

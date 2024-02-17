@@ -4,7 +4,7 @@
 
 list(APPEND FLUTTER_PLUGIN_LIST
   image_compression_flutter
-  objectbox_flutter_libs
+  isar_flutter_libs
   screen_retriever
   window_manager
 )
