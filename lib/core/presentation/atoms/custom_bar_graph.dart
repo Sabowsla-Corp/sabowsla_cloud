@@ -24,9 +24,13 @@ class CustomBarGraph extends StatelessWidget {
     var smallest = points[0];
 
     points.forEach(
-      (gfg) => {
-        if (gfg.value > largest.value) {largest = gfg},
-        if (gfg.value < smallest.value) {smallest = gfg},
+      (gfg) {
+        if (gfg.value > largest.value) {
+          largest = gfg;
+        }
+        if (gfg.value < smallest.value) {
+          smallest = gfg;
+        }
       },
     );
     for (var point in points) {
@@ -112,9 +116,13 @@ class CustomBarGraph extends StatelessWidget {
     var smallest = points[0];
 
     points.forEach(
-      (gfg) => {
-        if (gfg.value > largest.value) {largest = gfg},
-        if (gfg.value < smallest.value) {smallest = gfg},
+      (gfg) {
+        if (gfg.value > largest.value) {
+          largest = gfg;
+        }
+        if (gfg.value < smallest.value) {
+          smallest = gfg;
+        }
       },
     );
     int divisions = 5;
