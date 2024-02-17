@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:oktoast/oktoast.dart';
+import 'package:sabowsla_cloud/core/constants/colors.dart';
+import 'package:sabowsla_cloud/core/constants/type_def.dart';
+import 'package:sabowsla_cloud/core/styles.dart';
 import 'package:sabowsla_cloud/features/dashboard/dashboard_page.dart';
 import 'package:sabowsla_cloud/features/home/home_page.dart';
 import 'package:sabowsla_cloud/features/home/views/create_project_view.dart';
+import 'package:shimmer/shimmer.dart';
 
 var navigationService = NavigationService();
 
@@ -38,5 +43,48 @@ class NavigationService {
 
   void pop() {
     navigatorKey.currentState?.pop();
+  }
+
+  void showToast(String s) {
+    showToastWidget(
+      Stack(
+        children: [
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 14),
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.red.withOpacity(0.3)),
+              color: colors.black,
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Text(
+              s,
+              style: styles18.whiteBold,
+            ),
+          ),
+          Container(
+            padding: const EI.all(2),
+            child: Shimmer.fromColors(
+              baseColor: Colors.red.withOpacity(0.02),
+              highlightColor: Colors.red.withOpacity(0.5),
+              period: const Duration(milliseconds: 1000),
+              loop: 1,
+              child: Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 32, vertical: 14),
+                decoration: BoxDecoration(
+                  border: Border.all(width: 2, color: Colors.red),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Text(
+                  s,
+                  style: styles18.whiteBold,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+      position: ToastPosition.top,
+    );
   }
 }

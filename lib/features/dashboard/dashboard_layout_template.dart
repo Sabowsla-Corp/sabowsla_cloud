@@ -12,6 +12,7 @@ class DashboardLayoutTemplate extends StatelessWidget {
     this.titleStyle,
     this.dividerColor,
     this.iconWidget,
+    this.loader,
   });
   final Widget? iconWidget;
   final IconData? icon;
@@ -20,6 +21,7 @@ class DashboardLayoutTemplate extends StatelessWidget {
   final Widget trailing;
   final TextStyle? titleStyle;
   final Color? dividerColor;
+  final Widget? loader;
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +52,7 @@ class DashboardLayoutTemplate extends StatelessWidget {
         CustomDivider(
           color: dividerColor,
         ),
+        loader ?? const SizedBox(),
         const SizedBox(height: 10),
         Expanded(
           child: child,

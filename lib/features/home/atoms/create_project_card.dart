@@ -28,15 +28,16 @@ class CreateProjectCard extends ConsumerWidget {
           },
           child: Column(
             children: [
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 30,
-                  horizontal: 20,
-                ),
-                child: const Icon(
-                  FontAwesomeIcons.plus,
-                  color: Color.fromRGBO(255, 255, 255, 1),
-                  size: 50,
+              Expanded(
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                  ),
+                  child: const Icon(
+                    FontAwesomeIcons.plus,
+                    color: Color.fromRGBO(255, 255, 255, 1),
+                    size: 50,
+                  ),
                 ),
               ),
               Text(
