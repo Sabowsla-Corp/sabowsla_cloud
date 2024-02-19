@@ -4,6 +4,7 @@ import 'package:sabowsla_cloud/core/constants/type_def.dart';
 class CustomCard extends StatelessWidget {
   const CustomCard({
     required this.child,
+    this.onTap,
     super.key,
     this.margin,
     this.width,
@@ -12,6 +13,7 @@ class CustomCard extends StatelessWidget {
     this.bodyColor,
     this.maxWidth,
     this.padding,
+    this.borderRadius,
   });
   final Widget? header;
   final Widget child;
@@ -21,6 +23,8 @@ class CustomCard extends StatelessWidget {
   final Color? bodyColor;
   final double? maxWidth;
   final EI? padding;
+  final Function()? onTap;
+  final BorderRadius? borderRadius;
 
   @override
   Widget build(BuildContext context) {
@@ -29,50 +33,62 @@ class CustomCard extends StatelessWidget {
         margin: margin,
         width: width,
         height: height,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: Colors.grey.shade900,
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(10),
-                  topRight: Radius.circular(10),
+        child: InkWell(
+          onTap: onTap,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade900,
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(10),
+                    topRight: Radius.circular(10),
+                  ),
                 ),
+                child: header,
               ),
-              child: header,
-            ),
-            DecoratedBox(
-              decoration: BoxDecoration(
-                color: bodyColor ??
-                    const Color.fromARGB(255, 66, 58, 58).withOpacity(0.2),
-                borderRadius: const BorderRadius.only(
-                  bottomLeft: Radius.circular(10),
-                  bottomRight: Radius.circular(10),
+              DecoratedBox(
+                decoration: BoxDecoration(
+                  color: bodyColor ??
+                      const Color.fromARGB(255, 66, 58, 58).withOpacity(0.2),
+                  borderRadius: const BorderRadius.only(
+                    bottomLeft: Radius.circular(10),
+                    bottomRight: Radius.circular(10),
+                  ),
                 ),
+                child: child,
               ),
-              child: child,
-            ),
-          ],
+            ],
+          ),
         ),
       );
     }
     return Container(
       margin: margin,
       width: width,
-      padding: padding ?? const EdgeInsets.all(10),
       constraints: BoxConstraints(
         maxWidth: maxWidth ?? double.infinity,
       ),
       decoration: BoxDecoration(
         color: Colors.black,
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: borderRadius ?? BorderRadius.circular(10),
         border: Border.all(
           color: Colors.white24,
         ),
       ),
-      child: child,
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          borderRadius: borderRadius ?? BorderRadius.circular(10),
+          onTap: onTap,
+          child: Padding(
+            padding: padding ?? const EdgeInsets.all(10),
+            child: child,
+          ),
+        ),
+      ),
     );
   }
 }

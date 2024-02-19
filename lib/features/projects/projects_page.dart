@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -7,23 +9,42 @@ import 'package:sabowsla_cloud/core/presentation/atoms/custom_button_icon.dart';
 import 'package:sabowsla_cloud/core/styles.dart';
 import 'package:sabowsla_cloud/features/dashboard/dashboard_layout_template.dart';
 import 'package:sabowsla_cloud/features/projects/atoms/create_project_card.dart';
-import 'package:sabowsla_cloud/gen/assets.gen.dart';
+import 'package:sabowsla_cloud/features/projects/atoms/current_user_avatar.dart';
+import 'package:sabowsla_cloud/features/projects/atoms/project_card_preview.dart';
+import 'package:sabowsla_cloud/features/projects/models/project_model.dart';
+import 'package:sabowsla_cloud/features/projects/projects_page_controller.dart';
 
-class HomePage extends ConsumerStatefulWidget {
-  const HomePage({super.key});
+class ProjectsPage extends ConsumerStatefulWidget {
+  const ProjectsPage({super.key});
+
+  static const routeName = "/projects";
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _HomePageState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _ProjectsPageState();
 }
 
-class _HomePageState extends ConsumerState<HomePage> {
+class _ProjectsPageState extends ConsumerState<ProjectsPage> {
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(Duration.zero, () {
+      ref.read(projectsPageControllerProvider.notifier).init();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     //var state = ref.watch(homePageControllerProvider);
     return DashboardLayoutTemplate(
       title: "Sabowsla Cloud",
       titleStyle: styles18.white,
-      icon: FontAwesomeIcons.cloud,
+      iconWidget: const Padding(
+        padding: EdgeInsets.only(left: 5),
+        child: Icon(
+          FontAwesomeIcons.cloud,
+          size: 20,
+        ),
+      ),
       dividerColor: Colors.transparent,
       trailing: Container(
         padding: const EdgeInsets.only(right: 10),
@@ -39,12 +60,28 @@ class _HomePageState extends ConsumerState<HomePage> {
           ],
         ),
       ),
-      child: SingleChildScrollView(
-        child: Center(
-          child: Container(
-            constraints: BoxConstraints(
-              maxWidth: context.width * 0.8,
-            ),
+      child: const ProjectsPageContent(),
+    );
+  }
+}
+
+class ProjectsPageContent extends ConsumerWidget {
+  const ProjectsPageContent({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    List<ProjectModel> currentProjects =
+        ref.watch(projectsPageControllerProvider).projects;
+    log("Rebuild with ${currentProjects.length} projects");
+    return SingleChildScrollView(
+      child: Center(
+        child: Container(
+          constraints: BoxConstraints(
+            maxWidth: context.width * 0.8,
+          ),
+          child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -54,86 +91,24 @@ class _HomePageState extends ConsumerState<HomePage> {
                 ),
                 CustomBox.medium(),
                 GridView(
+                  physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 3,
                     crossAxisSpacing: 10,
                     mainAxisSpacing: 10,
                   ),
-                  children: const [
-                    CreateProjectCard(),
+                  children: [
+                    const CreateProjectCard(),
+                    ...currentProjects.map(
+                      (project) => ProjectCardPreview(
+                        project: project,
+                      ),
+                    ),
                   ],
                 ),
               ],
             ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class CurrentUserAvatar extends ConsumerWidget {
-  const CurrentUserAvatar({super.key});
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return AvatarOutliner(
-      padding: const EdgeInsets.all(4),
-      onTap: () {},
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(50),
-        child: Assets.userIcons.male.image(
-          width: 30,
-          height: 30,
-        ),
-      ),
-    );
-  }
-}
-
-class AvatarOutliner extends StatelessWidget {
-  const AvatarOutliner({
-    required this.child,
-    this.padding = const EdgeInsets.all(0),
-    this.onTap,
-    super.key,
-  });
-
-  final Widget child;
-  final EdgeInsets padding;
-  final VoidCallback? onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    //Instagram like avatar outliner with color and inner padding
-    return InkWell(
-      borderRadius: BorderRadius.circular(50),
-      onTap: onTap,
-      splashColor: Colors.red,
-      highlightColor: Colors.red,
-      child: Material(
-        color: Colors.transparent,
-        child: Container(
-          padding: const EdgeInsets.all(3),
-          decoration: const BoxDecoration(
-            shape: BoxShape.circle,
-            gradient: SweepGradient(
-              colors: [
-                Colors.red,
-                Colors.blue,
-                Colors.green,
-                Colors.yellow,
-              ],
-            ),
-          ),
-          child: Container(
-            padding: padding,
-            decoration: const BoxDecoration(
-              shape: BoxShape.circle,
-              color: Colors.black,
-            ),
-            child: child,
           ),
         ),
       ),

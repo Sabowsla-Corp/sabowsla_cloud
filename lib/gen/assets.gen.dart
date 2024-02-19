@@ -9,6 +9,26 @@
 
 import 'package:flutter/widgets.dart';
 
+class $AssetsIconGen {
+  const $AssetsIconGen();
+
+  /// File path: assets/icon/icon.jpeg
+  AssetGenImage get icon => const AssetGenImage('assets/icon/icon.jpeg');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [icon];
+}
+
+class $AssetsIconsGen {
+  const $AssetsIconsGen();
+
+  /// File path: assets/icons/icon.png
+  AssetGenImage get icon => const AssetGenImage('assets/icons/icon.png');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [icon];
+}
+
 class $AssetsUserIconsGen {
   const $AssetsUserIconsGen();
 
@@ -26,6 +46,8 @@ class $AssetsUserIconsGen {
 class Assets {
   Assets._();
 
+  static const $AssetsIconGen icon = $AssetsIconGen();
+  static const $AssetsIconsGen icons = $AssetsIconsGen();
   static const $AssetsUserIconsGen userIcons = $AssetsUserIconsGen();
 }
 

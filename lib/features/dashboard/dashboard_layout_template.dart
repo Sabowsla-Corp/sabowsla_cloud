@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sabowsla_cloud/core/presentation/atoms/custom_divider.dart';
 import 'package:sabowsla_cloud/core/styles.dart';
+import 'package:sabowsla_cloud/features/dashboard/atoms/dashboard_layout_header.dart';
+import 'package:sabowsla_cloud/features/projects/models/project_model.dart';
+import 'package:sabowsla_cloud/features/projects/projects_page_controller.dart';
 
-class DashboardLayoutTemplate extends StatelessWidget {
+class DashboardLayoutTemplate extends ConsumerWidget {
   const DashboardLayoutTemplate({
     required this.title,
     required this.child,
@@ -24,10 +28,19 @@ class DashboardLayoutTemplate extends StatelessWidget {
   final Widget? loader;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    ProjectModel? openProject =
+        ref.read(projectsPageControllerProvider).selectedProject;
+
+    Widget defaultHeadr = const SizedBox();
+    if (openProject != null) {
+      defaultHeadr = DashboardLayoutHeader(openProject: openProject);
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        defaultHeadr,
         Padding(
           padding: const EdgeInsets.only(left: 8, top: 8),
           child: Row(

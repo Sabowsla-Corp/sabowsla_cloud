@@ -13,15 +13,10 @@ import 'package:sabowsla_cloud/core/presentation/atoms/custom_text_field.dart';
 import 'package:sabowsla_cloud/core/router.dart';
 import 'package:sabowsla_cloud/core/styles.dart';
 import 'package:sabowsla_cloud/features/dashboard/dashboard_layout_template.dart';
-import 'package:sabowsla_cloud/features/projects/controller/projects_page_controller.dart';
+import 'package:sabowsla_cloud/features/projects/projects_page_controller.dart';
 
 class CreateProjectView extends ConsumerStatefulWidget {
   const CreateProjectView({super.key});
-
-  static Future open(AutoDisposeNotifierProviderRef ref) {
-    var router = ref.read(navigationService.goRouterProvider);
-    return router.push(CreateProjectView.routeName);
-  }
 
   static const routeName = "/create-project";
   @override
@@ -128,7 +123,7 @@ class _CreateProjectViewState extends ConsumerState<CreateProjectView> {
     });
     bool validSettings = validateSettings();
     if (validSettings) {
-      var controller = ref.read(projectsControllerProvider.notifier);
+      var controller = ref.read(projectsPageControllerProvider.notifier);
       await controller.createNewProjectFromSettings(
         name: _controller.text,
         basePath: projectPathController.text,

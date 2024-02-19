@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sabowsla_cloud/core/app_streams.dart';
+import 'package:sabowsla_cloud/features/dashboard/atoms/dashboard_loading_indicator.dart';
 import 'package:sabowsla_cloud/features/dashboard/dashboard_content_builder.dart';
 import 'package:sabowsla_cloud/features/dashboard/dashboard_routes_drawer.dart';
 
@@ -8,24 +8,16 @@ class DashboardPage extends StatelessWidget {
     super.key,
   });
 
+  static String routeName = "/dashboard";
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       backgroundColor: Colors.black,
       body: Column(
         children: [
-          StreamBuilder<bool>(
-            stream: appStreams.loadingIndicator,
-            builder: (c, s) {
-              bool show = s.data ?? false;
-              if (show) {
-                return const LinearProgressIndicator();
-              } else {
-                return const SizedBox();
-              }
-            },
-          ),
-          const Expanded(
+          DashboardLoadingIndicator(),
+          Expanded(
             child: Row(
               children: [
                 DashboardRoutesDrawer(),

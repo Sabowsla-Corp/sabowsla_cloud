@@ -22,13 +22,18 @@ const ProjectModelSchema = CollectionSchema(
       name: r'basePath',
       type: IsarType.string,
     ),
-    r'name': PropertySchema(
+    r'createdAt': PropertySchema(
       id: 1,
+      name: r'createdAt',
+      type: IsarType.dateTime,
+    ),
+    r'name': PropertySchema(
+      id: 2,
       name: r'name',
       type: IsarType.string,
     ),
     r'uid': PropertySchema(
-      id: 2,
+      id: 3,
       name: r'uid',
       type: IsarType.string,
     )
@@ -77,6 +82,19 @@ const ProjectModelSchema = CollectionSchema(
           caseSensitive: true,
         )
       ],
+    ),
+    r'createdAt': IndexSchema(
+      id: -3433535483987302584,
+      name: r'createdAt',
+      unique: false,
+      replace: false,
+      properties: [
+        IndexPropertySchema(
+          name: r'createdAt',
+          type: IndexType.value,
+          caseSensitive: false,
+        )
+      ],
     )
   },
   links: {},
@@ -106,8 +124,9 @@ void _projectModelSerialize(
   Map<Type, List<int>> allOffsets,
 ) {
   writer.writeString(offsets[0], object.basePath);
-  writer.writeString(offsets[1], object.name);
-  writer.writeString(offsets[2], object.uid);
+  writer.writeDateTime(offsets[1], object.createdAt);
+  writer.writeString(offsets[2], object.name);
+  writer.writeString(offsets[3], object.uid);
 }
 
 ProjectModel _projectModelDeserialize(
@@ -118,9 +137,10 @@ ProjectModel _projectModelDeserialize(
 ) {
   final object = ProjectModel(
     basePath: reader.readString(offsets[0]),
+    createdAt: reader.readDateTime(offsets[1]),
     id: id,
-    name: reader.readString(offsets[1]),
-    uid: reader.readString(offsets[2]),
+    name: reader.readString(offsets[2]),
+    uid: reader.readString(offsets[3]),
   );
   return object;
 }
@@ -135,8 +155,10 @@ P _projectModelDeserializeProp<P>(
     case 0:
       return (reader.readString(offset)) as P;
     case 1:
-      return (reader.readString(offset)) as P;
+      return (reader.readDateTime(offset)) as P;
     case 2:
+      return (reader.readString(offset)) as P;
+    case 3:
       return (reader.readString(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -184,6 +206,14 @@ extension ProjectModelQueryWhereSort
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
         const IndexWhereClause.any(indexName: r'uid'),
+      );
+    });
+  }
+
+  QueryBuilder<ProjectModel, ProjectModel, QAfterWhere> anyCreatedAt() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(
+        const IndexWhereClause.any(indexName: r'createdAt'),
       );
     });
   }
@@ -668,6 +698,97 @@ extension ProjectModelQueryWhere
       }
     });
   }
+
+  QueryBuilder<ProjectModel, ProjectModel, QAfterWhereClause> createdAtEqualTo(
+      DateTime createdAt) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(IndexWhereClause.equalTo(
+        indexName: r'createdAt',
+        value: [createdAt],
+      ));
+    });
+  }
+
+  QueryBuilder<ProjectModel, ProjectModel, QAfterWhereClause>
+      createdAtNotEqualTo(DateTime createdAt) {
+    return QueryBuilder.apply(this, (query) {
+      if (query.whereSort == Sort.asc) {
+        return query
+            .addWhereClause(IndexWhereClause.between(
+              indexName: r'createdAt',
+              lower: [],
+              upper: [createdAt],
+              includeUpper: false,
+            ))
+            .addWhereClause(IndexWhereClause.between(
+              indexName: r'createdAt',
+              lower: [createdAt],
+              includeLower: false,
+              upper: [],
+            ));
+      } else {
+        return query
+            .addWhereClause(IndexWhereClause.between(
+              indexName: r'createdAt',
+              lower: [createdAt],
+              includeLower: false,
+              upper: [],
+            ))
+            .addWhereClause(IndexWhereClause.between(
+              indexName: r'createdAt',
+              lower: [],
+              upper: [createdAt],
+              includeUpper: false,
+            ));
+      }
+    });
+  }
+
+  QueryBuilder<ProjectModel, ProjectModel, QAfterWhereClause>
+      createdAtGreaterThan(
+    DateTime createdAt, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(IndexWhereClause.between(
+        indexName: r'createdAt',
+        lower: [createdAt],
+        includeLower: include,
+        upper: [],
+      ));
+    });
+  }
+
+  QueryBuilder<ProjectModel, ProjectModel, QAfterWhereClause> createdAtLessThan(
+    DateTime createdAt, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(IndexWhereClause.between(
+        indexName: r'createdAt',
+        lower: [],
+        upper: [createdAt],
+        includeUpper: include,
+      ));
+    });
+  }
+
+  QueryBuilder<ProjectModel, ProjectModel, QAfterWhereClause> createdAtBetween(
+    DateTime lowerCreatedAt,
+    DateTime upperCreatedAt, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(IndexWhereClause.between(
+        indexName: r'createdAt',
+        lower: [lowerCreatedAt],
+        includeLower: includeLower,
+        upper: [upperCreatedAt],
+        includeUpper: includeUpper,
+      ));
+    });
+  }
 }
 
 extension ProjectModelQueryFilter
@@ -804,6 +925,62 @@ extension ProjectModelQueryFilter
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'basePath',
         value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<ProjectModel, ProjectModel, QAfterFilterCondition>
+      createdAtEqualTo(DateTime value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'createdAt',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<ProjectModel, ProjectModel, QAfterFilterCondition>
+      createdAtGreaterThan(
+    DateTime value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'createdAt',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<ProjectModel, ProjectModel, QAfterFilterCondition>
+      createdAtLessThan(
+    DateTime value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'createdAt',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<ProjectModel, ProjectModel, QAfterFilterCondition>
+      createdAtBetween(
+    DateTime lower,
+    DateTime upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'createdAt',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
       ));
     });
   }
@@ -1148,6 +1325,18 @@ extension ProjectModelQuerySortBy
     });
   }
 
+  QueryBuilder<ProjectModel, ProjectModel, QAfterSortBy> sortByCreatedAt() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'createdAt', Sort.asc);
+    });
+  }
+
+  QueryBuilder<ProjectModel, ProjectModel, QAfterSortBy> sortByCreatedAtDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'createdAt', Sort.desc);
+    });
+  }
+
   QueryBuilder<ProjectModel, ProjectModel, QAfterSortBy> sortByName() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'name', Sort.asc);
@@ -1184,6 +1373,18 @@ extension ProjectModelQuerySortThenBy
   QueryBuilder<ProjectModel, ProjectModel, QAfterSortBy> thenByBasePathDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'basePath', Sort.desc);
+    });
+  }
+
+  QueryBuilder<ProjectModel, ProjectModel, QAfterSortBy> thenByCreatedAt() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'createdAt', Sort.asc);
+    });
+  }
+
+  QueryBuilder<ProjectModel, ProjectModel, QAfterSortBy> thenByCreatedAtDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'createdAt', Sort.desc);
     });
   }
 
@@ -1233,6 +1434,12 @@ extension ProjectModelQueryWhereDistinct
     });
   }
 
+  QueryBuilder<ProjectModel, ProjectModel, QDistinct> distinctByCreatedAt() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'createdAt');
+    });
+  }
+
   QueryBuilder<ProjectModel, ProjectModel, QDistinct> distinctByName(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -1259,6 +1466,12 @@ extension ProjectModelQueryProperty
   QueryBuilder<ProjectModel, String, QQueryOperations> basePathProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'basePath');
+    });
+  }
+
+  QueryBuilder<ProjectModel, DateTime, QQueryOperations> createdAtProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'createdAt');
     });
   }
 

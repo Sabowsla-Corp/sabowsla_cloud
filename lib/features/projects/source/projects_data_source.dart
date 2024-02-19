@@ -8,12 +8,14 @@ import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sabowsla_cloud/core/extensions/nullable_extensions.dart';
 import 'package:sabowsla_cloud/features/projects/models/project_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 var projectsDataSourceProvider = Provider<ProjectsDataSource>(
   (ref) => throw UnimplementedError(),
 );
 
 Isar? _isarDb;
+SharedPreferences? _prefs;
 
 class ProjectsDataSource {
   ProjectsDataSource({String? isarPath}) {
@@ -22,21 +24,50 @@ class ProjectsDataSource {
   bool initing = false;
 
   void _init(String? isarPath) async {
-    initing = true;
-    log("Initializing isar db");
-    if (_isarDb?.isOpen == true) {
-      bool? closed = await _isarDb?.close();
-      if (closed == false) {
-        throw Exception("Failed to close isar db");
+    try {
+      initing = true;
+      log("Initializing isar db");
+      if (_isarDb?.isOpen == true) {
+        bool? closed = await _isarDb?.close();
+        if (closed == false) {
+          throw Exception("Failed to close isar db");
+        }
       }
+      String dir = isarPath ?? (await getApplicationDocumentsDirectory()).path;
+      _isarDb = await Isar.open(
+        [ProjectModelSchema],
+        directory: dir,
+      );
+      _prefs = await SharedPreferences.getInstance();
+      log("Database inited");
+      initing = false;
+    } catch (e) {
+      log("Error initializing isar db: $e");
     }
-    String dir = isarPath ?? (await getApplicationDocumentsDirectory()).path;
-    _isarDb = await Isar.open(
-      [ProjectModelSchema],
-      directory: dir,
-    );
-    log("Database inited");
-    initing = false;
+  }
+
+  void setDefaultProject(ProjectModel? model) {
+    while (initing) {
+      Future.delayed(const Duration(milliseconds: 100));
+      print('Waiting for isar to init');
+    }
+    if (model == null) {
+      _prefs?.remove("default_project");
+    } else {
+      _prefs?.setInt("default_project", model.id);
+    }
+  }
+
+  Future<ProjectModel?> getDefaultProject() async {
+    while (initing) {
+      await Future.delayed(const Duration(milliseconds: 100));
+      print('Waiting for isar to init');
+    }
+    int? id = _prefs?.getInt("default_project");
+    if (id == null) {
+      return null;
+    }
+    return _isarDb?.projectModels.where().idEqualTo(id).findFirst();
   }
 
   Future<CreateSabowslaProjectResult> createNewProject({
@@ -101,6 +132,7 @@ class ProjectsDataSource {
       name: name,
       basePath: basePath,
       uid: uid,
+      createdAt: DateTime.now(),
     );
     return await createNewProject(project: project);
   }

@@ -1,24 +1,50 @@
+import 'dart:developer';
+
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:sabowsla_cloud/core/extensions/widget_ref_extensions.dart';
 import 'package:sabowsla_cloud/core/router.dart';
+import 'package:sabowsla_cloud/features/dashboard/dashboard_page.dart';
 import 'package:sabowsla_cloud/features/projects/models/project_model.dart';
+import 'package:sabowsla_cloud/features/projects/projects_page_state.dart';
 import 'package:sabowsla_cloud/features/projects/source/projects_data_source.dart';
-import 'package:sabowsla_cloud/features/projects/views/create_project_view.dart';
 
 part 'projects_page_controller.g.dart';
 
-List<ProjectModel> _projects = [];
+ProjectsState _innerState = ProjectsState(
+  projects: [],
+);
 
 @riverpod
-class ProjectsController extends _$ProjectsController {
+class ProjectsPageController extends _$ProjectsPageController {
   @override
-  ProjectsState build() => ProjectsState(projects: _projects);
+  ProjectsState build() => _innerState;
   ProjectsDataSource get source => ref.read(projectsDataSourceProvider);
 
-  void loadProjects() async {
+  void copyState({
+    List<ProjectModel>? projects,
+    ProjectModel? selectedProject,
+  }) {
+    state = ProjectsState(
+      projects: projects ?? state.projects,
+      selectedProject: selectedProject ?? state.selectedProject,
+    );
+  }
+
+  void init() async {
     var ps = await source.getAllProjects();
-    state = state.copyWith(projects: ps);
+    var defaultProject = await source.getDefaultProject();
+    copyState(projects: ps, selectedProject: defaultProject);
     print("loaded projects: ${ps.length}");
-    _projects = ps;
+    if (defaultProject != null) {
+      await Future.delayed(const Duration(milliseconds: 500));
+      openProject(defaultProject);
+    }
+  }
+
+  void openProject(ProjectModel project) {
+    copyState(selectedProject: project);
+    ref.router.push(DashboardPage.routeName);
+    log("Opening project ${project.name}");
   }
 
   Future<void> createNewProjectFromSettings({
@@ -67,23 +93,5 @@ class ProjectsController extends _$ProjectsController {
         );
         break;
     }
-  }
-
-  void toCreateProjectsPage() {
-    CreateProjectView.open(ref);
-  }
-}
-
-class ProjectsState {
-  ProjectsState({this.projects = const []});
-
-  final List<ProjectModel> projects;
-
-  ProjectsState copyWith({
-    List<ProjectModel>? projects,
-  }) {
-    return ProjectsState(
-      projects: projects ?? this.projects,
-    );
   }
 }

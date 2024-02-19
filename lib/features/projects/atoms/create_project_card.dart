@@ -3,11 +3,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sabowsla_cloud/core/constants/type_def.dart';
 import 'package:sabowsla_cloud/core/extensions/context_extension.dart';
+import 'package:sabowsla_cloud/core/extensions/widget_ref_extensions.dart';
 import 'package:sabowsla_cloud/core/presentation/atoms/custom_box.dart';
 import 'package:sabowsla_cloud/core/presentation/atoms/custom_card.dart';
 import 'package:sabowsla_cloud/core/presentation/atoms/custom_divider.dart';
 import 'package:sabowsla_cloud/core/styles.dart';
-import 'package:sabowsla_cloud/features/projects/controller/projects_page_controller.dart';
+import 'package:sabowsla_cloud/features/projects/views/create_project_view.dart';
 
 class CreateProjectCard extends ConsumerWidget {
   const CreateProjectCard({
@@ -23,10 +24,8 @@ class CreateProjectCard extends ConsumerWidget {
         color: Colors.transparent,
         child: InkWell(
           borderRadius: BorderRadius.circular(10),
-          onTap: () {
-            ref
-                .read(projectsControllerProvider.notifier)
-                .toCreateProjectsPage();
+          onTap: () async {
+            await ref.router.push(CreateProjectView.routeName);
           },
           child: Column(
             children: [

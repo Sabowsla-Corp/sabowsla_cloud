@@ -16,23 +16,26 @@ class NavigationService {
   var navigatorKey = GlobalKey<NavigatorState>();
   late final Provider<GoRouter> goRouterProvider = Provider<GoRouter>((ref) {
     return GoRouter(
-      initialLocation: '/home',
+      initialLocation: ProjectsPage.routeName,
       navigatorKey: navigatorKey,
       routes: [
         GoRoute(
-          path: '/home',
+          path: ProjectsPage.routeName,
+          name: ProjectsPage.routeName,
           builder: (context, state) {
-            return const HomePage();
+            return const ProjectsPage();
           },
         ),
         GoRoute(
-          path: '/dashboard',
+          path: DashboardPage.routeName,
+          name: DashboardPage.routeName,
           builder: (context, state) {
             return const DashboardPage();
           },
         ),
         GoRoute(
           path: CreateProjectView.routeName,
+          name: CreateProjectView.routeName,
           builder: (context, state) {
             return const CreateProjectView();
           },

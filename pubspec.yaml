@@ -81,3 +81,5 @@ flutter:
 
   assets:
     - assets/userIcons/
+    - assets/icon/
+    - assets/icons/

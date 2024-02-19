@@ -4,7 +4,7 @@ import 'package:sabowsla_cloud/core/app_streams.dart';
 import 'package:sabowsla_cloud/core/constants/export_ui_tools.dart';
 import 'package:sabowsla_cloud/core/presentation/atoms/custom_button_icon.dart';
 import 'package:sabowsla_cloud/core/presentation/atoms/custom_divider.dart';
-import 'package:sabowsla_cloud/gen/assets.gen.dart';
+import 'package:sabowsla_cloud/features/dashboard/atoms/sabowsla_cloud_logo_icon.dart';
 
 class DashboardRoutesDrawer extends StatefulWidget {
   const DashboardRoutesDrawer({super.key});
@@ -80,13 +80,7 @@ class _DashboardRoutesDrawerState extends State<DashboardRoutesDrawer> {
           Expanded(
             child: Column(
               children: [
-                ProjectIcon(
-                  size: expanded ? 100 : 40,
-                  padding: expanded ? const EI.symmetric(vertical: 20) : null,
-                ),
-                ProjectName(
-                  expanded: expanded,
-                ),
+                SabowslaCloudLogoIcon(expanded: expanded),
                 const CustomDivider(),
                 ListView.separated(
                   itemCount: routes.length,
@@ -140,45 +134,6 @@ class _DashboardRoutesDrawerState extends State<DashboardRoutesDrawer> {
           ],
         );
       },
-    );
-  }
-}
-
-class ProjectIcon extends StatelessWidget {
-  const ProjectIcon({required this.size, super.key, this.padding});
-  final double size;
-  final EdgeInsets? padding;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: padding ?? const EdgeInsets.all(8.0),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(size),
-        child: Assets.userIcons.male.image(
-          width: size,
-          height: size,
-          fit: BoxFit.contain,
-        ),
-      ),
-    );
-  }
-}
-
-class ProjectName extends StatelessWidget {
-  const ProjectName({required this.expanded, super.key});
-  final bool expanded;
-
-  @override
-  Widget build(BuildContext context) {
-    if (!expanded) return const SizedBox();
-    return Text(
-      'Sabowsla Server',
-      style: TextStyle(
-        color: Colors.white,
-        fontSize: expanded ? 20 : 8,
-        fontWeight: FontWeight.bold,
-      ),
     );
   }
 }

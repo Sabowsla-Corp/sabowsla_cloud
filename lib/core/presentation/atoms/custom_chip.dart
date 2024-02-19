@@ -2,21 +2,32 @@ import 'package:flutter/material.dart';
 
 //Black rounded chip
 class CustomChip extends StatelessWidget {
-  const CustomChip({required this.label, super.key});
+  const CustomChip({required this.label, super.key, this.onTap});
   final String label;
+  final Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Chip(
-      label: Text(
-        label,
-        style: const TextStyle(color: Colors.white54),
-      ),
-      backgroundColor: Colors.black,
-      shape: RoundedRectangleBorder(
+    return DecoratedBox(
+      decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(155),
-        side: const BorderSide(
-          color: Colors.white10,
+        color: Colors.black,
+        border: Border.all(
+          color: Colors.white54,
+        ),
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(155),
+          onTap: onTap,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+            child: Text(
+              label,
+              style: const TextStyle(color: Colors.white54),
+            ),
+          ),
         ),
       ),
     );
