@@ -28,7 +28,6 @@ class ServerUI extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    log("Server rezied");
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       routerConfig: ref.read(navigationService.goRouterProvider),

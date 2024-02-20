@@ -4,6 +4,7 @@ import 'package:sabowsla_cloud/core/router/routes.dart';
 import 'package:sabowsla_cloud/features/auth/presentation/auth_page.dart';
 import 'package:sabowsla_cloud/features/dashboard/dashboard_layout_template.dart';
 import 'package:sabowsla_cloud/features/dashboard/vies/dashboard_home_view.dart';
+import 'package:sabowsla_cloud/features/dashboard/vies/dashboard_project_settings_page.dart';
 import 'package:sabowsla_cloud/features/server/presentation/server_page.dart';
 
 class DashboardContentView extends StatelessWidget {
@@ -35,10 +36,10 @@ class DashboardContentView extends StatelessWidget {
         return getBaseLayout(route);
       case Routes.logs:
         return getBaseLayout(route);
-      case Routes.settings:
-        return getBaseLayout(route);
       case Routes.server:
         return const ServerPage();
+      case Routes.settings:
+        return const DashboardProjectSettingsPage();
     }
   }
 

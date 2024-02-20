@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:isar/isar.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:sabowsla_cloud/features/auth/models/user_credential_model.dart';
@@ -38,28 +40,29 @@ class DashboardPageController extends _$DashboardPageController {
   }
 
   Future<void> initializeProject(ProjectModel project) async {
-    //Users Database, Single Instance
-    var authDirectory = project.authDirectory;
-    var authIsarDb = await openIsar([UserCredentialSchema], authDirectory);
-    //Project Databases
-    //Eeach project may contain multiple databases, each with its own schema and directory
-    //An example would be posts collection, reposts collection, comments collection, etc
-    var projectIsarDbs = await Future.wait(
-      project.databaseSchemas.map((e) => openIsar(e.$2, e.$1.path)),
-    );
+    try {
+      //Users Database, Single Instance
+      var authDirectory = project.authDirectory;
+      var authIsarDb = await openIsar([UserCredentialSchema], authDirectory);
+      //Project Databases
+      //Eeach project may contain multiple databases, each with its own schema and directory
+      //An example would be posts collection, reposts collection, comments collection, etc
 
-    copyState(
-      isarInstances: [
-        authIsarDb,
-        ...projectIsarDbs,
-      ],
-    );
+      copyState(
+        isarInstances: [
+          authIsarDb,
+        ],
+      );
+    } catch (e) {
+      log("Problem Initializing Project$e");
+    }
   }
 
   Future<Isar> openIsar(
     List<CollectionSchema<dynamic>> schemas,
     String directory,
   ) {
+    log("Opening Isar at $directory");
     return Isar.open(schemas, directory: directory);
   }
 }

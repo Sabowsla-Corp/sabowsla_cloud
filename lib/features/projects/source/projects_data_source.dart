@@ -27,23 +27,30 @@ class ProjectsDataSource {
   void _init(String? isarPath) async {
     try {
       initing = true;
-      log("Initializing isar db");
+
       if (_isarDb?.isOpen == true) {
         bool? closed = await _isarDb?.close();
         if (closed == false) {
           throw Exception("Failed to close isar db");
         }
       }
-      String dir = isarPath ?? (await getApplicationDocumentsDirectory()).path;
+
+      String dir =
+          isarPath ?? "${(await getApplicationDocumentsDirectory()).path}/";
+      Directory dirExists = Directory(dir);
+      if (!dirExists.existsSync()) {
+        log("Creating directory for isar at $dir");
+        await dirExists.create();
+      }
       _isarDb = await Isar.open(
         [ProjectModelSchema],
         directory: dir,
       );
       _prefs = await SharedPreferences.getInstance();
-      log("Database inited");
+
       initing = false;
     } catch (e) {
-      log("Error initializing isar db: $e");
+      log("Error Initializing Projects Data Source: $e");
     }
   }
 

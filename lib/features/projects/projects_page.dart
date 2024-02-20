@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -37,6 +35,7 @@ class _ProjectsPageState extends ConsumerState<ProjectsPage> {
     //var state = ref.watch(homePageControllerProvider);
     return DashboardLayoutTemplate(
       title: "Sabowsla Cloud",
+      showDefaultHeader: false,
       titleStyle: styles18.white,
       iconWidget: const Padding(
         padding: EdgeInsets.only(left: 5),
@@ -74,7 +73,7 @@ class ProjectsPageContent extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     List<ProjectModel> currentProjects =
         ref.watch(projectsPageControllerProvider).projects;
-    log("Rebuild with ${currentProjects.length} projects");
+
     return SingleChildScrollView(
       child: Center(
         child: Container(

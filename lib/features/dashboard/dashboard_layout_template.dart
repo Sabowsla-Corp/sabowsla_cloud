@@ -17,6 +17,7 @@ class DashboardLayoutTemplate extends ConsumerWidget {
     this.dividerColor,
     this.iconWidget,
     this.loader,
+    this.showDefaultHeader = true,
   });
   final Widget? iconWidget;
   final IconData? icon;
@@ -26,6 +27,7 @@ class DashboardLayoutTemplate extends ConsumerWidget {
   final TextStyle? titleStyle;
   final Color? dividerColor;
   final Widget? loader;
+  final bool showDefaultHeader;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -35,6 +37,9 @@ class DashboardLayoutTemplate extends ConsumerWidget {
     Widget defaultHeadr = const SizedBox();
     if (openProject != null) {
       defaultHeadr = DashboardLayoutHeader(openProject: openProject);
+    }
+    if (showDefaultHeader == false) {
+      defaultHeadr = const SizedBox();
     }
 
     return Column(
