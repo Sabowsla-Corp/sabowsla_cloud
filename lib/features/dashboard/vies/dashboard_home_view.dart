@@ -7,7 +7,7 @@ class DashBoardHomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DashboardLayoutTemplate(
-      title: 'Title',
+      title: 'Overview',
       child: Container(
         color: Colors.black87,
         child: const Center(

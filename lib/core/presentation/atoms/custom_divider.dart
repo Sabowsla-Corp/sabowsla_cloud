@@ -11,7 +11,7 @@ class CustomDivider extends StatelessWidget {
         onTap: onTap,
         mouseCursor: SystemMouseCursors.resizeColumn,
         child: const VerticalDivider(
-          color: Colors.white38,
+          color: Colors.white24,
           thickness: 1,
           width: 10,
           endIndent: 0,
@@ -21,6 +21,6 @@ class CustomDivider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Divider(color: color ?? Colors.white38);
+    return Divider(color: color ?? Colors.white24);
   }
 }
