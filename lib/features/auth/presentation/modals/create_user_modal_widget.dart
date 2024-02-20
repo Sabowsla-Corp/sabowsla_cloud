@@ -4,22 +4,24 @@ import 'dart:convert';
 
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sabowsla_cloud/core/presentation/atoms/custom_button_icon.dart';
 import 'package:sabowsla_cloud/core/presentation/custom_image_base_64.dart';
-import 'package:sabowsla_cloud/features/auth/controller/auth_controller.dart';
+import 'package:sabowsla_cloud/features/auth/controller/auth_page_controller.dart';
 import 'package:sabowsla_cloud/features/auth/models/register_result_model.dart';
 import 'package:sabowsla_cloud/features/auth/models/user_credential_model.dart';
 
-class CreateUserModalWidget extends StatefulWidget {
+class CreateUserModalWidget extends ConsumerStatefulWidget {
   const CreateUserModalWidget({
     super.key,
   });
 
   @override
-  State<CreateUserModalWidget> createState() => _CreateUserModalWidgetState();
+  ConsumerState<CreateUserModalWidget> createState() =>
+      _CreateUserModalWidgetState();
 }
 
-class _CreateUserModalWidgetState extends State<CreateUserModalWidget> {
+class _CreateUserModalWidgetState extends ConsumerState<CreateUserModalWidget> {
   var loading = false;
   var loadingImage = false;
   RegisterResult? registerResult;
@@ -37,7 +39,9 @@ class _CreateUserModalWidgetState extends State<CreateUserModalWidget> {
   void onSelectImage() async {
     loadingImage = true;
     setState(() {});
-    var image = await authController.pickImageThumbnail();
+    var image = await ref
+        .read(authPageControllerProvider.notifier)
+        .pickImageThumbnail();
     if (image != null) {
       userCredential.photoBase64 = image;
       loadingImage = false;
@@ -52,7 +56,9 @@ class _CreateUserModalWidgetState extends State<CreateUserModalWidget> {
     userCredential.passwordHash = passwordHash;
     userCredential.email = emailController.text;
     userCredential.displayName = nameController.text;
-    registerResult = await authController.createUser(userCredential);
+    registerResult = await ref
+        .read(authPageControllerProvider.notifier)
+        .createUser(userCredential);
     if (registerResult?.error == null) {
       popModal();
     } else {

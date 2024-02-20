@@ -5,36 +5,39 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter/material.dart';
 import 'package:image_compression_flutter/image_compression_flutter.dart';
-import 'package:rxdart/rxdart.dart';
-import 'package:rxdart/subjects.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:sabowsla_cloud/core/app_streams.dart';
+import 'package:sabowsla_cloud/features/auth/controller/auth_page_state.dart';
 import 'package:sabowsla_cloud/features/auth/models/delete_user_result.dart';
 import 'package:sabowsla_cloud/features/auth/models/register_result_model.dart';
 import 'package:sabowsla_cloud/features/auth/models/user_credential_model.dart';
 import 'package:sabowsla_cloud/features/auth/presentation/auth_view_tabs.dart';
-import 'package:sabowsla_cloud/features/auth/presentation/modals/create_user_modal_widget.dart';
 import 'package:sabowsla_cloud/features/auth/source/auth_data_source.dart';
 
-var authController = AuthController();
+part 'auth_page_controller.g.dart';
 
-class AuthController {
-  var filePicker = FilePicker.platform;
-  var displayedUsers = BehaviorSubject<List<UserCredential>>.seeded([]);
-  var totalUsers = BehaviorSubject<int>.seeded(0);
-  var currentTab = BehaviorSubject<Enum>.seeded(AuthViewTab.Users);
-  var loading = BehaviorSubject<bool>.seeded(false);
+@riverpod
+class AuthPageController extends _$AuthPageController {
+  @override
+  AuthPageState build() => AuthPageState();
+
+  void setLoading() => state = state.copyWith(loading: true);
+  void removeLoading() => state = state.copyWith(loading: false);
+  void setUsers(List<UserCredential> users) =>
+      state = state.copyWith(displayedUsers: users);
+
+  AuthDataSource get authDataSource => ref.read(authDataSourceProvider);
 
   void loadAllUsers() async {
-    loading.add(true);
+    setLoading();
     DateTime start = DateTime.now();
     appStreams.loadingIndicator.add(true);
     var users = await authDataSource.getAllUsers();
-    displayedUsers.add(users);
+    setUsers(users);
     appStreams.loadingIndicator.add(false);
     DateTime end = DateTime.now();
-    loading.add(false);
+    removeLoading();
     print("users loaded ${users.length} duration ${end.difference(start)}");
   }
 
@@ -42,45 +45,28 @@ class AuthController {
     DateTime start = DateTime.now();
     appStreams.loadingIndicator.add(true);
     var users = await authDataSource.getAllUsers();
-    displayedUsers.add(users);
+    setUsers(users);
     appStreams.loadingIndicator.add(false);
     DateTime end = DateTime.now();
     print("users loaded ${users.length} duration ${end.difference(start)}");
   }
 
-  void createUserModal(BuildContext context) async {
-    await showModal(context, const CreateUserModalWidget());
-  }
-
   void deleteUser(String uid) async {
     DeleteUserResult result = await authDataSource.deleteUser(uid);
     if (result.deleted) {
-      var list = displayedUsers.value;
+      var list = state.displayedUsers;
       list.removeWhere((element) => element.uid == uid);
-      displayedUsers.add(list);
+      setUsers(list);
     } else {
       print('Error deleting user $uid');
     }
   }
 
-  void userSettingsModal(BuildContext context, UserCredential user) async {
-    await showModal(context, const CreateUserModalWidget());
-  }
-
-  Future showModal(BuildContext c, Widget widget) {
-    return showDialog(
-      context: c,
-      builder: (context) {
-        return widget;
-      },
-    );
-  }
-
   Future<RegisterResult> createUser(UserCredential user) async {
     var result = await authDataSource.register(user.asRegisterRequest());
     if (result.error == null) {
-      var list = [user, ...displayedUsers.value];
-      displayedUsers.add(list);
+      var list = [user, ...state.displayedUsers];
+      setUsers(list);
     }
     return result;
   }
@@ -99,7 +85,7 @@ class AuthController {
 
   Future<String?> pickImageThumbnail() async {
     try {
-      var fr = await filePicker.pickFiles(type: FileType.image);
+      var fr = await FilePicker.platform.pickFiles(type: FileType.image);
       File file = File(fr!.files.firstOrNull!.path!);
       var bytes = file.readAsBytesSync();
       var cI = await generateThumbnail(file.path, bytes);
@@ -108,5 +94,9 @@ class AuthController {
       print('Error picking thumbnail: $e');
       return null;
     }
+  }
+
+  void setCurrentTab(AuthViewTab e) {
+    state = state.copyWith(currentTab: e);
   }
 }

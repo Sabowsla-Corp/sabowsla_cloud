@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sabowsla_cloud/core/extensions/widget_ref_extensions.dart';
 import 'package:sabowsla_cloud/features/projects/projects_page.dart';
+import 'package:sabowsla_cloud/features/projects/projects_page_controller.dart';
 import 'package:sabowsla_cloud/gen/assets.gen.dart';
 
 class SabowslaCloudLogoIcon extends ConsumerWidget {
@@ -15,6 +16,7 @@ class SabowslaCloudLogoIcon extends ConsumerWidget {
       children: [
         InkWell(
           onTap: () {
+            ref.read(projectsPageControllerProvider.notifier).closeProject();
             ref.router.goNamed(ProjectsPage.routeName);
           },
           child: ClipRRect(

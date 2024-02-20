@@ -8,7 +8,7 @@ class DashboardTabButtons extends StatelessWidget {
     required this.selected,
     super.key,
   });
-  final List<Enum> tabs;
+  final List<dynamic> tabs;
   final Enum selected;
 
   @override

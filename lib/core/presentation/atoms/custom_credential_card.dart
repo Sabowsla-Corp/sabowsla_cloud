@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:sabowsla_cloud/core/extensions/context_extension.dart';
 import 'package:sabowsla_cloud/core/presentation/atoms/cool_user_icons.dart';
 import 'package:sabowsla_cloud/core/presentation/custom_image_base_64.dart';
-import 'package:sabowsla_cloud/features/auth/controller/auth_controller.dart';
 import 'package:sabowsla_cloud/features/auth/models/user_credential_model.dart';
 
 class CustomCredentialCard extends StatelessWidget {
@@ -50,7 +49,7 @@ class CustomCredentialCard extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.settings),
             onPressed: () {
-              authController.userSettingsModal(context, userCredential);
+              //TODO: Implement user settings, maybe a dialog to delete user
             },
           ),
         ],

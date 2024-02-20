@@ -47,6 +47,10 @@ class ProjectsPageController extends _$ProjectsPageController {
     log("Opening project ${project.name}");
   }
 
+  void closeProject() {
+    state = ProjectsState(projects: state.projects);
+  }
+
   Future<void> createNewProjectFromSettings({
     required String name,
     required String basePath,

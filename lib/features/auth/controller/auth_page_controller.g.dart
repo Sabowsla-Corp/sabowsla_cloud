@@ -1,27 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'projects_page_controller.dart';
+part of 'auth_page_controller.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$projectsPageControllerHash() =>
-    r'8f0f977f6ef8253b3461bcf7f29c45adba5d8580';
+String _$authPageControllerHash() =>
+    r'b596a4ea94abaaf9fede6d09df119ca1d985823a';
 
-/// See also [ProjectsPageController].
-@ProviderFor(ProjectsPageController)
-final projectsPageControllerProvider =
-    AutoDisposeNotifierProvider<ProjectsPageController, ProjectsState>.internal(
-  ProjectsPageController.new,
-  name: r'projectsPageControllerProvider',
+/// See also [AuthPageController].
+@ProviderFor(AuthPageController)
+final authPageControllerProvider =
+    AutoDisposeNotifierProvider<AuthPageController, AuthPageState>.internal(
+  AuthPageController.new,
+  name: r'authPageControllerProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$projectsPageControllerHash,
+      : _$authPageControllerHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$ProjectsPageController = AutoDisposeNotifier<ProjectsState>;
+typedef _$AuthPageController = AutoDisposeNotifier<AuthPageState>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

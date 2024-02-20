@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:isar/isar.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:sabowsla_cloud/features/auth/models/delete_user_result.dart';
 import 'package:sabowsla_cloud/features/auth/models/login_request_model.dart';
 import 'package:sabowsla_cloud/features/auth/models/login_result_model.dart';
@@ -11,7 +12,10 @@ import 'package:sabowsla_cloud/features/auth/models/register_result_model.dart';
 import 'package:sabowsla_cloud/features/auth/models/user_credential_model.dart';
 import 'package:uuid/uuid.dart';
 
-late final AuthDataSource authDataSource;
+var authDataSourceProvider = Provider<AuthDataSource>(
+  (ref) =>
+      throw UnimplementedError('Auth Data Source Has Not Been Implemented'),
+);
 
 abstract class AuthDataSource {
   Future<LoginResult> login(LoginRequest request);
@@ -23,16 +27,14 @@ abstract class AuthDataSource {
 }
 
 class AuthDataSourceImpl implements AuthDataSource {
-  AuthDataSourceImpl(this.usersDb) {
-    //TODO attach schemas
-  }
+  AuthDataSourceImpl(this.usersDb);
 
   @override
   late final Isar usersDb;
 
   @override
   Future<int> countUsers() async {
-    return await usersDb.collection().count();
+    return await usersDb.userCredentials.count();
   }
 
   @override

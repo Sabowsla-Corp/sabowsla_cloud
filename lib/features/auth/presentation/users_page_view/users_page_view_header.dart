@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sabowsla_cloud/core/presentation/atoms/custom_button_icon.dart';
 import 'package:sabowsla_cloud/core/styles.dart';
-import 'package:sabowsla_cloud/features/auth/controller/auth_controller.dart';
+import 'package:sabowsla_cloud/features/auth/controller/auth_page_controller.dart';
+import 'package:sabowsla_cloud/features/auth/presentation/modals/create_user_modal_widget.dart';
 
-class UsersPageViewHeader extends StatefulWidget {
+class UsersPageViewHeader extends ConsumerStatefulWidget {
   const UsersPageViewHeader({super.key});
 
   @override
-  State<UsersPageViewHeader> createState() => _UsersPageViewHeaderState();
+  ConsumerState<UsersPageViewHeader> createState() =>
+      _UsersPageViewHeaderState();
 }
 
-class _UsersPageViewHeaderState extends State<UsersPageViewHeader> {
+class _UsersPageViewHeaderState extends ConsumerState<UsersPageViewHeader> {
   @override
   Widget build(BuildContext context) {
+    var authController = ref.read(authPageControllerProvider.notifier);
     var outlineInputBorder = const OutlineInputBorder(
       borderRadius: BorderRadius.all(Radius.circular(8)),
       borderSide: BorderSide(
@@ -61,7 +65,12 @@ class CreateUserButton extends StatelessWidget {
         buttonText: "Add User",
         icon: Icons.add,
         onTap: () {
-          authController.createUserModal(context);
+          showDialog(
+            context: context,
+            builder: (c) {
+              return const CreateUserModalWidget();
+            },
+          );
         },
       ),
     );

@@ -1,28 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sabowsla_cloud/core/extensions/context_extension.dart';
 import 'package:sabowsla_cloud/core/presentation/atoms/custom_button.dart';
-import 'package:sabowsla_cloud/features/auth/controller/auth_controller.dart';
+import 'package:sabowsla_cloud/features/auth/controller/auth_page_controller.dart';
+import 'package:sabowsla_cloud/features/auth/presentation/auth_view_tabs.dart';
 
-class DashboardTabButton extends StatefulWidget {
+class DashboardTabButton extends ConsumerStatefulWidget {
   const DashboardTabButton({
     required this.e,
     required this.selected,
     super.key,
   });
-  final Enum e;
+  final AuthViewTab e;
   final bool selected;
   @override
-  State<DashboardTabButton> createState() => _DashboardTabButtonState();
+  ConsumerState<DashboardTabButton> createState() => _DashboardTabButtonState();
 }
 
-class _DashboardTabButtonState extends State<DashboardTabButton> {
+class _DashboardTabButtonState extends ConsumerState<DashboardTabButton> {
   bool hovering = false;
 
   @override
   Widget build(BuildContext context) {
     return CustomButton(
       onTap: () {
-        authController.currentTab.add(widget.e);
+        ref.read(authPageControllerProvider.notifier).setCurrentTab(widget.e);
       },
       onHover: (value) {
         setState(() {
