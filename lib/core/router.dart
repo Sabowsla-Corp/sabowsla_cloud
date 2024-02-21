@@ -56,7 +56,7 @@ class NavigationService {
             padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 14),
             decoration: BoxDecoration(
               border: Border.all(color: Colors.red.withOpacity(0.3)),
-              color: colors.black,
+              color: colors.background,
               borderRadius: BorderRadius.circular(8),
             ),
             child: Text(

@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:isar/isar.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -43,7 +44,9 @@ class DashboardPageController extends _$DashboardPageController {
     try {
       //Users Database, Single Instance
       var authDirectory = project.authDirectory;
-      var authIsarDb = await openIsar([UserCredentialSchema], authDirectory);
+      var name = "auth";
+      var authIsarDb =
+          await openIsar([UserCredentialSchema], authDirectory, name);
       //Project Databases
       //Eeach project may contain multiple databases, each with its own schema and directory
       //An example would be posts collection, reposts collection, comments collection, etc
@@ -61,8 +64,38 @@ class DashboardPageController extends _$DashboardPageController {
   Future<Isar> openIsar(
     List<CollectionSchema<dynamic>> schemas,
     String directory,
-  ) {
-    log("Opening Isar at $directory");
-    return Isar.open(schemas, directory: directory);
+    String name,
+  ) async {
+    try {
+      await ensureIsarDirectory(directory);
+
+      return await Isar.open(
+        schemas,
+        directory: directory,
+        name: name,
+      );
+    } catch (e) {
+      if (e is IsarError) {
+        log("Isar Error ${e.message}");
+      }
+      log("Problem Opening Isar database at $directory with name $name $e");
+      rethrow;
+    }
+  }
+
+  Future<void> ensureIsarDirectory(String directory) async {
+    try {
+      bool directoryExists = await Directory(directory).exists();
+      if (!directoryExists) {
+        var dir = await Directory(directory).create(recursive: true);
+        bool dirExists = await dir.exists();
+        if (dirExists == false) {
+          throw Exception("Could not create directory at $directory");
+        }
+      }
+    } catch (e) {
+      log("Problem Creating Directory for Isar $e");
+      rethrow;
+    }
   }
 }

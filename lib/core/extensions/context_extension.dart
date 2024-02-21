@@ -10,6 +10,7 @@ extension ContextExtesion on BuildContext {
   bool get isHorizontal => orientation == Orientation.landscape;
   bool get isVertical => orientation == Orientation.portrait;
 
+  @Deprecated('Use ref.relative instead')
   double relative(double s) {
     if (isIpad) {
       return shortestSide * getTabletSize(s);

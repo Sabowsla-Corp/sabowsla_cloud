@@ -34,7 +34,6 @@ class ProjectsPageController extends _$ProjectsPageController {
     var ps = await source.getAllProjects();
     var defaultProject = await source.getDefaultProject();
     copyState(projects: ps, selectedProject: defaultProject);
-    print("loaded projects: ${ps.length}");
     if (defaultProject != null) {
       await Future.delayed(const Duration(milliseconds: 500));
       openProject(defaultProject);
@@ -56,8 +55,7 @@ class ProjectsPageController extends _$ProjectsPageController {
     required String basePath,
     required String uid,
   }) async {
-    CreateSabowslaProjectResult result =
-        await source.createNewProjectFromSettings(
+    var result = await source.createNewProjectFromSettings(
       name: name,
       basePath: basePath,
       uid: uid,
@@ -65,8 +63,10 @@ class ProjectsPageController extends _$ProjectsPageController {
     showProjectCreationResultToast(result);
   }
 
-  void showProjectCreationResultToast(CreateSabowslaProjectResult result) {
-    switch (result) {
+  void showProjectCreationResultToast(
+    (CreateSabowslaProjectResult result, ProjectModel? projectModel) message,
+  ) {
+    switch (message.$1) {
       case CreateSabowslaProjectResult.invalidName:
         navigationService
             .showToast("El nombre del proyecto no puede estar vacío");
@@ -80,6 +80,12 @@ class ProjectsPageController extends _$ProjectsPageController {
         break;
       case CreateSabowslaProjectResult.success:
         navigationService.showToast("Proyecto creado con éxito");
+        //Open dashboard page
+
+        ref
+            .read(projectsPageControllerProvider.notifier)
+            .copyState(selectedProject: message.$2);
+        ref.router.goNamed(DashboardPage.routeName);
         break;
       case CreateSabowslaProjectResult.invalidPermissions:
         navigationService.showToast(
@@ -99,3 +105,7 @@ class ProjectsPageController extends _$ProjectsPageController {
     }
   }
 }
+
+var openProjectProvider = Provider<ProjectModel?>((ref) {
+  return ref.read(projectsPageControllerProvider).selectedProject;
+});

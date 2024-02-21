@@ -26,73 +26,76 @@ class CreateProjectView extends ConsumerStatefulWidget {
 class _CreateProjectViewState extends ConsumerState<CreateProjectView> {
   @override
   Widget build(BuildContext context) {
-    return DashboardLayoutTemplate(
-      title: 'Crea un nuevo projecto',
-      titleStyle: styles18.white70,
-      dividerColor: Colors.white10,
-      iconWidget: CustomButton.closeRouterPage,
-      loader: loading ? const CustomLinearLoadingProgressShimmer() : null,
-      child: Center(
-        child: Container(
-          constraints: BoxConstraints(
-            maxWidth: context.width * 0.8,
-          ),
-          child: AnimatedBuilder(
-            animation: _controller,
-            builder: (context, child) {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Comencemos con el nombre del proyecto",
-                    style: styles18.white54,
-                  ),
-                  CustomBox.xLarge(),
-                  CustomTextField(
-                    controller: _controller,
-                    labelText: "Nombre del proyecto",
-                    onChanged: (v) {
-                      projectPathController.text =
-                          '${projectPath ?? ''}/$generatedProjectId';
-                      setState(() {});
-                    },
-                    textAlign: TextAlign.start,
-                    fillColor: Colors.black,
-                    contentPadding: const EdgeInsets.all(15),
-                    style: styles24.white,
-                  ),
-                  CustomBox.xLarge(),
-                  CustomChip(
-                    label: generatedProjectId.isEmpty
-                        ? 'my-awesome-project'
-                        : generatedProjectId,
-                  ),
-                  CustomBox.xxLarge(),
-                  CustomTextField(
-                    controller: projectPathController,
-                    trailing: CustomButtonIconPickFile(
-                      onTap: pickProjectPath,
+    return Container(
+      color: Colors.black,
+      child: DashboardLayoutTemplate(
+        title: 'Crea un nuevo projecto',
+        titleStyle: styles18.white70,
+        dividerColor: Colors.white10,
+        iconWidget: CustomButton.closeRouterPage,
+        loader: loading ? const CustomLinearLoadingProgressShimmer() : null,
+        child: Center(
+          child: Container(
+            constraints: BoxConstraints(
+              maxWidth: context.width * 0.8,
+            ),
+            child: AnimatedBuilder(
+              animation: _controller,
+              builder: (context, child) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Comencemos con el nombre del proyecto",
+                      style: styles18.white54,
                     ),
-                    labelText: "Ubicación del proyecto",
-                    onChanged: (v) {},
-                    textAlign: TextAlign.start,
-                    fillColor: Colors.black,
-                    contentPadding: const EdgeInsets.all(15),
-                    style: styles18.white,
-                  ),
-                  CustomBox.xLarge(),
-                  CustomButton(
-                    borderRadius: 10,
-                    padding: const EI.symmetric(
-                      horizontal: 20,
-                      vertical: 15,
+                    CustomBox.xLarge(),
+                    CustomTextField(
+                      controller: _controller,
+                      labelText: "Nombre del proyecto",
+                      onChanged: (v) {
+                        projectPathController.text =
+                            '${projectPath ?? ''}/$generatedProjectId';
+                        setState(() {});
+                      },
+                      textAlign: TextAlign.start,
+                      fillColor: Colors.black,
+                      contentPadding: const EdgeInsets.all(15),
+                      style: styles24.white,
                     ),
-                    buttonText: "Crear proyecto",
-                    onTap: createProject,
-                  ),
-                ],
-              );
-            },
+                    CustomBox.xLarge(),
+                    CustomChip(
+                      label: generatedProjectId.isEmpty
+                          ? 'my-awesome-project'
+                          : generatedProjectId,
+                    ),
+                    CustomBox.xxLarge(),
+                    CustomTextField(
+                      controller: projectPathController,
+                      trailing: CustomButtonIconPickFile(
+                        onTap: pickProjectPath,
+                      ),
+                      labelText: "Ubicación del proyecto",
+                      onChanged: (v) {},
+                      textAlign: TextAlign.start,
+                      fillColor: Colors.black,
+                      contentPadding: const EdgeInsets.all(15),
+                      style: styles18.white,
+                    ),
+                    CustomBox.xLarge(),
+                    CustomButton(
+                      borderRadius: 10,
+                      padding: const EI.symmetric(
+                        horizontal: 20,
+                        vertical: 15,
+                      ),
+                      buttonText: "Crear proyecto",
+                      onTap: createProject,
+                    ),
+                  ],
+                );
+              },
+            ),
           ),
         ),
       ),

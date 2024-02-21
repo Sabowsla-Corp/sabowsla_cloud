@@ -24,7 +24,7 @@ class _AuthPageState extends ConsumerState<AuthPage> {
     return DashboardLayoutTemplate(
       title: 'Authentication',
       icon: FontAwesomeIcons.lock,
-      trailing: DashboardTabButtons(
+      titleWidget: DashboardTabButtons(
         tabs: AuthViewTab.values,
         selected: currentTab,
       ),

@@ -6,8 +6,8 @@ import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:sabowsla_cloud/core/constants/export_ui_tools.dart';
 import 'package:sabowsla_cloud/core/constants/type_def.dart';
-import 'package:sabowsla_cloud/core/extensions/nullable_extensions.dart';
 import 'package:sabowsla_cloud/features/projects/models/project_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -45,7 +45,10 @@ class ProjectsDataSource {
       _isarDb = await Isar.open(
         [ProjectModelSchema],
         directory: dir,
+        name: 'sabowsla_cloud_projects.db',
       );
+      log("opened isar instance at dir $dir");
+
       _prefs = await SharedPreferences.getInstance();
 
       initing = false;
@@ -86,39 +89,46 @@ class ProjectsDataSource {
         await Future.delayed(const Duration(milliseconds: 100));
         print('Waiting for isar to init');
       }
-      if (project.name.isEmpty) {
-        return CreateSabowslaProjectResult.invalidName;
-      }
-      if (project.basePath.isEmpty) {
-        return CreateSabowslaProjectResult.invalidPath;
-      }
+
       var db = _isarDb!;
       //Whether this location is already used for another projects db, however we will check if the actual folder exists
-      var projectPathExists = db.projectModels
-          .where()
-          .basePathEqualTo(project.basePath)
-          .findFirstSync();
-      var folderOfProjectPathExists = await File(project.basePath).exists();
-      if (projectPathExists?.isNotNull == true && folderOfProjectPathExists) {
-        log("Location already used, locationg is ${project.basePath}");
-        return CreateSabowslaProjectResult.locationUsed;
-      }
+      await validProjectSettings(project);
       int id = 0;
       //Create directory at basePath
-      await Directory(project.basePath).create();
+      var dir = await Directory(project.basePath).create(recursive: true);
+      log("Directory created at ${dir.path} for project name ${project.name} with id $id");
       await db.writeTxn(() async {
         id = await db.projectModels.put(project);
       });
-      log("Project reference on isar created $id");
-
       if (id == 0) {
-        log("Error creating project beacuse id is 0");
         return CreateSabowslaProjectResult.unknownError;
       }
       return CreateSabowslaProjectResult.success;
     } catch (e) {
       log("Error creating project: $e");
+
+      if (e is CreateSabowslaProjectResult) {
+        return e;
+      }
       return CreateSabowslaProjectResult.unknownError;
+    }
+  }
+
+  Future validProjectSettings(ProjectModel project) async {
+    if (project.name.isEmpty) {
+      throw CreateSabowslaProjectResult.invalidName;
+    }
+    if (project.basePath.isEmpty) {
+      throw CreateSabowslaProjectResult.invalidPath;
+    }
+    ProjectModel? projectPathExists = _isarDb!.projectModels
+        .where()
+        .basePathEqualTo(project.basePath)
+        .findFirstSync();
+    var folderOfProjectPathExists = await Directory(project.basePath).exists();
+
+    if (projectPathExists != null && folderOfProjectPathExists) {
+      throw CreateSabowslaProjectResult.locationUsed;
     }
   }
 
@@ -131,7 +141,8 @@ class ProjectsDataSource {
     return db.projectModels.where().anyId().build().findAll();
   }
 
-  Future<CreateSabowslaProjectResult> createNewProjectFromSettings({
+  Future<(CreateSabowslaProjectResult, ProjectModel)>
+      createNewProjectFromSettings({
     required String name,
     required String basePath,
     required String uid,
@@ -142,7 +153,8 @@ class ProjectsDataSource {
       uid: uid,
       createdAt: DateTime.now(),
     );
-    return await createNewProject(project: project);
+    var result = await createNewProject(project: project);
+    return (result, project);
   }
 }
 

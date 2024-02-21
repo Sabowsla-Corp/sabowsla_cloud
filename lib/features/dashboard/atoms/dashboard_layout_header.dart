@@ -27,7 +27,11 @@ class _DashboardLayoutHeaderState extends ConsumerState<DashboardLayoutHeader> {
   Widget build(BuildContext context) {
     List<ProjectModel> allProjects =
         ref.read(projectsPageControllerProvider).projects;
-    return Container(
+    return DecoratedBox(
+      decoration: const BoxDecoration(
+        color: Colors.black,
+        border: Border(),
+      ),
       child: Column(
         children: [
           Padding(

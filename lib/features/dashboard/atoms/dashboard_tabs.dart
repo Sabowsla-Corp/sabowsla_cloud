@@ -6,15 +6,17 @@ class DashboardTabButtons extends StatelessWidget {
   const DashboardTabButtons({
     required this.tabs,
     required this.selected,
+    this.onTabChange,
     super.key,
   });
   final List<dynamic> tabs;
   final Enum selected;
+  final Function(Enum value)? onTabChange;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 35,
+      height: 30,
       padding: paddings.horizontalv0,
       decoration: BoxDecoration(
         color: Colors.black,
@@ -28,7 +30,8 @@ class DashboardTabButtons extends StatelessWidget {
         separatorBuilder: (c, i) => const SizedBox(width: 5),
         itemBuilder: (c, s) {
           return DashboardTabButton(
-            e: tabs[s],
+            value: tabs[s],
+            onTap: () => onTabChange?.call(tabs[s]),
             selected: selected == tabs[s],
           );
         },
