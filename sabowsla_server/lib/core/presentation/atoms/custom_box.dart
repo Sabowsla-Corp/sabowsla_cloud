@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sabowsla_cloud/core/extensions/context_extension.dart';
 
-class CustomBox extends StatelessWidget {
+class CustomBox extends ConsumerWidget {
   const CustomBox({required this.size, super.key});
   final double size;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return SizedBox(
       height: context.relative(size),
       width: context.relative(size),
