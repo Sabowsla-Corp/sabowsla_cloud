@@ -1,0 +1,51 @@
+{
+  "main_library": {
+    "exported_symbols": [
+      {
+        "data": {
+          "global": [
+            "_$s17isar_flutter_libs21IsarFlutterLibsPluginC6handle_6resultySo0E10MethodCallC_yypSgctF",
+            "_$s17isar_flutter_libs21IsarFlutterLibsPluginCMa",
+            "_$s17isar_flutter_libs21IsarFlutterLibsPluginCACycfC",
+            "_$s17isar_flutter_libs21IsarFlutterLibsPluginC8register4withySo0eG9Registrar_p_tFZ",
+            "_$s17isar_flutter_libs21IsarFlutterLibsPluginCMn",
+            "_$s17isar_flutter_libs21IsarFlutterLibsPluginCACycfc",
+            "_$s17isar_flutter_libs21IsarFlutterLibsPluginCfD",
+            "_$s17isar_flutter_libs21IsarFlutterLibsPluginCN",
+            "_isar_flutter_libsVersionNumber",
+            "_$s17isar_flutter_libs21IsarFlutterLibsPluginC6handle_6resultySo0E10MethodCallC_yypSgctFTq",
+            "_isar_flutter_libsVersionString"
+          ],
+          "objc_class": [
+            "PodsDummy_isar_flutter_libs",
+            "_TtC17isar_flutter_libs21IsarFlutterLibsPlugin"
+          ]
+        }
+      }
+    ],
+    "flags": [
+      {
+        "attributes": [
+          "not_app_extension_safe"
+        ]
+      }
+    ],
+    "install_names": [
+      {
+        "name": "@rpath/isar_flutter_libs.framework/Versions/A/isar_flutter_libs"
+      }
+    ],
+    "swift_abi": [
+      {
+        "abi": 7
+      }
+    ],
+    "target_info": [
+      {
+        "min_deployment": "11",
+        "target": "arm64-macos"
+      }
+    ]
+  },
+  "tapi_tbd_version": 5
+}

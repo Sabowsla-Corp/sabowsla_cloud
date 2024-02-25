@@ -1,0 +1,51 @@
+{
+  "main_library": {
+    "exported_symbols": [
+      {
+        "data": {
+          "global": [
+            "_image_compression_flutterVersionString",
+            "_$s25image_compression_flutter29ImageCompressionFlutterPluginCN",
+            "_$s25image_compression_flutter29ImageCompressionFlutterPluginCfD",
+            "_$s25image_compression_flutter29ImageCompressionFlutterPluginCACycfC",
+            "_$s25image_compression_flutter29ImageCompressionFlutterPluginCACycfc",
+            "_image_compression_flutterVersionNumber",
+            "_$s25image_compression_flutter29ImageCompressionFlutterPluginCMn",
+            "_$s25image_compression_flutter29ImageCompressionFlutterPluginC6handle_6resultySo0F10MethodCallC_yypSgctF",
+            "_$s25image_compression_flutter29ImageCompressionFlutterPluginCMa",
+            "_$s25image_compression_flutter29ImageCompressionFlutterPluginC8register4withySo0fG9Registrar_p_tFZ",
+            "_$s25image_compression_flutter29ImageCompressionFlutterPluginC6handle_6resultySo0F10MethodCallC_yypSgctFTq"
+          ],
+          "objc_class": [
+            "_TtC25image_compression_flutter29ImageCompressionFlutterPlugin",
+            "PodsDummy_image_compression_flutter"
+          ]
+        }
+      }
+    ],
+    "flags": [
+      {
+        "attributes": [
+          "not_app_extension_safe"
+        ]
+      }
+    ],
+    "install_names": [
+      {
+        "name": "@rpath/image_compression_flutter.framework/Versions/A/image_compression_flutter"
+      }
+    ],
+    "swift_abi": [
+      {
+        "abi": 7
+      }
+    ],
+    "target_info": [
+      {
+        "min_deployment": "11",
+        "target": "arm64-macos"
+      }
+    ]
+  },
+  "tapi_tbd_version": 5
+}

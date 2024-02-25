@@ -1,0 +1,129 @@
+{
+  "main_library": {
+    "exported_symbols": [
+      {
+        "data": {
+          "global": [
+            "_$s28flutter_image_compress_macos8ImageSrcC6paramsSDySSypGvg",
+            "_$s28flutter_image_compress_macos6LoggerCACycfC",
+            "_$s28flutter_image_compress_macos8ImageSrcCMn",
+            "_$s28flutter_image_compress_macos10CompressorCMa",
+            "_$s28flutter_image_compress_macos8ImageSrcCMa",
+            "_$s28flutter_image_compress_macos10CompressorC0C6ToPathyyyypSgc_SStF",
+            "_$s28flutter_image_compress_macos8ImageSrcCfD",
+            "_$s28flutter_image_compress_macos8ImageSrcC6paramsSDySSypGvpMV",
+            "_$s28flutter_image_compress_macos14CompressFormatO9hashValueSivg",
+            "_$s28flutter_image_compress_macos31FlutterImageCompressMacosPluginC10injectDictyySo12NSDictionaryC_So19NSMutableDictionaryCSo11CFStringRefatF",
+            "_$s28flutter_image_compress_macos6LoggerCACycfCTq",
+            "_$s28flutter_image_compress_macos10CompressorC0C011destCreatorySo21CGImageDestinationRefayXE_tFTq",
+            "_$s28flutter_image_compress_macos14CompressFormatO4hash4intoys6HasherVz_tF",
+            "_$s28flutter_image_compress_macos14CompressFormatO9hashValueSivpMV",
+            "_$s28flutter_image_compress_macos14CompressFormatOSHAAMc",
+            "_$s28flutter_image_compress_macos8ImageSrcC0B06paramsACSo7NSImageC_SDySSypGtcfCTq",
+            "_$s28flutter_image_compress_macos10CompressorC0C011destCreatorySo21CGImageDestinationRefayXE_tF",
+            "_$s28flutter_image_compress_macos6LoggerC7logData4datay10Foundation0G0V_tFZ",
+            "_$s28flutter_image_compress_macos14CompressFormatO10convertInt4typeACSi_tFZ",
+            "_$s28flutter_image_compress_macos31FlutterImageCompressMacosPluginCN",
+            "_flutter_image_compress_macosVersionString",
+            "_$s28flutter_image_compress_macos10CompressorCMm",
+            "_$s28flutter_image_compress_macos31FlutterImageCompressMacosPluginC6handle_6resultySo0E10MethodCallC_yypSgctF",
+            "_$s28flutter_image_compress_macos31FlutterImageCompressMacosPluginCMn",
+            "_$s28flutter_image_compress_macos8ImageSrcC0B06paramsACSo7NSImageC_SDySSypGtcfC",
+            "_$s28flutter_image_compress_macos31FlutterImageCompressMacosPluginC04makeE5Error4codeSo0eK0CSS_tF",
+            "_$s28flutter_image_compress_macos31FlutterImageCompressMacosPluginC6handle_6resultySo0E10MethodCallC_yypSgctFTq",
+            "_$s28flutter_image_compress_macos6LoggerCMm",
+            "_$s28flutter_image_compress_macos10CompressorC0B06paramsAcA8ImageSrcC_SDySSypGtcfc",
+            "_$s28flutter_image_compress_macos6LoggerCMn",
+            "_$s28flutter_image_compress_macos6LoggerC9isShowLogSbvau",
+            "_$s28flutter_image_compress_macos6LoggerC9isShowLogSbvpZ",
+            "_$s28flutter_image_compress_macos14CompressFormatOSQAAMc",
+            "_$s28flutter_image_compress_macos6LoggerC9isShowLogSbvMZ",
+            "_$s28flutter_image_compress_macos6LoggerCfD",
+            "_$s28flutter_image_compress_macos10CompressorC0C6ToPathyyyypSgc_SStFTq",
+            "_$s28flutter_image_compress_macos6LoggerC9isShowLogSbvgZ",
+            "_$s28flutter_image_compress_macos6LoggerC3log3msgySS_tFZ",
+            "_$s28flutter_image_compress_macos10CompressorC0C7ToBytesyyyypSgcFTq",
+            "_$s28flutter_image_compress_macos14CompressFormatOMa",
+            "_$s28flutter_image_compress_macos31FlutterImageCompressMacosPluginC04makeE5Error4codeSo0eK0CSS_tFfA_",
+            "_$s28flutter_image_compress_macos6LoggerCN",
+            "_$s28flutter_image_compress_macos10CompressorC0B0AA8ImageSrcCvpWvd",
+            "_$s28flutter_image_compress_macos10CompressorC0B0AA8ImageSrcCvg",
+            "_$s28flutter_image_compress_macos10CompressorCfD",
+            "_$s28flutter_image_compress_macos10CompressorC0C7ToBytesyyyypSgcF",
+            "_$s28flutter_image_compress_macos6LoggerCACycfc",
+            "_$s28flutter_image_compress_macos31FlutterImageCompressMacosPluginCACycfC",
+            "_$s28flutter_image_compress_macos31FlutterImageCompressMacosPluginCfD",
+            "_$s28flutter_image_compress_macos10CompressorC6paramsSDySSypGvpWvd",
+            "_$s28flutter_image_compress_macos10CompressorC0B06paramsAcA8ImageSrcC_SDySSypGtcfC",
+            "_$s28flutter_image_compress_macos8ImageSrcC0B0So7NSImageCvg",
+            "_$s28flutter_image_compress_macos14CompressFormatO21__derived_enum_equalsySbAC_ACtFZ",
+            "_$s28flutter_image_compress_macos8ImageSrcC0B0So7NSImageCvpWvd",
+            "_$s28flutter_image_compress_macos14CompressFormatOMn",
+            "_$s28flutter_image_compress_macos10CompressorC0B06paramsAcA8ImageSrcC_SDySSypGtcfCTq",
+            "_$s28flutter_image_compress_macos31FlutterImageCompressMacosPluginC12handleResultyAA10CompressorCSgypSg_yAHctFTq",
+            "_$s28flutter_image_compress_macos31FlutterImageCompressMacosPluginC12handleResultyAA10CompressorCSgypSg_yAHctF",
+            "_$s28flutter_image_compress_macos6LoggerCMa",
+            "_$s28flutter_image_compress_macos8ImageSrcC0B0So7NSImageCvpMV",
+            "_$s28flutter_image_compress_macos31FlutterImageCompressMacosPluginC04makeF3Src0B06source6paramsAA0fK0CSo7NSImageC_So16CGImageSourceRefaSDySSypGtFTq",
+            "_$s28flutter_image_compress_macos8ImageSrcCN",
+            "_$s28flutter_image_compress_macos8ImageSrcCMm",
+            "_$s28flutter_image_compress_macos31FlutterImageCompressMacosPluginCMa",
+            "_$s28flutter_image_compress_macos31FlutterImageCompressMacosPluginC04makeE5Error4codeSo0eK0CSS_tFTq",
+            "_$s28flutter_image_compress_macos10CompressorCMn",
+            "_$s28flutter_image_compress_macos10CompressorCN",
+            "_$s28flutter_image_compress_macos10CompressorCfd",
+            "_$s28flutter_image_compress_macos8ImageSrcC0B06paramsACSo7NSImageC_SDySSypGtcfc",
+            "_$s28flutter_image_compress_macos10CompressorC15getOutputFormatSo11CFStringRefayF",
+            "_$s28flutter_image_compress_macos31FlutterImageCompressMacosPluginC8register4withySo0eI9Registrar_p_tFZ",
+            "_$s28flutter_image_compress_macos6LoggerCfd",
+            "_$s28flutter_image_compress_macos31FlutterImageCompressMacosPluginCACycfc",
+            "_$s28flutter_image_compress_macos14CompressFormatON",
+            "_$s28flutter_image_compress_macos10CompressorC11makeOptions33_236C25565FA03C80306B5BA1F85932B1LLSo15CFDictionaryRefayF",
+            "_$s28flutter_image_compress_macos10CompressorC0B0AA8ImageSrcCvpMV",
+            "_$s28flutter_image_compress_macos10CompressorC15getOutputFormatSo11CFStringRefayFTq",
+            "_$s28flutter_image_compress_macos8ImageSrcCfd",
+            "_$s28flutter_image_compress_macos10CompressorC6paramsSDySSypGvpMV",
+            "_$s28flutter_image_compress_macos8ImageSrcC6paramsSDySSypGvpWvd",
+            "_flutter_image_compress_macosVersionNumber",
+            "_$s28flutter_image_compress_macos10CompressorC11handleImage0B05angle10targetSize4destySo7NSImageC_SiSo6CGSizeVSo21CGImageDestinationRefatFTq",
+            "_$s28flutter_image_compress_macos6LoggerC7showLog0F0ySb_tFZ",
+            "_$s28flutter_image_compress_macos6LoggerC7logFile4pathySS_tFZ",
+            "_$s28flutter_image_compress_macos10CompressorC11handleImage0B05angle10targetSize4destySo7NSImageC_SiSo6CGSizeVSo21CGImageDestinationRefatF",
+            "_$s28flutter_image_compress_macos6LoggerC9isShowLogSbvsZ",
+            "_$s28flutter_image_compress_macos31FlutterImageCompressMacosPluginC10injectDictyySo12NSDictionaryC_So19NSMutableDictionaryCSo11CFStringRefatFTq",
+            "_$s28flutter_image_compress_macos10CompressorC6paramsSDySSypGvg",
+            "_$s28flutter_image_compress_macos31FlutterImageCompressMacosPluginC04makeF3Src0B06source6paramsAA0fK0CSo7NSImageC_So16CGImageSourceRefaSDySSypGtF"
+          ],
+          "objc_class": [
+            "_TtC28flutter_image_compress_macos31FlutterImageCompressMacosPlugin",
+            "PodsDummy_flutter_image_compress_macos"
+          ]
+        }
+      }
+    ],
+    "flags": [
+      {
+        "attributes": [
+          "not_app_extension_safe"
+        ]
+      }
+    ],
+    "install_names": [
+      {
+        "name": "@rpath/flutter_image_compress_macos.framework/Versions/A/flutter_image_compress_macos"
+      }
+    ],
+    "swift_abi": [
+      {
+        "abi": 7
+      }
+    ],
+    "target_info": [
+      {
+        "min_deployment": "11",
+        "target": "arm64-macos"
+      }
+    ]
+  },
+  "tapi_tbd_version": 5
+}

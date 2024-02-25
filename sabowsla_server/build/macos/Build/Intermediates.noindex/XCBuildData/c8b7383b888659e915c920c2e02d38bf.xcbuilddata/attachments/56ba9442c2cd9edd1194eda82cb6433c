@@ -1,0 +1,10 @@
+framework module image_compression_flutter {
+  umbrella header "image_compression_flutter-umbrella.h"
+
+  export *
+  module * { export * }
+}
+
+module image_compression_flutter.__Swift {
+  exclude header "image_compression_flutter-Swift.h"
+}
