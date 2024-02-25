@@ -4,8 +4,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:sabowsla_cloud/features/auth/models/login_request_model.dart';
-import 'package:sabowsla_cloud/features/auth/models/login_result_model.dart';
+import 'package:sabowsla_core/sabowsla_core.dart';
 
 var sabowslaServer = SabowslaServer();
 

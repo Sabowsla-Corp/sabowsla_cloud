@@ -2,8 +2,8 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:isar/isar.dart';
-import 'package:sabowsla_cloud/features/auth/models/register_request_model.dart';
-import 'package:sabowsla_cloud/features/auth/presentation/users_page_view/user_credential_property.dart';
+
+import 'register_request_model.dart';
 
 part 'user_credential_model.g.dart';
 
@@ -46,16 +46,6 @@ class UserCredential {
         ),
         UIProperty(Icons.image, photoBase64, 1),
       ];
-
-  @ignore
-  List<Widget> get propertiesAsWidgets => properties
-      .map(
-        (e) => UserCredentialPropertyView(
-          property: e,
-          isImage: e.flex == 1,
-        ),
-      )
-      .toList();
 
   static UserCredential fromJson(Map<String, dynamic> json) {
     return UserCredential(

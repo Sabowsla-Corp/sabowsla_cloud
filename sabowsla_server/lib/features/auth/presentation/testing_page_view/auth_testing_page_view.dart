@@ -5,9 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sabowsla_cloud/core/styles.dart';
 import 'package:sabowsla_cloud/features/auth/controller/auth_page_controller.dart';
-import 'package:sabowsla_cloud/features/auth/models/register_result_model.dart';
-import 'package:sabowsla_cloud/features/auth/models/user_credential_model.dart';
 import 'package:sabowsla_cloud/features/auth/presentation/testing_page_view/testing_module_view.dart';
+import 'package:sabowsla_core/sabowsla_core.dart';
 
 class AuthTestingPageView extends ConsumerWidget {
   const AuthTestingPageView({super.key});

@@ -8,6 +8,6 @@ enum DeleteUserResult {
   unknown,
 }
 
-extension DeleteUserResultX on DeleteUserResult {
+extension DeleteUserResultExtensions on DeleteUserResult {
   bool get deleted => this == DeleteUserResult.success;
 }

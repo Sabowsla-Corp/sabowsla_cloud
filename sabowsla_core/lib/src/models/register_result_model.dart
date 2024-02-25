@@ -1,4 +1,4 @@
-import 'package:sabowsla_cloud/features/auth/models/user_credential_model.dart';
+import 'user_credential_model.dart';
 
 class RegisterResult {
   RegisterResult({

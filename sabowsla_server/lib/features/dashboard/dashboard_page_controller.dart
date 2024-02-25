@@ -3,10 +3,10 @@ import 'dart:io';
 
 import 'package:isar/isar.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:sabowsla_cloud/features/auth/models/user_credential_model.dart';
 import 'package:sabowsla_cloud/features/dashboard/dashboard_page_state.dart';
 import 'package:sabowsla_cloud/features/projects/models/project_model.dart';
 import 'package:sabowsla_cloud/features/projects/projects_page_controller.dart';
+import 'package:sabowsla_core/sabowsla_core.dart';
 
 part 'dashboard_page_controller.g.dart';
 

@@ -42,6 +42,10 @@ dependencies:
   json_annotation: ^4.8.1
   shared_preferences: ^2.2.2
 
+  #Sabowsla Core
+  sabowsla_core:
+    path: ../sabowsla_core
+
 
 dev_dependencies:
   flutter_test:

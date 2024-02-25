@@ -4,12 +4,7 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:isar/isar.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:sabowsla_cloud/features/auth/models/delete_user_result.dart';
-import 'package:sabowsla_cloud/features/auth/models/login_request_model.dart';
-import 'package:sabowsla_cloud/features/auth/models/login_result_model.dart';
-import 'package:sabowsla_cloud/features/auth/models/register_request_model.dart';
-import 'package:sabowsla_cloud/features/auth/models/register_result_model.dart';
-import 'package:sabowsla_cloud/features/auth/models/user_credential_model.dart';
+import 'package:sabowsla_core/sabowsla_core.dart';
 import 'package:uuid/uuid.dart';
 
 var authDataSourceProvider = Provider<AuthDataSource>(
