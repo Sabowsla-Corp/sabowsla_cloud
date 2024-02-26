@@ -1,0 +1,23 @@
+{
+  'version': 0,
+  'use-external-names': 'false',
+  'case-sensitive': 'false',
+  'roots': [{
+    'type': 'directory',
+    'name': "/Users/sabowsla/Documents/sabowsla_cloud/sabowsla_server/build/macos/Build/Products/Debug/image_compression_flutter/image_compression_flutter.framework/Modules"
+    'contents': [{
+      'type': 'file',
+      'name': "module.modulemap",
+      'external-contents': "/Users/sabowsla/Documents/sabowsla_cloud/sabowsla_server/build/macos/Build/Intermediates.noindex/Pods.build/Debug/image_compression_flutter.build/unextended-module.modulemap",
+    }]
+    },
+    {
+    'type': 'directory',
+    'name': "/Users/sabowsla/Documents/sabowsla_cloud/sabowsla_server/build/macos/Build/Products/Debug/image_compression_flutter/image_compression_flutter.framework/Headers"
+    'contents': [{
+      'type': 'file',
+      'name': "image_compression_flutter-Swift.h",
+      'external-contents': "/Users/sabowsla/Documents/sabowsla_cloud/sabowsla_server/build/macos/Build/Intermediates.noindex/Pods.build/Debug/image_compression_flutter.build/unextended-interface-header.h",
+    }]
+    }]
+}

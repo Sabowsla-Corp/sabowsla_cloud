@@ -1,0 +1,18 @@
+{
+  "" : {
+    "diagnostics" : "/Users/sabowsla/Documents/sabowsla_cloud/sabowsla_server/build/macos/Build/Intermediates.noindex/Pods.build/Debug/image_compression_flutter.build/Objects-normal/arm64/image_compression_flutter-master.dia",
+    "emit-module-dependencies" : "/Users/sabowsla/Documents/sabowsla_cloud/sabowsla_server/build/macos/Build/Intermediates.noindex/Pods.build/Debug/image_compression_flutter.build/Objects-normal/arm64/image_compression_flutter-master-emit-module.d",
+    "emit-module-diagnostics" : "/Users/sabowsla/Documents/sabowsla_cloud/sabowsla_server/build/macos/Build/Intermediates.noindex/Pods.build/Debug/image_compression_flutter.build/Objects-normal/arm64/image_compression_flutter-master-emit-module.dia",
+    "swift-dependencies" : "/Users/sabowsla/Documents/sabowsla_cloud/sabowsla_server/build/macos/Build/Intermediates.noindex/Pods.build/Debug/image_compression_flutter.build/Objects-normal/arm64/image_compression_flutter-master.swiftdeps"
+  },
+  "/Users/sabowsla/.pub-cache/hosted/pub.dev/image_compression_flutter-1.0.4/macos/Classes/ImageCompressionFlutterPlugin.swift" : {
+    "const-values" : "/Users/sabowsla/Documents/sabowsla_cloud/sabowsla_server/build/macos/Build/Intermediates.noindex/Pods.build/Debug/image_compression_flutter.build/Objects-normal/arm64/ImageCompressionFlutterPlugin.swiftconstvalues",
+    "dependencies" : "/Users/sabowsla/Documents/sabowsla_cloud/sabowsla_server/build/macos/Build/Intermediates.noindex/Pods.build/Debug/image_compression_flutter.build/Objects-normal/arm64/ImageCompressionFlutterPlugin.d",
+    "diagnostics" : "/Users/sabowsla/Documents/sabowsla_cloud/sabowsla_server/build/macos/Build/Intermediates.noindex/Pods.build/Debug/image_compression_flutter.build/Objects-normal/arm64/ImageCompressionFlutterPlugin.dia",
+    "index-unit-output-path" : "/Pods.build/Debug/image_compression_flutter.build/Objects-normal/arm64/ImageCompressionFlutterPlugin.o",
+    "llvm-bc" : "/Users/sabowsla/Documents/sabowsla_cloud/sabowsla_server/build/macos/Build/Intermediates.noindex/Pods.build/Debug/image_compression_flutter.build/Objects-normal/arm64/ImageCompressionFlutterPlugin.bc",
+    "object" : "/Users/sabowsla/Documents/sabowsla_cloud/sabowsla_server/build/macos/Build/Intermediates.noindex/Pods.build/Debug/image_compression_flutter.build/Objects-normal/arm64/ImageCompressionFlutterPlugin.o",
+    "swift-dependencies" : "/Users/sabowsla/Documents/sabowsla_cloud/sabowsla_server/build/macos/Build/Intermediates.noindex/Pods.build/Debug/image_compression_flutter.build/Objects-normal/arm64/ImageCompressionFlutterPlugin.swiftdeps",
+    "swiftmodule" : "/Users/sabowsla/Documents/sabowsla_cloud/sabowsla_server/build/macos/Build/Intermediates.noindex/Pods.build/Debug/image_compression_flutter.build/Objects-normal/arm64/ImageCompressionFlutterPlugin~partial.swiftmodule"
+  }
+}
