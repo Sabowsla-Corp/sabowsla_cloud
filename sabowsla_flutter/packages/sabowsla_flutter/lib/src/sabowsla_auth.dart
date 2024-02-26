@@ -1,0 +1,372 @@
+import 'dart:async';
+import 'dart:convert';
+import 'dart:io' show Platform;
+import 'dart:math';
+
+import 'package:app_links/app_links.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:sabowsla_flutter/sabowsla_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+/// SabowslaAuth
+class SabowslaAuth with WidgetsBindingObserver {
+  static WidgetsBinding? get _widgetsBindingInstance => WidgetsBinding.instance;
+
+  late LocalStorage _localStorage;
+  late AuthFlowType _authFlowType;
+
+  /// **ATTENTION**: `getInitialLink`/`getInitialUri` should be handled
+  /// ONLY ONCE in your app's lifetime, since it is not meant to change
+  /// throughout your app's life.
+  static bool _initialDeeplinkIsHandled = false;
+
+  StreamSubscription<AuthState>? _authSubscription;
+
+  StreamSubscription<Uri?>? _deeplinkSubscription;
+
+  final _appLinks = AppLinks();
+
+  /// - Obtains session from local storage and sets it as the current session
+  /// - Starts a deep link observer
+  /// - Emits an initial session if there were no session stored in local storage
+  Future<void> initialize({
+    required FlutterAuthClientOptions options,
+  }) async {
+    _localStorage = options.localStorage!;
+    _authFlowType = options.authFlowType;
+
+    _authSubscription = Sabowsla.instance.client.auth.onAuthStateChange.listen(
+      (data) {
+        _onAuthStateChange(data.event, data.session);
+      },
+      onError: (error, stackTrace) {
+        Sabowsla.instance.log(error.toString(), stackTrace);
+      },
+    );
+
+    await _localStorage.initialize();
+
+    final hasPersistedSession = await _localStorage.hasAccessToken();
+    var shouldEmitInitialSession = true;
+    if (hasPersistedSession) {
+      final persistedSession = await _localStorage.accessToken();
+      if (persistedSession != null) {
+        try {
+          Sabowsla.instance.client.auth.setInitialSession(persistedSession);
+        } catch (error, stackTrace) {
+          Sabowsla.instance.log(error.toString(), stackTrace);
+        }
+      }
+    }
+    _widgetsBindingInstance?.addObserver(this);
+
+    await _startDeeplinkObserver();
+
+    // Emit a null session if the user did not have persisted session
+    if (shouldEmitInitialSession) {
+      Sabowsla.instance.client.auth
+          // ignore: invalid_use_of_internal_member
+          .notifyAllSubscribers(AuthChangeEvent.initialSession);
+    }
+  }
+
+  /// Recovers the session from local storage.
+  ///
+  /// Called lazily after `.initialize()` by `Sabowsla` instance
+  Future<void> recoverSession() async {
+    try {
+      final hasPersistedSession = await _localStorage.hasAccessToken();
+      if (hasPersistedSession) {
+        final persistedSession = await _localStorage.accessToken();
+        if (persistedSession != null) {
+          await Sabowsla.instance.client.auth.recoverSession(persistedSession);
+        }
+      }
+    } on AuthException catch (error, stackTrace) {
+      Sabowsla.instance.log(error.message, stackTrace);
+    } catch (error, stackTrace) {
+      Sabowsla.instance.log(error.toString(), stackTrace);
+    }
+  }
+
+  /// Dispose the instance to free up resources
+  void dispose() {
+    if (!kIsWeb && Platform.environment.containsKey('FLUTTER_TEST')) {
+      _initialDeeplinkIsHandled = false;
+    }
+    _authSubscription?.cancel();
+    _stopDeeplinkObserver();
+    _widgetsBindingInstance?.removeObserver(this);
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    switch (state) {
+      case AppLifecycleState.resumed:
+        _recoverSabowslaSession();
+      default:
+    }
+  }
+
+  /// Recover/refresh session if it's available
+  /// e.g. called on a splash screen when the app starts.
+  Future<void> _recoverSabowslaSession() async {
+    final bool exist = await _localStorage.hasAccessToken();
+    if (!exist) {
+      return;
+    }
+
+    final String? jsonStr = await _localStorage.accessToken();
+    if (jsonStr == null) {
+      return;
+    }
+
+    try {
+      await Sabowsla.instance.client.auth.recoverSession(jsonStr);
+    } catch (error) {
+      // When there is an exception thrown while recovering the session,
+      // the appropriate action (retry, revoking session) will be taken by
+      // the gotrue library, so need to do anything here.
+    }
+  }
+
+  void _onAuthStateChange(AuthChangeEvent event, Session? session) {
+    Sabowsla.instance.log('**** onAuthStateChange: $event');
+    if (session != null) {
+      Sabowsla.instance.log(jsonEncode(session.toJson()));
+      _localStorage.persistSession(jsonEncode(session.toJson()));
+    } else if (event == AuthChangeEvent.signedOut) {
+      _localStorage.removePersistedSession();
+    }
+  }
+
+  /// If _authCallbackUrlHost not init, we treat all deep links as auth callback
+  bool _isAuthCallbackDeeplink(Uri uri) {
+    return (uri.fragment.contains('access_token') &&
+            _authFlowType == AuthFlowType.implicit) ||
+        (uri.queryParameters.containsKey('code') &&
+            _authFlowType == AuthFlowType.pkce) ||
+        (uri.fragment.contains('error_description'));
+  }
+
+  /// Enable deep link observer to handle deep links
+  Future<void> _startDeeplinkObserver() async {
+    Sabowsla.instance.log('***** SabowslaDeepLinkingMixin startAuthObserver');
+    _handleIncomingLinks();
+    await _handleInitialUri();
+  }
+
+  /// Stop deep link observer
+  ///
+  /// Automatically called on dispose().
+  void _stopDeeplinkObserver() {
+    Sabowsla.instance.log('***** SabowslaDeepLinkingMixin stopAuthObserver');
+    _deeplinkSubscription?.cancel();
+  }
+
+  /// Handle incoming links - the ones that the app will receive from the OS
+  /// while already started.
+  void _handleIncomingLinks() {
+    if (!kIsWeb) {
+      // It will handle app links while the app is already started - be it in
+      // the foreground or in the background.
+      _deeplinkSubscription = _appLinks.uriLinkStream.listen(
+        (Uri? uri) {
+          if (uri != null) {
+            _handleDeeplink(uri);
+          }
+        },
+        onError: (Object err, StackTrace stackTrace) {
+          _onErrorReceivingDeeplink(err.toString(), stackTrace);
+        },
+      );
+    }
+  }
+
+  /// Handle the initial Uri - the one the app was started with
+  ///
+  /// **ATTENTION**: `getInitialLink`/`getInitialUri` should be handled
+  /// ONLY ONCE in your app's lifetime, since it is not meant to change
+  /// throughout your app's life.
+  ///
+  /// We handle all exceptions, since it is called from initState.
+  Future<void> _handleInitialUri() async {
+    if (_initialDeeplinkIsHandled) return;
+    _initialDeeplinkIsHandled = true;
+
+    try {
+      final uri = await _appLinks.getInitialAppLink();
+      if (uri != null) {
+        await _handleDeeplink(uri);
+      }
+    } on PlatformException catch (err, stackTrace) {
+      _onErrorReceivingDeeplink(err.message ?? err.toString(), stackTrace);
+      // Platform messages may fail but we ignore the exception
+    } on FormatException catch (err, stackTrace) {
+      _onErrorReceivingDeeplink(err.message, stackTrace);
+    } catch (err, stackTrace) {
+      _onErrorReceivingDeeplink(err.toString(), stackTrace);
+    }
+  }
+
+  /// Callback when deeplink receiving succeeds
+  Future<void> _handleDeeplink(Uri uri) async {
+    if (!_isAuthCallbackDeeplink(uri)) return;
+
+    Sabowsla.instance.log('***** SabowslaAuthState handleDeeplink $uri');
+
+    // notify auth deeplink received
+    Sabowsla.instance.log('onReceivedAuthDeeplink uri: $uri');
+
+    try {
+      await Sabowsla.instance.client.auth.getSessionFromUrl(uri);
+    } on AuthException catch (error, stackTrace) {
+      // ignore: invalid_use_of_internal_member
+      Sabowsla.instance.client.auth.notifyException(error, stackTrace);
+      Sabowsla.instance.log(error.toString(), stackTrace);
+    } catch (error, stackTrace) {
+      Sabowsla.instance.log(error.toString(), stackTrace);
+    }
+  }
+
+  /// Callback when deeplink receiving throw error
+  void _onErrorReceivingDeeplink(String message, StackTrace stackTrace) {
+    Sabowsla.instance
+        .log('onErrorReceivingDeepLink message: $message', stackTrace);
+  }
+}
+
+extension GoTrueClientSignInProvider on GoTrueClient {
+  /// Signs the user in using a third party providers.
+  ///
+  /// ```dart
+  /// await sabowsla.auth.signInWithOAuth(
+  ///   OAuthProvider.google,
+  ///   // Use deep link to bring the user back to the app
+  ///   redirectTo: 'my-scheme://my-host/callback-path',
+  /// );
+  /// ```
+  ///
+  /// The return value of this method is not the auth result, and whether the
+  /// OAuth sign-in has succeded or not should be observed by setting a listener
+  /// on [auth.onAuthStateChanged].
+  ///
+  /// See also:
+  ///
+  ///   * <https://sabowsla.io/docs/guides/auth#third-party-logins>
+  Future<bool> signInWithOAuth(
+    OAuthProvider provider, {
+    String? redirectTo,
+    String? scopes,
+    LaunchMode authScreenLaunchMode = LaunchMode.platformDefault,
+    Map<String, String>? queryParams,
+  }) async {
+    final res = await getOAuthSignInUrl(
+      provider: provider,
+      redirectTo: redirectTo,
+      scopes: scopes,
+      queryParams: queryParams,
+    );
+    final uri = Uri.parse(res.url);
+
+    LaunchMode launchMode = authScreenLaunchMode;
+
+    // `Platform.isAndroid` throws on web, so adding a guard for web here.
+    final isAndroid = !kIsWeb && Platform.isAndroid;
+
+    // Google login has to be performed on external browser window on Android
+    if (provider == OAuthProvider.google && isAndroid) {
+      launchMode = LaunchMode.externalApplication;
+    }
+
+    final result = await launchUrl(
+      uri,
+      mode: launchMode,
+      webOnlyWindowName: '_self',
+    );
+    return result;
+  }
+
+  /// Attempts a single-sign on using an enterprise Identity Provider. A
+  /// successful SSO attempt will redirect the current page to the identity
+  /// provider authorization page. The redirect URL is implementation and SSO
+  /// protocol specific.
+  ///
+  /// You can use it by providing a SSO domain. Typically you can extract this
+  /// domain by asking users for their email address. If this domain is
+  /// registered on the Auth instance the redirect will use that organization's
+  /// currently active SSO Identity Provider for the login.
+  ///
+  /// If you have built an organization-specific login page, you can use the
+  /// organization's SSO Identity Provider UUID directly instead.
+  ///
+  /// Returns true if the URL was launched successfully, otherwise either returns
+  /// false or throws a [PlatformException] depending on the launchUrl failure.
+  ///
+  /// ```dart
+  /// await sabowsla.auth.signInWithSSO(
+  ///   domain: 'company.com',
+  /// );
+  /// ```
+  Future<bool> signInWithSSO({
+    String? providerId,
+    String? domain,
+    String? redirectTo,
+    String? captchaToken,
+    LaunchMode launchMode = LaunchMode.platformDefault,
+  }) async {
+    final ssoUrl = await getSSOSignInUrl(
+      providerId: providerId,
+      domain: domain,
+      redirectTo: redirectTo,
+      captchaToken: captchaToken,
+    );
+    return await launchUrl(
+      Uri.parse(ssoUrl),
+      mode: launchMode,
+      webOnlyWindowName: '_self',
+    );
+  }
+
+  String generateRawNonce() {
+    final random = Random.secure();
+    return base64Url.encode(List<int>.generate(16, (_) => random.nextInt(256)));
+  }
+
+  /// Links an oauth identity to an existing user.
+  /// This method supports the PKCE flow.
+  Future<bool> linkIdentity(
+    OAuthProvider provider, {
+    String? redirectTo,
+    String? scopes,
+    LaunchMode authScreenLaunchMode = LaunchMode.platformDefault,
+    Map<String, String>? queryParams,
+  }) async {
+    final res = await getLinkIdentityUrl(
+      provider,
+      redirectTo: redirectTo,
+      scopes: scopes,
+      queryParams: queryParams,
+    );
+    final uri = Uri.parse(res.url);
+
+    LaunchMode launchMode = authScreenLaunchMode;
+
+    // `Platform.isAndroid` throws on web, so adding a guard for web here.
+    final isAndroid = !kIsWeb && Platform.isAndroid;
+
+    // Google login has to be performed on external browser window on Android
+    if (provider == OAuthProvider.google && isAndroid) {
+      launchMode = LaunchMode.externalApplication;
+    }
+
+    final result = await launchUrl(
+      uri,
+      mode: launchMode,
+      webOnlyWindowName: '_self',
+    );
+    return result;
+  }
+}
